@@ -15,5 +15,5 @@ public class Constants {
     public static final String PASSWORD_PROPERTY_NAME = "password";
 
     //command constants
-    public static final String COMMAND_PROPERTIES = "/resources/command.properties";
+    public static final String COMMAND_PROPERTIES = "/command.properties";
 }

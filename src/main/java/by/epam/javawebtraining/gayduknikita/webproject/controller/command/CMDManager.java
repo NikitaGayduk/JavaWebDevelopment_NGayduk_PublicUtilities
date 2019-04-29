@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,8 @@ public class CMDManager {
         commands = new HashMap<>();
         Properties property = new Properties();
 
-        try (FileInputStream fis = new FileInputStream(Constants.COMMAND_PROPERTIES)) {
+        //try (FileInputStream fis = new FileInputStream(Constants.COMMAND_PROPERTIES)) {
+        try (InputStream fis = this.getClass().getClassLoader().getResourceAsStream(Constants.COMMAND_PROPERTIES)) {
             property.load(fis);
             Set<String> propertyNames = property.stringPropertyNames();
 
