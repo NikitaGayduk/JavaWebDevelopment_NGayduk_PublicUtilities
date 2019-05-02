@@ -1,6 +1,7 @@
 package by.epam.javawebtraining.gayduknikita.webproject.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author NikitaGayduk
@@ -8,5 +9,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface Command {
 
-    String execute(HttpServletRequest request);
+    String execute(HttpServletRequest request, HttpServletResponse response);
 }

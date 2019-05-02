@@ -14,7 +14,7 @@
 
     <h1>Logging to system</h1>
 
-    <form action="${urlPrefix}/publicutilities" method="post">
+    <form action="${urlPrefix}/publicutilities" method="post" name="login">
         Login:<br>
         <input type="text" name="login" value="Login"><br>
         Password:<br>

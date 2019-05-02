@@ -2,6 +2,7 @@ package by.epam.javawebtraining.gayduknikita.webproject.controller.command;
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.InitializationException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.PropertiesLoadingException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.UnsupportedCommandException;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -38,7 +39,6 @@ public class CMDManager {
         commands = new HashMap<>();
         Properties property = new Properties();
 
-        //try (FileInputStream fis = new FileInputStream(Constants.COMMAND_PROPERTIES)) {
         try (InputStream fis = this.getClass().getClassLoader().getResourceAsStream(Constants.COMMAND_PROPERTIES)) {
             property.load(fis);
             Set<String> propertyNames = property.stringPropertyNames();
@@ -58,18 +58,18 @@ public class CMDManager {
             LOGGER.fatal("Can't find class specified in command properties file", exc);
             throw new InitializationException(exc);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException
-                | InstantiationException exc){
+                | InstantiationException exc) {
             LOGGER.fatal("Can't create command object", exc);
             throw new InitializationException(exc);
         }
     }
 
     // TODO: 27.04.2019 add exception type
-    public Command getCommand(String commandName) throws Exception {
+    public Command getCommand(String commandName) throws UnsupportedCommandException {
         Command result;
         if ((result = commands.get(commandName)) == null) {
             LOGGER.error("Unsupported command: " + commandName);
-            throw new Exception();
+            throw new UnsupportedCommandException();
         }
         return result;
     }

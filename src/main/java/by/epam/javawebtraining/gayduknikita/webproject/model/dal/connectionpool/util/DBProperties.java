@@ -4,9 +4,9 @@ import by.epam.javawebtraining.gayduknikita.webproject.exception.PropertiesLoadi
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -27,7 +27,7 @@ public class DBProperties {
      * @throws PropertiesLoadingException
      */
     public void loadProperties() throws PropertiesLoadingException {
-        try (FileInputStream fis = new FileInputStream(Constants.DB_PROPERTIES)) {
+        try (InputStream fis = this.getClass().getClassLoader().getResourceAsStream(Constants.DB_PROPERTIES)) {
             Properties property = new Properties();
             property.load(fis);
             jdbcDriver = property.getProperty(Constants.JDBC_DRIVER_PROPERTY_NAME);

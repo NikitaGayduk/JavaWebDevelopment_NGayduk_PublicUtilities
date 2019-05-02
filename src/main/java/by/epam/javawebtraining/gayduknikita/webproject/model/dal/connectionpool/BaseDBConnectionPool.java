@@ -63,10 +63,10 @@ public class BaseDBConnectionPool implements DBConnectionPool {
             Class.forName(dbProperties.getJdbcDriver());
         } catch (PropertiesLoadingException exc) {
             LOGGER.fatal("Can't load connection pool properties\n" + exc.getMessage());
-            throw new InitializationException();
+            throw new InitializationException(exc);
         } catch (ClassNotFoundException exc) {
             LOGGER.fatal("Can't find JDBC driver class\n" + exc.getMessage());
-            throw new InitializationException();
+            throw new InitializationException(exc);
         }
     }
 
@@ -86,7 +86,7 @@ public class BaseDBConnectionPool implements DBConnectionPool {
             }
         } catch (SQLException exc) {
             LOGGER.fatal("Can't create connections in connection pool\n" + exc.getMessage());
-            throw new InitializationException();
+            throw new InitializationException(exc);
         }
     }
 

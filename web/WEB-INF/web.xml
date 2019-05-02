@@ -6,6 +6,7 @@
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>by.epam.javawebtraining.gayduknikita.webproject.controller.servlet.Controller</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -17,6 +18,12 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
+
+    <session-config>
+        <session-timeout>
+            10
+        </session-timeout>
+    </session-config>
 
 <!--
     <error-page>
