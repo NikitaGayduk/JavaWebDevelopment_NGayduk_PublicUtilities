@@ -13,7 +13,7 @@ import java.util.Properties;
  * @author NikitaGayduk
  * @date 24.04.2019
  */
-public class DBProperties {
+public class DBPropertyLoader {
     private static final Logger LOGGER = Logger.getRootLogger();
     private String jdbcDriver;
     private String url;

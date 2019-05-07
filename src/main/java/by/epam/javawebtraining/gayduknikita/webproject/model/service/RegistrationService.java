@@ -1,5 +1,7 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.service;
 
+import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.http.HttpRequest;
 
@@ -9,6 +11,6 @@ import java.net.http.HttpRequest;
  */
 public interface RegistrationService {
 
-    public void register(HttpServletRequest request);
+    public void tenantRegister(HttpServletRequest request) throws ServiceExecuttingException;
 
 }

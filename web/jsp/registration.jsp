@@ -13,14 +13,14 @@
 <body>
     <h1>Registration in system</h1>
 
-    <form action="${urlPrefix}/publicutilities" method="post" name="registration">
+    <form action="${urlPrefix}/publicutilities/main" method="post" name="registration">
         <input type="hidden" name="command" value="registration"/>
 
         Login:<br>
         <input type="text" name="login"><br>
 
         Password:<br>
-        <input type="password" name="password">
+        <input type="password" name="password"><br>
 
         Surname:<br>
         <input type="text" name="tenant_surname"><br>
@@ -29,7 +29,7 @@
         <input type="text" name="tenant_name"><br>
 
         Patronymic:<br>
-        <input type="text" name="patronymic_name"><br>
+        <input type="text" name="tenant_patronymic"><br>
 
         <input type="submit" value="Submit">
     </form>

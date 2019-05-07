@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool;
 
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool.util.DBProperties;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool.util.DBPropertyLoader;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.InitializationException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.PropertiesLoadingException;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
@@ -20,7 +20,7 @@ public class BaseDBConnectionPool implements DBConnectionPool {
     private static final Logger LOGGER;
     private static final BaseDBConnectionPool instance;
 
-    private DBProperties dbProperties;
+    private DBPropertyLoader dbPropertyLoader;
     private BlockingQueue<Connection> connectionPool;
     private BlockingQueue<Connection> usedConnections;
 
@@ -51,16 +51,16 @@ public class BaseDBConnectionPool implements DBConnectionPool {
     }
 
     /**
-     * Create instance of DBProperties class, init properties loading and ensure, that JDBC driver class was uploaded
+     * Create instance of DBPropertyLoader class, init properties loading and ensure, that JDBC driver class was uploaded
      *
      * @throws InitializationException
      */
     private void setDBAccessData() throws InitializationException {
-        dbProperties = new DBProperties();
+        dbPropertyLoader = new DBPropertyLoader();
 
         try {
-            dbProperties.loadProperties();
-            Class.forName(dbProperties.getJdbcDriver());
+            dbPropertyLoader.loadProperties();
+            Class.forName(dbPropertyLoader.getJdbcDriver());
         } catch (PropertiesLoadingException exc) {
             LOGGER.fatal("Can't load connection pool properties\n" + exc.getMessage());
             throw new InitializationException(exc);
@@ -76,13 +76,13 @@ public class BaseDBConnectionPool implements DBConnectionPool {
      * @throws InitializationException if can't create connection
      */
     private void createConnections() throws InitializationException {
-        connectionPool = new ArrayBlockingQueue<>(dbProperties.getInitialPoolSize());
-        usedConnections = new ArrayBlockingQueue<>(dbProperties.getInitialPoolSize());
+        connectionPool = new ArrayBlockingQueue<>(dbPropertyLoader.getInitialPoolSize());
+        usedConnections = new ArrayBlockingQueue<>(dbPropertyLoader.getInitialPoolSize());
 
         try {
-            for (int ptr = 0; ptr < dbProperties.getInitialPoolSize(); ptr++) {
-                connectionPool.add(createConnection(dbProperties.getURL(), dbProperties.getUser()
-                        , dbProperties.getPassword()));
+            for (int ptr = 0; ptr < dbPropertyLoader.getInitialPoolSize(); ptr++) {
+                connectionPool.add(createConnection(dbPropertyLoader.getURL(), dbPropertyLoader.getUser()
+                        , dbPropertyLoader.getPassword()));
             }
         } catch (SQLException exc) {
             LOGGER.fatal("Can't create connections in connection pool\n" + exc.getMessage());
@@ -101,8 +101,8 @@ public class BaseDBConnectionPool implements DBConnectionPool {
         try {
             connection = connectionPool.take();
             if (!connection.isValid(Constants.DB_CONNECTION_ISVALID_TIMEOUT)){
-                connection = createConnection(dbProperties.getURL(), dbProperties.getUser()
-                        , dbProperties.getPassword());
+                connection = createConnection(dbPropertyLoader.getURL(), dbPropertyLoader.getUser()
+                        , dbPropertyLoader.getPassword());
             }
             usedConnections.add(connection);
         } catch (InterruptedException exc) {

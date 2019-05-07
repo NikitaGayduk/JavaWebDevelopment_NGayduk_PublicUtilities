@@ -3,6 +3,7 @@ package by.epam.javawebtraining.gayduknikita.webproject.controller.command.imple
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author NikitaGayduk
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class LoginCommand implements Command {
 
-    public String execute(HttpServletRequest request) {
-        return null;
+    public void execute(HttpServletRequest request, HttpServletResponse response) {
+
     }
 }

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 class LogInValidator implements Validator {
 
     @Override
-    public boolean validate(HttpServletRequest request) {
-        return false;
+    public void validate(HttpServletRequest request) {
+
     }
 }

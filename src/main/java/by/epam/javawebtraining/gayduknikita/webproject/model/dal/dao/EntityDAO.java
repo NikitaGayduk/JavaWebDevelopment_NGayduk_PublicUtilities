@@ -1,5 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao;
 
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Entity;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
  */
 public interface EntityDAO <K, T extends Entity> {
 
-    List<T> findAll();
-    T get(K id);
-    boolean delete(K id);
-    boolean add(T entity);
-    boolean update(T entity);
+    List<T> getAll() throws DAOSQLException;
+    T get(K id) throws DAOSQLException;
+    boolean delete(K id) throws DAOSQLException;
+    int add(T entity) throws DAOSQLException;
+    boolean update(T entity) throws DAOSQLException;
 }

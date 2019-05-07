@@ -42,24 +42,26 @@ class RegistrationValidator implements Validator {
                 LOGGER.error("Invalid password");
                 result = false;
             }
-            if (surnamePattern.matcher(request.getParameter(Constants.TENANT_SURNAME_PARAMETER)).matches()) {
+            if (!surnamePattern.matcher(request.getParameter(Constants.TENANT_SURNAME_PARAMETER)).matches()) {
                 LOGGER.error("Invalid tenant surname");
                 result = false;
             }
-            if (namePattern.matcher(request.getParameter(Constants.TENANT_NAME_PARAMETER)).matches()) {
+            if (!namePattern.matcher(request.getParameter(Constants.TENANT_NAME_PARAMETER)).matches()) {
                 LOGGER.error("Invalid tenant name");
                 result = false;
             }
-            if (patronymicPattern.matcher(request.getParameter(Constants.TENANT_PATRONYMIC_PARAMETER)).matches()) {
+            if (!patronymicPattern.matcher(request.getParameter(Constants.TENANT_PATRONYMIC_PARAMETER)).matches()) {
                 LOGGER.error("Invalid tenant patronymic");
                 result = false;
             }
 
-            if (result = false){
-                throw new ValidationException();
+            if (result == false){
+                LOGGER.error("Invalid registration data");
+                throw new ValidationException("Invalid registration data");
             }
         } catch (NullPointerException exc){
             LOGGER.fatal("The request does not contain the required parameter", exc);
+            throw new ValidationException();
         }
     }
 }

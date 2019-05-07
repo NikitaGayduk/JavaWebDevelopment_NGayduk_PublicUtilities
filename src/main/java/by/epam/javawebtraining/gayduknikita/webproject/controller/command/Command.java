@@ -1,5 +1,7 @@
 package by.epam.javawebtraining.gayduknikita.webproject.controller.command;
 
+import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,5 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface Command {
 
-    String execute(HttpServletRequest request, HttpServletResponse response);
+    void execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException;
+
 }

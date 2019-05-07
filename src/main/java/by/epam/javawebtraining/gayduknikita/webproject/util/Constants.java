@@ -31,4 +31,10 @@ public class Constants {
     public static final String TENANT_SURNAME_PARAMETER = "tenant_surname";
     public static final String TENANT_NAME_PARAMETER = "tenant_name";
     public static final String TENANT_PATRONYMIC_PARAMETER = "tenant_patronymic";
+
+    //database keys
+    public static final String ROLE_TENANT_NAME = "Tenant";
+
+    //filter constants
+    public static final String REQUEST_ENCODING ="UTF-8";
 }
