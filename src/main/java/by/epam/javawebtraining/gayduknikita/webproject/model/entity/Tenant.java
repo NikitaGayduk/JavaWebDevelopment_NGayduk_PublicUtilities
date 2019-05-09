@@ -13,22 +13,17 @@ public class Tenant extends Entity {
     private String surname;
     private String name;
     private String patronymic;
-    private Set<Address> addresses;
-
-    {
-        addresses = new HashSet<>();
-    }
+    private Address address;
 
     public Tenant() {
 
     }
 
-    public Tenant(int id, String surname, String name, String patronymic, Collection<Address> addresses) {
+    public Tenant(int id, String surname, String name, String patronymic) {
         super(id);
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
-        this.addresses.addAll(addresses);
     }
 
     public String getSurname() {
@@ -43,8 +38,8 @@ public class Tenant extends Entity {
         return patronymic;
     }
 
-    public Collection<Address> getAddresses() {
-        return addresses;
+    public Address getAddress() {
+        return address;
     }
 
     public void setSurname(String surname) {
@@ -59,16 +54,8 @@ public class Tenant extends Entity {
         this.patronymic = patronymic;
     }
 
-    public void setAddresses(Collection<Address> addresses) {
-        this.addresses.addAll(addresses);
-    }
-
-    public boolean addAddress(Address address){
-        return addresses.add(address);
-    }
-
-    public boolean delete(Address address){
-        return addresses.remove(address);
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -79,13 +66,12 @@ public class Tenant extends Entity {
         Tenant tenant = (Tenant) o;
         return Objects.equals(surname, tenant.surname) &&
                 Objects.equals(name, tenant.name) &&
-                Objects.equals(patronymic, tenant.patronymic) &&
-                Objects.equals(addresses, tenant.addresses);
+                Objects.equals(patronymic, tenant.patronymic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), surname, name, patronymic, addresses);
+        return Objects.hash(super.hashCode(), surname, name, patronymic);
     }
 
     @Override
@@ -93,8 +79,7 @@ public class Tenant extends Entity {
         return "Tenant{" +
                 "surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", addresses=" + addresses +
+                ", patronymic='" + patronymic +
                 "} " + super.toString();
     }
 }

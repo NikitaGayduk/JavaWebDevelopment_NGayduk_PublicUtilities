@@ -14,12 +14,18 @@
 
     <h1>Logging to system</h1>
 
-    <form action="${urlPrefix}/publicutilities" method="post" name="login">
+    <form action="${urlPrefix}/publicutilities/main" method="post" name="login">
+        <input type="hidden" name="command" value="login"/>
         Login:<br>
-        <input type="text" name="login" value="Login"><br>
+        <input type="text" name="login"><br>
         Password:<br>
-        <input type="password" name="password">
-        <input type="submit" value="Submit">
+        <input type="password" name="password"> <br>
+        <input type="submit" value="Вход">
+    </form>
+
+    <form action="${urlPrefix}/publicutilities/main" method="get" name="goregistration">
+        <input type="hidden" name="command" value="getregistrationpage"/>
+        <input type="submit" value="Регистрация">
     </form>
 
 </body>

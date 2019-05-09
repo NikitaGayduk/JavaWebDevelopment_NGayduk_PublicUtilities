@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author NikitaGayduk

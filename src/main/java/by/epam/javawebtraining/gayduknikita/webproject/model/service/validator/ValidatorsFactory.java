@@ -8,14 +8,14 @@ public class ValidatorsFactory {
 
     private static Validator[] validators = {
             new RegistrationValidator(),
-            new LogInValidator()
+            new AuthorizationValidator()
     };
 
     public static Validator getRegistrationValidator(){
         return validators[0];
     }
 
-    public static Validator getLogInValidator(){
+    public static Validator getAuthorizationValidator(){
         return validators[1];
     }
 }

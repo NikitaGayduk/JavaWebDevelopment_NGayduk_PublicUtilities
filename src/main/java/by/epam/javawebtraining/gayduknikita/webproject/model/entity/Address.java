@@ -12,7 +12,7 @@ import java.util.Set;
 public class Address extends Entity {
     private int house;
     private int apartments;
-    private Street street;
+    private String street;
     private Set<Tenant> tenants;
 
     {
@@ -23,7 +23,7 @@ public class Address extends Entity {
 
     }
 
-    public Address(int id, int house, int apartments, Street street, Collection<Tenant> tenants) {
+    public Address(int id, int house, int apartments, String street, Collection<Tenant> tenants) {
         super(id);
         this.house = house;
         this.apartments = apartments;
@@ -47,11 +47,11 @@ public class Address extends Entity {
         this.apartments = apartments;
     }
 
-    public Street getStreet() {
+    public String getStreet() {
         return street;
     }
 
-    public void setStreet(Street street) {
+    public void setStreet(String street) {
         this.street = street;
     }
 

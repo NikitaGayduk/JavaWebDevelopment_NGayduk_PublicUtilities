@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author NikitaGayduk
  * @date 02.05.2019
  */
-class LogInValidator implements Validator {
+class AuthorizationValidator implements Validator {
 
     @Override
     public void validate(HttpServletRequest request) {

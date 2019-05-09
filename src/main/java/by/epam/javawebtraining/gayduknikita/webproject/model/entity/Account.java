@@ -2,6 +2,8 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.entity;
 
 import org.apache.log4j.Logger;
 
+import java.util.Objects;
+
 /**
  * @author NikitaGayduk
  * @date 07.05.2019
@@ -9,12 +11,12 @@ import org.apache.log4j.Logger;
 public class Account extends Entity {
     private String login;
     private String password;
-    private String role;
+    private Role role;
 
     public Account() {
     }
 
-    public Account(String login, String password, String role) {
+    public Account(String login, String password, Role role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -36,11 +38,36 @@ public class Account extends Entity {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Account account = (Account) o;
+        return Objects.equals(login, account.login) &&
+                Objects.equals(password, account.password) &&
+                Objects.equals(role, account.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), login, password, role);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                "} " + super.toString();
     }
 }

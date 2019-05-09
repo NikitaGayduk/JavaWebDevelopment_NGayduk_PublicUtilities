@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Registration in system</h1>
+<h1>Registration in system</h1>
 
     <form action="${urlPrefix}/publicutilities/main" method="post" name="registration">
         <input type="hidden" name="command" value="registration"/>
@@ -31,7 +31,7 @@
         Patronymic:<br>
         <input type="text" name="tenant_patronymic"><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Отправить">
     </form>
 </body>
 </html>

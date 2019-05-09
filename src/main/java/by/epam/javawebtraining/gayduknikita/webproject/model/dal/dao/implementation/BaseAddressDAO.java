@@ -1,30 +1,30 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation;
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AddressDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.BaseDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EntityDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Entity;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Address;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  * @author NikitaGayduk
- * @date 04.05.2019
+ * @date 09.05.2019
  */
-public class BaseTenantDAO extends BaseDAO implements TenantDAO {
+public class BaseAddressDAO extends BaseDAO implements AddressDAO {
+
     @Override
-    public List<Tenant> getAll() throws DAOSQLException {
+    public List<Address> getAll() throws DAOSQLException {
         return null;
     }
 
     @Override
-    public Tenant get(Integer id) throws DAOSQLException {
+    public Address get(Integer id) throws DAOSQLException {
         return null;
     }
 
@@ -34,21 +34,21 @@ public class BaseTenantDAO extends BaseDAO implements TenantDAO {
     }
 
     @Override
-    public int add(Tenant entity) throws DAOSQLException {
+    public int add(Address entity) throws DAOSQLException {
         return 0;
     }
 
     @Override
-    public boolean update(Tenant entity) throws DAOSQLException {
+    public boolean update(Address entity) throws DAOSQLException {
         return false;
     }
 
     @Override
-    public Tenant getTenantByOrder(Order order) throws DAOSQLException {
+    public Address getAddressByTenant(Tenant tenant) throws DAOSQLException {
         // TODO: 09.05.2019 statement close try-catch
         Connection connection = getConnection();
         PreparedStatement statement = null;
-        Tenant tenant = null;
+        Address address = null;
 
         try{
             connection = getConnection();

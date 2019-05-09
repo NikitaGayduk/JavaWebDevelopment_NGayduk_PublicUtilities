@@ -17,6 +17,10 @@ public class Constants {
     //command constants
     public static final String REQUEST_COMMAND_PARAMETER = "command";
     public static final String COMMAND_PROPERTIES = "/command.properties";
+    public static final String COMMAND_LOGIN = "login";
+    public static final String COMMAND_GET_REGISTRATION_PAGE = "getregistrationpage";
+    public static final String COMMAND_REGISTRATION = "registration";
+    public static final String COMMAND_LOGOUT = "logout";
 
     //validation constants
     public static final String LOGIN_REGEX = "\\A[A-Za-z0-9]{2,20}\\Z";
@@ -31,6 +35,12 @@ public class Constants {
     public static final String TENANT_SURNAME_PARAMETER = "tenant_surname";
     public static final String TENANT_NAME_PARAMETER = "tenant_name";
     public static final String TENANT_PATRONYMIC_PARAMETER = "tenant_patronymic";
+
+    //JSP attributes
+    public static final String ACCOUNT_ATTRIBUTE = "account";
+
+    //servlet path
+    public static final String LOGIN_PATH = "/login";
 
     //database keys
     public static final String ROLE_TENANT_NAME = "Tenant";

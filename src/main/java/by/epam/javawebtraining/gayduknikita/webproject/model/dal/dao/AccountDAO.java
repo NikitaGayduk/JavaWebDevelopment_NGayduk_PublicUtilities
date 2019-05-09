@@ -9,5 +9,5 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
  */
 public interface AccountDAO extends EntityDAO<Integer, Account> {
 
-    public Account getAccount(String account_name, String password) throws DAOSQLException;
+    public Account getAccount(Account account) throws DAOSQLException;
 }

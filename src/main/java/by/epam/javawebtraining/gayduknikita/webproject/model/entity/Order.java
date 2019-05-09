@@ -17,13 +17,12 @@ public class Order extends Entity {
     private Timestamp worksBegin;
     private Timestamp worksEnd;
     private Set<Employee> workers;
-    private List<WorkType> works;
 
     public Order() {
     }
 
     public Order(int id, Timestamp desiredTime, Tenant tenant, OrderState state, Timestamp worksBegin
-            , Timestamp worksEnd, Collection<Employee> workers, Collection<WorkType> works) {
+            , Timestamp worksEnd, Collection<Employee> workers) {
         super(id);
         this.desiredTime = desiredTime;
         this.tenant = tenant;
@@ -31,7 +30,6 @@ public class Order extends Entity {
         this.worksBegin = worksBegin;
         this.worksEnd = worksEnd;
         this.workers.addAll(workers);
-        this.works.addAll(works);
     }
 
     public Timestamp getDesiredTime() {
@@ -82,14 +80,6 @@ public class Order extends Entity {
         this.workers.addAll(workers);
     }
 
-    public Collection<WorkType> getWorks() {
-        return works;
-    }
-
-    public void setWorks(Collection<WorkType> works) {
-        this.works.addAll(works);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,13 +91,12 @@ public class Order extends Entity {
                 state == order.state &&
                 Objects.equals(worksBegin, order.worksBegin) &&
                 Objects.equals(worksEnd, order.worksEnd) &&
-                Objects.equals(workers, order.workers) &&
-                Objects.equals(works, order.works);
+                Objects.equals(workers, order.workers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), desiredTime, tenant, state, worksBegin, worksEnd, workers, works);
+        return Objects.hash(super.hashCode(), desiredTime, tenant, state, worksBegin, worksEnd, workers);
     }
 
     @Override
@@ -119,7 +108,6 @@ public class Order extends Entity {
                 ", worksBegin=" + worksBegin +
                 ", worksEnd=" + worksEnd +
                 ", workers=" + workers +
-                ", works=" + works +
                 "} " + super.toString();
     }
 }

@@ -5,6 +5,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.BaseDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EntityDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 
 import java.sql.*;
 import java.util.List;
@@ -15,8 +16,40 @@ import java.util.List;
  */
 public class BaseAccountDAO extends BaseDAO implements AccountDAO {
     @Override
-    public Account getAccount(String account_name, String password) {
-        return null;
+    public Account getAccount(Account acc) throws DAOSQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        Account account = acc;
+
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement(SQLRequestContainer.GET_ACCOUNT);
+
+            statement.setString(1, account.getLogin());
+            statement.setString(2, account.getPassword());
+            statement.executeQuery();
+
+            ResultSet resultSet = statement.getResultSet();
+
+            if(resultSet.next()){
+                account.setId(resultSet.getInt(1));
+                account.setRole(Role.valueOf(resultSet.getString(2)));
+            } else {
+                account = null;
+            }
+
+            resultSet.close();
+            statement.close();
+
+            return account;
+
+        } catch (SQLException exc){
+            throw new DAOSQLException(exc);
+        } finally {
+            if(connection != null) {
+                releaseConnection(connection);
+            }
+        }
     }
 
     @Override
@@ -35,7 +68,7 @@ public class BaseAccountDAO extends BaseDAO implements AccountDAO {
     }
 
     @Override
-    public int add(Account entity) throws DAOSQLException{
+    public int add(Account account) throws DAOSQLException{
         int accountID = -1;
         Connection connection = null;
 
@@ -43,10 +76,9 @@ public class BaseAccountDAO extends BaseDAO implements AccountDAO {
             connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(SQLRequestContainer.CREATE_ACCOUNT
                     ,Statement.RETURN_GENERATED_KEYS);
-            System.out.println(entity.getLogin());
-            statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setString(3, entity.getRole());
+            statement.setString(1, account.getLogin());
+            statement.setString(2, account.getPassword());
+            statement.setString(3, account.getRole().name());
             statement.executeUpdate();
 
             ResultSet gk = statement.getGeneratedKeys();
