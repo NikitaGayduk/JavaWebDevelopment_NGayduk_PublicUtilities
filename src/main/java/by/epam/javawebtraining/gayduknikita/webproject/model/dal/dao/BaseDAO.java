@@ -1,22 +1,24 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao;
 
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool.BaseDBConnectionPool;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool.DBConnectionPool;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Entity;
 
-import java.sql.Connection;
+import java.util.List;
 
 /**
  * @author NikitaGayduk
- * @date 04.05.2019
+ * @date 12.05.2019
  */
-public class BaseDAO {
-    private DBConnectionPool connectionPool = BaseDBConnectionPool.getInstance();
+public interface BaseDAO<K, T extends Entity> {
 
-    protected Connection getConnection(){
-        return connectionPool.getConnection();
-    }
+    List<T> getAll() throws DAOSQLException;
 
-    protected void releaseConnection(Connection connection){
-        connectionPool.releaseConnection(connection);
-    }
+    T get(K id) throws DAOSQLException;
+
+    boolean delete(K id) throws DAOSQLException;
+
+    int add(T entity) throws DAOSQLException;
+
+    boolean update(T entity) throws DAOSQLException;
+
 }

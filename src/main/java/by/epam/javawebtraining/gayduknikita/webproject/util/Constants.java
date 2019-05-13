@@ -47,4 +47,42 @@ public class Constants {
 
     //filter constants
     public static final String REQUEST_ENCODING ="UTF-8";
+
+    //columns
+    public static class ColumnName {
+        public static final String STREET_ID = "street_id";
+        public static final String ADDRESS_ID = "address_id";
+        public static final String TENANT_ID = "tenant_id";
+        public static final String ACCOUNT_ID = "account_id";
+        public static final String ROLE_ID = "role_id";
+        public static final String ORDER_ID = "order_id";
+        public static final String ORDER_STATE_ID = "order_state_id";
+        public static final String EMPLOYEE_ID = "employee_id";
+
+        public static final String STREET_NAME = "street_name";
+
+        public static final String ADDRESS_HOUSE = "house";
+        public static final String ADDRESS_APARTMENTS = "apartments";
+
+        public static final String TENANT_SURNAME = "tenant_surname";
+        public static final String TENANT_NAME = "tenant_name";
+        public static final String TENANT_PATRONYMIC = "tenant_patronymic";
+
+        public static final String ACCOUNT_LOGIN = "account_login";
+        public static final String ACCOUNT_PASSWORD = "account_password";
+
+        public static final String ROLE_NAME = "role_name";
+
+        public static final String ORDER_DESIRED_TIME = "desired_time";
+        public static final String ORDER_WORKS_BEGIN = "works_begin";
+        public static final String ORDER_WORKS_END = "works_end";
+        public static final String ORDER_STATE_NAME = "order_state_name";
+        public static final String ORDER_DESCRIPTION = "order_description";
+
+        public static final String EMPLOYEE_SURNAME = "order_surname";
+        public static final String EMPLOYEE_NAME = "order_name";
+        public static final String EMPLOYEE_PATRONYMIC = "order_patronymic";
+    }
+
+
 }

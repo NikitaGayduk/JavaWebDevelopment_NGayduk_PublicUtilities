@@ -29,11 +29,10 @@ public class BaseAuthorizationService implements AuthorizationService {
         try {
             //ValidatorsFactory.getAuthorizationValidator().validate(request);
 
-            Account account = new Account();
-            account.setLogin(request.getParameter(Constants.LOGIN_PARAMETER));
-            account.setPassword(request.getParameter(Constants.PASSWORD_PARAMETER));
+            String login = request.getParameter(Constants.LOGIN_PARAMETER);
+            String password = request.getParameter(Constants.PASSWORD_PARAMETER);
 
-            account = accountDAO.getAccount(account);
+            Account account = accountDAO.getAccount(login, password);
 
             if (account == null) {
                 response.sendRedirect(request.getContextPath() + Constants.LOGIN_PATH);

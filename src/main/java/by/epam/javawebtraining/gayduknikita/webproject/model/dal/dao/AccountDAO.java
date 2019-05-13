@@ -7,7 +7,8 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
  * @author NikitaGayduk
  * @date 07.05.2019
  */
-public interface AccountDAO extends EntityDAO<Integer, Account> {
+public interface AccountDAO extends BaseDAO<Integer,Account> {
 
-    public Account getAccount(Account account) throws DAOSQLException;
+    Account getAccount(String login, String password) throws DAOSQLException;
+
 }

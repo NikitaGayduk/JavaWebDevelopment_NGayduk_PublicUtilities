@@ -13,22 +13,22 @@ public class Address extends Entity {
     private int house;
     private int apartments;
     private String street;
-    private Set<Tenant> tenants;
+    private Set<Integer> tenantsID;
 
     {
-        tenants = new HashSet<>();
+        tenantsID = new HashSet<>();
     }
 
     public Address(){
 
     }
 
-    public Address(int id, int house, int apartments, String street, Collection<Tenant> tenants) {
+    public Address(int id, int house, int apartments, String street, Collection<Integer> tenantsID) {
         super(id);
         this.house = house;
         this.apartments = apartments;
         this.street = street;
-        this.tenants.addAll(tenants);
+        this.tenantsID.addAll(tenantsID);
     }
 
     public int getHouse() {
@@ -55,20 +55,20 @@ public class Address extends Entity {
         this.street = street;
     }
 
-    public Collection<Tenant> getTenants() {
-        return tenants;
+    public Collection<Integer> getTenantsID() {
+        return tenantsID;
     }
 
-    public boolean setTenants(Collection<Tenant> tenants) {
-        return this.tenants.addAll(tenants);
+    public boolean setTenants(Collection<Integer> tenants) {
+        return this.tenantsID.addAll(tenants);
     }
 
-    public boolean addTenant(Tenant tenant){
-        return tenants.add(tenant);
+    public boolean addTenant(int tenantID){
+        return tenantsID.add(tenantID);
     }
 
-    public boolean deleteTenant(Tenant tenant){
-        return tenants.remove(tenant);
+    public boolean deleteTenant(int tenantID){
+        return tenantsID.remove(tenantID);
     }
 
     @Override
@@ -80,12 +80,12 @@ public class Address extends Entity {
         return house == address.house &&
                 apartments == address.apartments &&
                 Objects.equals(street, address.street) &&
-                Objects.equals(tenants, address.tenants);
+                Objects.equals(tenantsID, address.tenantsID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), house, apartments, street, tenants);
+        return Objects.hash(super.hashCode(), house, apartments, street, tenantsID);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Address extends Entity {
                 "house=" + house +
                 ", apartments=" + apartments +
                 ", street=" + street +
-                ", tenants=" + tenants +
+                ", tenantsID=" + tenantsID +
                 "} " + super.toString();
     }
 }

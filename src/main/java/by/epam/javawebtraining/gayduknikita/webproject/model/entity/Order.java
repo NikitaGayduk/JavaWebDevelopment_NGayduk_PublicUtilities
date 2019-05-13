@@ -2,7 +2,6 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.entity;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,24 +11,23 @@ import java.util.Set;
  */
 public class Order extends Entity {
     private Timestamp desiredTime;
-    private Tenant tenant;
+    private int tenantID;
     private OrderState state;
     private Timestamp worksBegin;
     private Timestamp worksEnd;
-    private Set<Employee> workers;
+    private String orderDiscription;
 
     public Order() {
     }
 
-    public Order(int id, Timestamp desiredTime, Tenant tenant, OrderState state, Timestamp worksBegin
-            , Timestamp worksEnd, Collection<Employee> workers) {
+    public Order(int id, Timestamp desiredTime, int tenantID, OrderState state, Timestamp worksBegin
+            , Timestamp worksEnd, String orderDiscription) {
         super(id);
         this.desiredTime = desiredTime;
-        this.tenant = tenant;
+        this.tenantID = tenantID;
         this.state = state;
         this.worksBegin = worksBegin;
         this.worksEnd = worksEnd;
-        this.workers.addAll(workers);
     }
 
     public Timestamp getDesiredTime() {
@@ -40,12 +38,12 @@ public class Order extends Entity {
         this.desiredTime = desiredTime;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public int getTenantID() {
+        return tenantID;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantID(int tenantID) {
+        this.tenantID = tenantID;
     }
 
     public OrderState getState() {
@@ -72,12 +70,12 @@ public class Order extends Entity {
         this.worksEnd = worksEnd;
     }
 
-    public Collection<Employee> getWorkers() {
-        return workers;
+    public String getOrderDiscription() {
+        return orderDiscription;
     }
 
-    public void setWorkers(Collection<Employee> workers) {
-        this.workers.addAll(workers);
+    public void setOrderDiscription(String orderDiscription) {
+        this.orderDiscription = orderDiscription;
     }
 
     @Override
@@ -87,27 +85,25 @@ public class Order extends Entity {
         if (!super.equals(o)) return false;
         Order order = (Order) o;
         return Objects.equals(desiredTime, order.desiredTime) &&
-                Objects.equals(tenant, order.tenant) &&
+                Objects.equals(tenantID, order.tenantID) &&
                 state == order.state &&
                 Objects.equals(worksBegin, order.worksBegin) &&
-                Objects.equals(worksEnd, order.worksEnd) &&
-                Objects.equals(workers, order.workers);
+                Objects.equals(worksEnd, order.worksEnd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), desiredTime, tenant, state, worksBegin, worksEnd, workers);
+        return Objects.hash(super.hashCode(), desiredTime, tenantID, state, worksBegin, worksEnd);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "desiredTime=" + desiredTime +
-                ", tenant=" + tenant +
+                ", tenantID=" + tenantID +
                 ", state=" + state +
                 ", worksBegin=" + worksBegin +
                 ", worksEnd=" + worksEnd +
-                ", workers=" + workers +
                 "} " + super.toString();
     }
 }

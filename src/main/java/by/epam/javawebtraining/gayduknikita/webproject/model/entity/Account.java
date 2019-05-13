@@ -16,7 +16,8 @@ public class Account extends Entity {
     public Account() {
     }
 
-    public Account(String login, String password, Role role) {
+    public Account(int id, String login, String password, Role role) {
+        super(id);
         this.login = login;
         this.password = password;
         this.role = role;

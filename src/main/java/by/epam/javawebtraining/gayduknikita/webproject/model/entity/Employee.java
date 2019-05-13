@@ -10,17 +10,16 @@ public class Employee extends Entity {
     private String employeeSurname;
     private String employeeName;
     private String employeePatronymic;
-    private Profession profession;
+    private int accountID = -1;
 
     public Employee() {
     }
 
-    public Employee(int id, String employeeSurname, String employeeName, String employeePatronymic, Profession profession) {
+    public Employee(int id, String employeeSurname, String employeeName, String employeePatronymic, int accountID) {
         super(id);
         this.employeeSurname = employeeSurname;
         this.employeeName = employeeName;
         this.employeePatronymic = employeePatronymic;
-        this.profession = profession;
     }
 
     public String getEmployeeSurname() {
@@ -47,12 +46,12 @@ public class Employee extends Entity {
         this.employeePatronymic = employeePatronymic;
     }
 
-    public Profession getProfession() {
-        return profession;
+    public int getAccountID() {
+        return accountID;
     }
 
-    public void setProfession(Profession profession) {
-        this.profession = profession;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     @Override
@@ -61,15 +60,15 @@ public class Employee extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(employeeSurname, employee.employeeSurname) &&
+        return accountID == employee.accountID &&
+                Objects.equals(employeeSurname, employee.employeeSurname) &&
                 Objects.equals(employeeName, employee.employeeName) &&
-                Objects.equals(employeePatronymic, employee.employeePatronymic) &&
-                profession == employee.profession;
+                Objects.equals(employeePatronymic, employee.employeePatronymic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), employeeSurname, employeeName, employeePatronymic, profession);
+        return Objects.hash(super.hashCode(), employeeSurname, employeeName, employeePatronymic, accountID);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class Employee extends Entity {
                 "employeeSurname='" + employeeSurname + '\'' +
                 ", employeeName='" + employeeName + '\'' +
                 ", employeePatronymic='" + employeePatronymic + '\'' +
-                ", profession=" + profession +
+                ", accountID=" + accountID +
                 "} " + super.toString();
     }
 }

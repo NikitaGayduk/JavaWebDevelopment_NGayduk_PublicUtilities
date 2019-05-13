@@ -8,8 +8,6 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public interface AddressDAO extends EntityDAO<Integer, Address>  {
-
-    Address getAddressByTenant(Tenant tenant) throws DAOSQLException;
+public interface AddressDAO {
 
 }

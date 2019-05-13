@@ -2,16 +2,13 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
-import by.epam.javawebtraining.gayduknikita.webproject.exception.logicexception.ValidationException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EntityDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.BaseTenantDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
-import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.ValidatorsFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -27,15 +24,16 @@ import java.io.IOException;
 public class BaseRegistrationService implements RegistrationService {
     private static final Logger LOGGER = Logger.getRootLogger();
     private static final AccountDAO accountDAO = DAOFactory.getAccountDao();
-    private static final TenantDAO tenantDAO = new BaseTenantDAO();
+    private static final TenantDAO tenantDAO = new TenantDAOImpl();
 
     @Override
     public void tenantRegister(HttpServletRequest request) throws ServiceExecuttingException {
         try {
             //ValidatorsFactory.getRegistrationValidator().validate(request);
-            Account account = new Account(request.getParameter(Constants.LOGIN_PARAMETER)
-                    ,request.getParameter(Constants.PASSWORD_PARAMETER)
-                    , Role.valueOf(Constants.ROLE_TENANT_NAME));
+            Account account = new Account();
+            account.setLogin(request.getParameter(Constants.LOGIN_PARAMETER));
+            account.setPassword(request.getParameter(Constants.PASSWORD_PARAMETER));
+            account.setRole(Role.valueOf(Constants.ROLE_TENANT_NAME));
             accountDAO.add(account);
 
 /*        } catch (ValidationException exc){

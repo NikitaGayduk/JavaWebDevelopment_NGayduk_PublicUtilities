@@ -5,14 +5,16 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
+import java.util.List;
+
 /**
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public interface OrderDAO extends EntityDAO<Integer, Order> {
+public interface OrderDAO {
 
     Order getOrdersByTenant(Tenant entity) throws DAOSQLException;
 
-    Order getOrdersByWorker(Employee entity) throws DAOSQLException;
+    List<Order> getWorkerOrders(Employee entity) throws DAOSQLException;
 
 }
