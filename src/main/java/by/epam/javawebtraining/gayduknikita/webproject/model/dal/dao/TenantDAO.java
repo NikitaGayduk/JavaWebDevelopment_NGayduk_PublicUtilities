@@ -8,7 +8,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
  * @author NikitaGayduk
  * @date 04.05.2019
  */
-public interface TenantDAO {
+public interface TenantDAO  extends DAO<Tenant> {
 
     Tenant getOrderTenant(Order order) throws DAOSQLException;
 

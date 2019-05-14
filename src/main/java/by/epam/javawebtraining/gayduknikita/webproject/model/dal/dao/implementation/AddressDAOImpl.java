@@ -1,22 +1,26 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation;
 
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AddressDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcontainer.SQLRequestContainer;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Address;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public class AddressDAOImpl extends BaseDAOImpl<Integer, Address> implements AddressDAO {
+public class AddressDAOImpl extends BaseDAO implements AddressDAO {
+    private AbstractDAOHandler<Address> daoHandler;
+    private String getAllSQLQuery;
+    private String getSQLQuery;
+    private String deleteSQLQuery;
+    private String addSQLQuery;
+    private String updateSQLQuery;
+
     {
         getAllSQLQuery = SQLRequestContainer.ADDRESS_GET_ALL_QUERY;
         getSQLQuery = SQLRequestContainer.ADDRESS_GET_BY_ID_QUERY;
@@ -24,5 +28,30 @@ public class AddressDAOImpl extends BaseDAOImpl<Integer, Address> implements Add
         addSQLQuery = SQLRequestContainer.ADDRESS_ADD_QUERY;
         updateSQLQuery = SQLRequestContainer.ADDRESS_UPDATE_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOAddressHandler();
+    }
+
+    @Override
+    public List<Address> getAll() throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public Address get(int id) throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public boolean delete(int id) throws DAOSQLException {
+        return false;
+    }
+
+    @Override
+    public int add(Address entity) throws DAOSQLException {
+        return 0;
+    }
+
+    @Override
+    public boolean update(Address entity) throws DAOSQLException {
+        return false;
     }
 }

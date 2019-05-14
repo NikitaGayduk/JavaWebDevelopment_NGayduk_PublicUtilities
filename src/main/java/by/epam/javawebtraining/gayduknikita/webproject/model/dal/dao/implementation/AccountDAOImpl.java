@@ -2,6 +2,7 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcontainer.SQLRequestContainer;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
@@ -13,14 +14,46 @@ import java.util.List;
  * @author NikitaGayduk
  * @date 07.05.2019
  */
-public class AccountDAOImpl extends BaseDAOImpl<Integer,Account> implements AccountDAO {
+public class AccountDAOImpl extends BaseDAO implements AccountDAO {
+    private AbstractDAOHandler<Account> daoHandler;
+    private String getAllSQLQuery;
+    private String getSQLQuery;
+    private String deleteSQLQuery;
+    private String addSQLQuery;
+    private String updateSQLQuery;
+
     {
-        getAllSQLQuery = SQLRequestContainer.ACCOUNT_GET_ALL_QUERY;
-        getSQLQuery = SQLRequestContainer.ACCOUNT_GET_BY_ID_QUERY;
-        deleteSQLQuery = SQLRequestContainer.ACCOUNT_DELETE_BY_ID_QUERY;
-        addSQLQuery = SQLRequestContainer.ACCOUNT_ADD_QUERY;
-        updateSQLQuery = SQLRequestContainer.ACCOUNT_UPDATE_BY_ID_QUERY;
+        String getAllSQLQuery = SQLRequestContainer.ACCOUNT_GET_ALL_QUERY;
+        String getSQLQuery = SQLRequestContainer.ACCOUNT_GET_BY_ID_QUERY;
+        String deleteSQLQuery = SQLRequestContainer.ACCOUNT_DELETE_BY_ID_QUERY;
+        String addSQLQuery = SQLRequestContainer.ACCOUNT_ADD_QUERY;
+        String updateSQLQuery = SQLRequestContainer.ACCOUNT_UPDATE_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOAccountHandler();
+    }
+
+    @Override
+    public List<Account> getAll() throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public Account get(int id) throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public boolean delete(int id) throws DAOSQLException {
+        return false;
+    }
+
+    @Override
+    public int add(Account entity) throws DAOSQLException {
+        return 0;
+    }
+
+    @Override
+    public boolean update(Account entity) throws DAOSQLException {
+        return false;
     }
 
     @Override
@@ -33,14 +66,17 @@ public class AccountDAOImpl extends BaseDAOImpl<Integer,Account> implements Acco
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQLRequestContainer.ACCOUNT_GET_BY_LOGIN_PASSWORD);
             statement.setString(1, login);
-            statement.setString(1, password);
+            statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
-            result = daoHandler.build(rs);
+            if (rs.next()) {
+                result = daoHandler.build(rs);
+            }
             return result;
         } catch (SQLException exc) {
             throw new DAOSQLException(exc.getMessage());
         } finally {
-            releaseConnection(connection, statement);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
         }
     }
 }

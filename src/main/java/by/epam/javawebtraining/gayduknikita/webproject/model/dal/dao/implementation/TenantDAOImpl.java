@@ -2,21 +2,41 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcontainer.SQLRequestContainer;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * @author NikitaGayduk
  * @date 04.05.2019
  */
-public class TenantDAOImpl extends BaseDAOImpl<Integer,Tenant> implements TenantDAO {
+public class TenantDAOImpl extends BaseDAO implements TenantDAO {
+
+    @Override
+    public List<Tenant> getAll() throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public Tenant get(int id) throws DAOSQLException {
+        return null;
+    }
+
+    @Override
+    public boolean delete(int id) throws DAOSQLException {
+        return false;
+    }
+
+    @Override
+    public int add(Tenant entity) throws DAOSQLException {
+        return 0;
+    }
+
+    @Override
+    public boolean update(Tenant entity) throws DAOSQLException {
+        return false;
+    }
 
     @Override
     public Tenant getOrderTenant(Order order) throws DAOSQLException {

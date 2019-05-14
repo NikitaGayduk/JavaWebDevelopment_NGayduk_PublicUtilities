@@ -40,7 +40,7 @@ public class SQLRequestContainer {
 
     public static final String ACCOUNT_ADD_QUERY =
             "INSERT INTO publicutilities.accounts (account_login, account_password, role_id) " +
-                    "VALUES (?,?,?)";
+                    "VALUES (?, ?, (SELECT role_id FROM publicutilities.roles WHERE role_name=?))";
 
     public static final String ACCOUNT_UPDATE_BY_ID_QUERY =
             "UPDATE publicutilities.accounts SET account_login = ?, account_password = ?, role_id = ? " +
@@ -103,7 +103,33 @@ public class SQLRequestContainer {
 
     public static final String ORDER_GET_BY_ID_QUERY =
             "SELECT order_id, desired_time, tenant_id, order_state_id, works_begin, works_end, order_description " +
-                    "FROM publicutilities.orders" +
+                    "FROM publicutilities.orders " +
                     "WHERE order_id = ?";
+
+    public static final String ORDER_DELETE_BY_ID_QUERY =
+            "DELETE FROM publicutilities.orders " +
+                    "WHERE order_id = ?";
+
+    public static final String ORDER_ADD_QUERY =
+            "INSERT INTO publicutilities.orders " +
+                    "(desired_time, tenant_id, order_state_id, works_begin, works_end, order_description) " +
+                    "VALUES (?, ?, " +
+                    "(SELECT order_state_id FROM publicutilities.order_states WHERE order_state_name = ?), ?, ?, ?)";
+
+    public static final String ORDER_UPDATE_BY_ID_QUERY =
+            "UPDATE publicutilities.orders " +
+                    "SET desired_time = ?, tenant_id = ?, order_state_id = " +
+                    "(SELECT order_state_id FROM publicutilities.order_states WHERE order_state_name = ?)" +
+                    ", works_begin = ?, works_end = ?, order_description = ? " +
+                    "WHERE order_id = ?";
+
+    public static final String ORDER_GET_BY_WORKER_ID =
+            "SELECT order_id, desired_time, tenant_id, order_state_id, works_begin, works_end, order_description " +
+                    "FROM publicutilities.orders " +
+                    "INNER JOIN (SELECT order_id FROM publicutilities.order_workers WHERE employee_id = ?) as worker_orders " +
+                    "USING (order_id) " +
+                    "WHERE (order_state_id = 4) " +
+                    "ORDER BY works_begin " +
+                    "LIMIT ?, ?";
 
 }

@@ -8,6 +8,6 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public interface AddressDAO {
+public interface AddressDAO extends DAO<Address> {
 
 }

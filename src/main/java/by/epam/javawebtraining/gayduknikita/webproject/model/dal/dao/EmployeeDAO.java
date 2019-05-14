@@ -6,5 +6,5 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public interface EmployeeDAO {
+public interface EmployeeDAO  extends DAO<Employee>{
 }

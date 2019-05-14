@@ -11,10 +11,10 @@ import java.util.List;
  * @author NikitaGayduk
  * @date 09.05.2019
  */
-public interface OrderDAO {
+public interface OrderDAO extends DAO<Order> {
 
     Order getOrdersByTenant(Tenant entity) throws DAOSQLException;
 
-    List<Order> getWorkerOrders(Employee entity) throws DAOSQLException;
+    List<Order> getOrdersByWorker(Employee entity, int begin, int count) throws DAOSQLException;
 
 }
