@@ -16,12 +16,12 @@ class DAOTenantHandler extends AbstractDAOHandler<Tenant> {
     @Override
     public Tenant build(ResultSet resultSet) throws SQLException {
         Tenant tenant = new Tenant();
-        tenant.setId(resultSet.getInt(Constants.ColumnName.ORDER_ID));
-        tenant.setSurname(resultSet.getString(Constants.ColumnName.TENANT_SURNAME));
-        tenant.setName(resultSet.getString(Constants.ColumnName.TENANT_NAME));
-        tenant.setPatronymic(resultSet.getString(Constants.ColumnName.TENANT_PATRONYMIC));
-        tenant.setAccountID(resultSet.getInt(Constants.ColumnName.ACCOUNT_ID));
-        tenant.setAddressID(resultSet.getInt(Constants.ColumnName.ADDRESS_ID));
+        tenant.setId(resultSet.getInt(Constants.ORDER_ID));
+        tenant.setSurname(resultSet.getString(Constants.TENANT_SURNAME));
+        tenant.setName(resultSet.getString(Constants.TENANT_NAME));
+        tenant.setPatronymic(resultSet.getString(Constants.TENANT_PATRONYMIC));
+        tenant.setAccountID(resultSet.getInt(Constants.ACCOUNT_ID));
+        tenant.setAddressID(resultSet.getInt(Constants.ADDRESS_ID));
 
         return tenant;
     }

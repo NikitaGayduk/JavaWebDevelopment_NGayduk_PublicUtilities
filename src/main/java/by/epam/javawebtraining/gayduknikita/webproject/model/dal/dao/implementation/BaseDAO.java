@@ -80,7 +80,7 @@ public class BaseDAO {
     protected <T extends Entity> int add(String addSQLQuery, Connection connection
             , AbstractDAOHandler<T> daoHandler, T entity) throws SQLException {
 
-        int accountID = -1;
+        int entityID = -1;
         PreparedStatement statement = null;
 
         try {
@@ -90,10 +90,10 @@ public class BaseDAO {
             ResultSet gk = statement.getGeneratedKeys();
 
             if (gk.next()) {
-                accountID = gk.getInt(1);
+                entityID = gk.getInt(1);
             }
 
-            return accountID;
+            return entityID;
         } finally {
             closeStatement(statement);
         }

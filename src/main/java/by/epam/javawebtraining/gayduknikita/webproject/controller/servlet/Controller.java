@@ -1,6 +1,7 @@
 package by.epam.javawebtraining.gayduknikita.webproject.controller.servlet;
 
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CMDManager;
+import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutingException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.UnsupportedCommandException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.connectionpool.BaseDBConnectionPool;
@@ -8,9 +9,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.exception.InitializationE
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +40,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().print("post");
+        //resp.getWriter().print("post");
         processRequest(req,resp);
     }
 
@@ -49,7 +48,15 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         try {
             String command = request.getParameter(Constants.REQUEST_COMMAND_PARAMETER);
-            CMDManager.getInstance().getCommand(command).execute(request, response);
+            CommandResult nextPage = CMDManager.getInstance().getCommand(command).execute(request, response);
+
+            if(nextPage != null && nextPage.getAction() != null && nextPage.getPage() != null) {
+                if (nextPage.getAction() == CommandResult.Action.FORWARD) {
+                    request.getRequestDispatcher(nextPage.getPage()).forward(request, response);
+                } else {
+                    response.sendRedirect(request.getContextPath() + nextPage.getPage());
+                }
+            }
         } catch (UnsupportedCommandException exc) {
             throw new ServletException(exc);
         }catch (CommandExecutingException exc) {

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface AuthorizationService {
 
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
+    public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
 
     public void logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
 

@@ -17,9 +17,9 @@
     <form action="${urlPrefix}/publicutilities/main" method="post" name="login">
         <input type="hidden" name="command" value="login"/>
         Login:<br>
-        <input type="text" name="login"><br>
+        <input type="text" name="account_login"><br>
         Password:<br>
-        <input type="password" name="password"> <br>
+        <input type="password" name="account_password"> <br>
         <input type="submit" value="Вход">
     </form>
 

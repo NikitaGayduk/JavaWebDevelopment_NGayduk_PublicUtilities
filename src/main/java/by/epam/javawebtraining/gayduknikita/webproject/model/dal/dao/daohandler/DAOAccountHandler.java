@@ -17,10 +17,10 @@ class DAOAccountHandler extends AbstractDAOHandler<Account> {
     @Override
     public Account build(ResultSet resultSet) throws SQLException {
         Account account = new Account();
-        account.setId(resultSet.getInt(Constants.ColumnName.ACCOUNT_ID));
-        account.setLogin(resultSet.getString(Constants.ColumnName.ACCOUNT_LOGIN));
-        account.setPassword(resultSet.getString(Constants.ColumnName.ACCOUNT_PASSWORD));
-        account.setRole(Role.valueOf(resultSet.getString(Constants.ColumnName.ROLE_NAME)));
+        account.setId(resultSet.getInt(Constants.ACCOUNT_ID));
+        account.setLogin(resultSet.getString(Constants.ACCOUNT_LOGIN));
+        account.setPassword(resultSet.getString(Constants.ACCOUNT_PASSWORD));
+        account.setRole(Role.valueOf(resultSet.getString(Constants.ROLE_NAME)));
 
         return account;
     }
@@ -30,7 +30,7 @@ class DAOAccountHandler extends AbstractDAOHandler<Account> {
         if (entity != null) {
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
-            statement.setInt(3,entity.getRole().ordinal()+1);
+            statement.setString(3,entity.getRole().name());
 
             if (useID) {
                 statement.setInt(4, entity.getId());

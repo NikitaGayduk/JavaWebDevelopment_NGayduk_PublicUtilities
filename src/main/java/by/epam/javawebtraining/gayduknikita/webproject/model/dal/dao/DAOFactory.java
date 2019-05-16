@@ -2,6 +2,7 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao;
 
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.AccountDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.AddressDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 
 /**
  * @author NikitaGayduk
@@ -10,6 +11,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementat
 public class DAOFactory {
     private static AccountDAO accountDAO = new AccountDAOImpl();
     private static AddressDAO addressDAO = new AddressDAOImpl();
+    private static TenantDAO tenantDAO = new TenantDAOImpl();
 
     private DAOFactory() {
     }
@@ -19,4 +21,6 @@ public class DAOFactory {
     }
 
     public static AddressDAO getAddressDAO(){return  addressDAO;}
+
+    public static TenantDAO getTenantDAO(){return  tenantDAO;}
 }

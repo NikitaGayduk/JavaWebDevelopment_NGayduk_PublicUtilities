@@ -16,11 +16,11 @@ class DAOEmployeeHandler extends AbstractDAOHandler<Employee> {
     @Override
     public Employee build(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
-        employee.setId(resultSet.getInt(Constants.ColumnName.EMPLOYEE_ID));
-        employee.setEmployeeSurname(resultSet.getString(Constants.ColumnName.EMPLOYEE_SURNAME));
-        employee.setEmployeeName(resultSet.getString(Constants.ColumnName.EMPLOYEE_NAME));
-        employee.setEmployeePatronymic(resultSet.getString(Constants.ColumnName.EMPLOYEE_PATRONYMIC));
-        employee.setAccountID(resultSet.getInt(Constants.ColumnName.ACCOUNT_ID));
+        employee.setId(resultSet.getInt(Constants.EMPLOYEE_ID));
+        employee.setEmployeeSurname(resultSet.getString(Constants.EMPLOYEE_SURNAME));
+        employee.setEmployeeName(resultSet.getString(Constants.EMPLOYEE_NAME));
+        employee.setEmployeePatronymic(resultSet.getString(Constants.EMPLOYEE_PATRONYMIC));
+        employee.setAccountID(resultSet.getInt(Constants.ACCOUNT_ID));
 
         return employee;
     }

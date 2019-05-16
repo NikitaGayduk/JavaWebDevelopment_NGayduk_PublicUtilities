@@ -34,23 +34,23 @@ class RegistrationValidator implements Validator {
         try {
             boolean result = true;
 
-            if (!loginPattern.matcher(request.getParameter(Constants.LOGIN_PARAMETER)).matches()) {
+            if (!loginPattern.matcher(request.getParameter(Constants.ACCOUNT_LOGIN)).matches()) {
                 LOGGER.error("Invalid login");
                 result = false;
             }
-            if (!passwordPattern.matcher(request.getParameter(Constants.PASSWORD_PARAMETER)).matches()) {
+            if (!passwordPattern.matcher(request.getParameter(Constants.ACCOUNT_PASSWORD)).matches()) {
                 LOGGER.error("Invalid password");
                 result = false;
             }
-            if (!surnamePattern.matcher(request.getParameter(Constants.TENANT_SURNAME_PARAMETER)).matches()) {
+            if (!surnamePattern.matcher(request.getParameter(Constants.TENANT_SURNAME)).matches()) {
                 LOGGER.error("Invalid tenant surname");
                 result = false;
             }
-            if (!namePattern.matcher(request.getParameter(Constants.TENANT_NAME_PARAMETER)).matches()) {
+            if (!namePattern.matcher(request.getParameter(Constants.TENANT_NAME)).matches()) {
                 LOGGER.error("Invalid tenant name");
                 result = false;
             }
-            if (!patronymicPattern.matcher(request.getParameter(Constants.TENANT_PATRONYMIC_PARAMETER)).matches()) {
+            if (!patronymicPattern.matcher(request.getParameter(Constants.TENANT_PATRONYMIC)).matches()) {
                 LOGGER.error("Invalid tenant patronymic");
                 result = false;
             }

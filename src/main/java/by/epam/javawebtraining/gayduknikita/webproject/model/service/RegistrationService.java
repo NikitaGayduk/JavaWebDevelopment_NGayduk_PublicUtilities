@@ -12,8 +12,11 @@ import java.net.http.HttpRequest;
  */
 public interface RegistrationService {
 
-    public void tenantRegister(HttpServletRequest request) throws ServiceExecuttingException;
+    public void registerTenant(HttpServletRequest request) throws ServiceExecuttingException;
 
-    public void goRegistrationPage(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
+    public void registerEmployee(HttpServletRequest request) throws ServiceExecuttingException;
+
+    public void fillTenantRegistrationPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServiceExecuttingException;
 
 }

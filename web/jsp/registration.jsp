@@ -17,10 +17,10 @@
         <input type="hidden" name="command" value="registration"/>
 
         Login:<br>
-        <input type="text" name="login"><br>
+        <input type="text" name="account_login"><br>
 
         Password:<br>
-        <input type="password" name="password"><br>
+        <input type="password" name="account_password"><br>
 
         Surname:<br>
         <input type="text" name="tenant_surname"><br>
@@ -31,7 +31,10 @@
         Patronymic:<br>
         <input type="text" name="tenant_patronymic"><br>
 
-        <input type="submit" value="Отправить">
+        Address:<br>
+        <input type="text" name="address_id"><br>
+
+        <input type="submit" value="Send">
     </form>
 </body>
 </html>

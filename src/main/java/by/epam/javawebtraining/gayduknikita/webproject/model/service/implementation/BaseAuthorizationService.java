@@ -25,29 +25,34 @@ public class BaseAuthorizationService implements AuthorizationService {
     private static final AccountDAO accountDAO = DAOFactory.getAccountDao();
 
     @Override
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
+    public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
         try {
             //ValidatorsFactory.getAuthorizationValidator().validate(request);
 
-            String login = request.getParameter(Constants.LOGIN_PARAMETER);
-            String password = request.getParameter(Constants.PASSWORD_PARAMETER);
+            String login = request.getParameter(Constants.ACCOUNT_LOGIN);
+            String password = request.getParameter(Constants.ACCOUNT_PASSWORD);
 
             Account account = accountDAO.getAccount(login, password);
 
+            String result = null;
+
             if (account == null) {
-                response.sendRedirect(request.getContextPath() + Constants.LOGIN_PATH);
+                result = Constants.LOGIN_PATH;
             } else {
                 request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
+
                 if (account.getRole() == Role.ADMINISTRATOR) {
-                    request.getRequestDispatcher("/jsp/adminmain.jsp").forward(request, response);
+                    result = "/jsp/adminmain.jsp";
                 } else if (account.getRole() == Role.OPERATOR){
-                    request.getRequestDispatcher("/jsp/operatormain.jsp").forward(request, response);
+                    result = "/jsp/operatormain.jsp";
                 } else if (account.getRole() == Role.TENANT){
-                    request.getRequestDispatcher("/jsp/tenantmain.jsp").forward(request, response);
+                    result = "/jsp/tenantmain.jsp";
                 } else if (account.getRole() == Role.WORKER){
-                    request.getRequestDispatcher("/jsp/workermain.jsp").forward(request, response);
+                    result = "/jsp/workermain.jsp";
                 }
             }
+
+            return result;
 
 /*        } catch (ValidationException exc){
             LOGGER.error(exc);
@@ -55,23 +60,11 @@ public class BaseAuthorizationService implements AuthorizationService {
         } catch (DAOSQLException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
-        } catch (IOException exc) {
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);
-        } catch (ServletException exc) {
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);
         }
     }
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
-        try {
             request.getSession().invalidate();
-            response.sendRedirect(request.getContextPath() + Constants.LOGIN_PATH);
-        } catch (IOException exc) {
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);
-        }
     }
 }

@@ -31,6 +31,7 @@ public class SecurityFilter implements Filter {
         boolean loginRequest = request.getRequestURI().equals(loginURI);
         boolean loginCommand = false;
         String command = request.getParameter(Constants.REQUEST_COMMAND_PARAMETER);
+
         if(command != null && (command.equals(Constants.COMMAND_LOGIN)
                 || command.equals(Constants.COMMAND_GET_REGISTRATION_PAGE)
                 || command.equals(Constants.COMMAND_REGISTRATION))) {

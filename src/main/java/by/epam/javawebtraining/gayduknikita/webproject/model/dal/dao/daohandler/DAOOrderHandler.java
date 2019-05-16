@@ -16,13 +16,13 @@ class DAOOrderHandler extends AbstractDAOHandler<Order> {
     @Override
     public Order build(ResultSet resultSet) throws SQLException {
         Order order = new Order();
-        order.setId(resultSet.getInt(Constants.ColumnName.ORDER_ID));
-        order.setDesiredTime(resultSet.getTimestamp(Constants.ColumnName.ORDER_DESIRED_TIME));
-        order.setTenantID(resultSet.getInt(Constants.ColumnName.TENANT_ID));
-        order.setState(OrderState.valueOf(resultSet.getString(Constants.ColumnName.ORDER_STATE_NAME)));
-        order.setWorksBegin(resultSet.getTimestamp(Constants.ColumnName.ORDER_WORKS_BEGIN));
-        order.setWorksEnd(resultSet.getTimestamp(Constants.ColumnName.ORDER_WORKS_END));
-        order.setOrderDiscription(resultSet.getString(Constants.ColumnName.ORDER_DESCRIPTION));
+        order.setId(resultSet.getInt(Constants.ORDER_ID));
+        order.setDesiredTime(resultSet.getTimestamp(Constants.ORDER_DESIRED_TIME));
+        order.setTenantID(resultSet.getInt(Constants.TENANT_ID));
+        order.setState(OrderState.valueOf(resultSet.getString(Constants.ORDER_STATE_NAME)));
+        order.setWorksBegin(resultSet.getTimestamp(Constants.ORDER_WORKS_BEGIN));
+        order.setWorksEnd(resultSet.getTimestamp(Constants.ORDER_WORKS_END));
+        order.setOrderDiscription(resultSet.getString(Constants.ORDER_DESCRIPTION));
 
         return order;
     }
