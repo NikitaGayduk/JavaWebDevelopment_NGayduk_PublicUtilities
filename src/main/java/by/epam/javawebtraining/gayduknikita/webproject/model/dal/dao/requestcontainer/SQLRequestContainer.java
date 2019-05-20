@@ -78,8 +78,13 @@ public class SQLRequestContainer {
 
     public static final String TENANT_GET_BY_ID_QUERY =
             "SELECT tenant_id, tenant_surname, tenant_name, tenant_patronymic, account_id, address_id " +
-                    "FROM publicutilities.tenants" +
+                    "FROM publicutilities.tenants " +
                     "WHERE tenant_id = ?";
+
+    public static final String TENANT_GET_BY_ACCOUNT_ID_QUERY =
+            "SELECT tenant_id, tenant_surname, tenant_name, tenant_patronymic, account_id, address_id " +
+                    "FROM publicutilities.tenants " +
+                    "WHERE account_id = ?";
 
     public static final String TENANT_DELETE_BY_ID_QUERY =
             "DELETE FROM publicutilities.tenants " +
@@ -94,6 +99,8 @@ public class SQLRequestContainer {
             "UPDATE publicutilities.tenants " +
                     "SET tenant_surname = ?, tenant_name = ?, tenant_patronymic = ?, account_id = ?, address_id = ? " +
                     "WHERE tenant_id = ?";
+
+
 
 
     //order

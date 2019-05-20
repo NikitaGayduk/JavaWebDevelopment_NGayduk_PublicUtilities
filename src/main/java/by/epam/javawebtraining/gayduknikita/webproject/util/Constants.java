@@ -20,7 +20,6 @@ public class Constants {
     public static final String COMMAND_LOGIN = "login";
     public static final String COMMAND_GET_REGISTRATION_PAGE = "getregistrationpage";
     public static final String COMMAND_REGISTRATION = "registration";
-    public static final String COMMAND_LOGOUT = "logout";
 
     //validation constants
     public static final String LOGIN_REGEX = "\\A[A-Za-z0-9]{2,20}\\Z";
@@ -31,12 +30,14 @@ public class Constants {
 
     //JSP attributes
     public static final String ACCOUNT_ATTRIBUTE = "account";
+    public static final String ROLE_ATTRIBUTE = "role";
     public static final String TENANT_ATTRIBUTE = "tenant";
 
     //servlet path
     public static final String LOGIN_PATH = "/login";
     public static final String REGISTRATION_PAGE_PATH = "/jsp/registration.jsp";
     public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
+    public static final String CREATE_ORDER_PAGE_PATH = "/jsp/create_order.jsp";
 
     //database keys
     public static final String ROLE_TENANT_NAME = "TENANT";
@@ -78,5 +79,10 @@ public class Constants {
     public static final String EMPLOYEE_NAME = "order_name";
     public static final String EMPLOYEE_PATRONYMIC = "order_patronymic";
 
+    //parameters
+    public static final String LOCALE = "locale";
+    public static final String PARAMETER_ORDER_DESIRED_DATE = "order_desired_date";
+    public static final String PARAMETER_ORDER_DESIRED_TIME = "order_desired_time";
+    public static final String PARAMETER_ORDER_DICRIPTION = "order_discription";
 
 }

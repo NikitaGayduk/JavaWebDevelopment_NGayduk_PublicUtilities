@@ -4,8 +4,10 @@ import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.AuthorizationService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.ValidatorsFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
@@ -23,6 +25,7 @@ import java.io.IOException;
 public class BaseAuthorizationService implements AuthorizationService {
     private static final Logger LOGGER = Logger.getRootLogger();
     private static final AccountDAO accountDAO = DAOFactory.getAccountDao();
+    private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
 
     @Override
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
@@ -43,10 +46,15 @@ public class BaseAuthorizationService implements AuthorizationService {
 
                 if (account.getRole() == Role.ADMINISTRATOR) {
                     result = "/jsp/adminmain.jsp";
+
                 } else if (account.getRole() == Role.OPERATOR){
                     result = "/jsp/operatormain.jsp";
+
                 } else if (account.getRole() == Role.TENANT){
+                    Tenant tenant = tenantDAO.getTenantByAccount(account);
+                    request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
                     result = "/jsp/tenantmain.jsp";
+
                 } else if (account.getRole() == Role.WORKER){
                     result = "/jsp/workermain.jsp";
                 }

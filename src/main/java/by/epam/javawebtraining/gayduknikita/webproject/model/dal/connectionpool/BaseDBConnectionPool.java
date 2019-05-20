@@ -115,6 +115,11 @@ public class BaseDBConnectionPool implements DBConnectionPool {
 
     @Override
     public boolean releaseConnection(Connection connection) {
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException exc){
+            LOGGER.warn("Can't set connection auto commit true.",exc);
+        }
         connectionPool.add(connection);
         return usedConnections.remove(connection);
     }

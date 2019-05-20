@@ -7,7 +7,7 @@ import java.util.Objects;
  * @date 22.04.2019
  */
 public class Entity {
-    private int id;
+    private int id = -1;
 
     public Entity() {
     }

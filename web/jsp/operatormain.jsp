@@ -13,9 +13,5 @@
 <body>
     <h1>Operator main page</h1>
 
-    <form action="${urlPrefix}/publicutilities/main" method="get" name="logout">
-        <input type="hidden" name="command" value="logout"/>
-        <input type="submit" value="Выход">
-    </form>
 </body>
 </html>

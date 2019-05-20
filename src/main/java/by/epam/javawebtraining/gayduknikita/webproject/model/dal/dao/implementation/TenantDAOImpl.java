@@ -2,6 +2,7 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcontainer.SQLRequestContainer;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
@@ -18,6 +19,12 @@ import java.util.List;
  * @date 04.05.2019
  */
 public class TenantDAOImpl extends BaseDAO implements TenantDAO {
+    private AbstractDAOHandler<Tenant> daoHandler;
+
+    {
+
+        daoHandler = DAOHandlerFactory.getDAOTenantHandler();
+    }
 
     @Override
     public List<Tenant> getAll() throws DAOSQLException {
@@ -46,6 +53,19 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
     }
 
     @Override
+    public Tenant getTenantByAccount(Account account) throws DAOSQLException {
+        Connection connection = connectionPool.getConnection();
+        try {
+            return get(SQLRequestContainer.TENANT_GET_BY_ACCOUNT_ID_QUERY, connection, daoHandler, account.getId());
+        } catch (SQLException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new DAOSQLException(exc);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    @Override
     public Tenant getOrderTenant(Order order) throws DAOSQLException {
         return null;
     }
@@ -57,17 +77,17 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
             connection.setAutoCommit(false);
 
             int accountID = add(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
-                    , DAOHandlerFactory.getDAOAccountHandler(),account);
+                    , DAOHandlerFactory.getDAOAccountHandler(), account);
             tenant.setAccountID(accountID);
             add(SQLRequestContainer.TENANT_ADD_QUERY, connection, DAOHandlerFactory.getDAOTenantHandler(), tenant);
 
             connection.commit();
             return accountID;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.error("Adding tenant failed", e);
             try {
                 connection.rollback();
-            } catch (SQLException exc){
+            } catch (SQLException exc) {
                 LOGGER.error("Adding tenant rollback failed", e);
             }
             throw new DAOSQLException(e);

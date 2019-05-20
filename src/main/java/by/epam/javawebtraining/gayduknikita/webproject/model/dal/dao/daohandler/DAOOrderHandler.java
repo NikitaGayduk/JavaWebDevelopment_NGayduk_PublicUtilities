@@ -32,7 +32,7 @@ class DAOOrderHandler extends AbstractDAOHandler<Order> {
         if (entity != null) {
             statement.setTimestamp(1, entity.getDesiredTime());
             statement.setInt(2, entity.getTenantID());
-            statement.setInt(3,entity.getState().ordinal()+1);
+            statement.setString(3,entity.getState().name());
             statement.setTimestamp(4,entity.getWorksBegin());
             statement.setTimestamp(5,entity.getWorksEnd());
             statement.setString(6,entity.getOrderDiscription());

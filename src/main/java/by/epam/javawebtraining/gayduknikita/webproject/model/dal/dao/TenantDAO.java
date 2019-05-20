@@ -11,6 +11,8 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
  */
 public interface TenantDAO extends DAO<Tenant> {
 
+    Tenant getTenantByAccount(Account account) throws DAOSQLException;
+
     Tenant getOrderTenant(Order order) throws DAOSQLException;
 
     int addTenant(Account account, Tenant tenant) throws DAOSQLException;
