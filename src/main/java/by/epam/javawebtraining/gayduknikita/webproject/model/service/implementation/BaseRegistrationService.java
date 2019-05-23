@@ -1,10 +1,8 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
@@ -52,7 +50,7 @@ public class BaseRegistrationService implements RegistrationService {
 /*        } catch (ValidationException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);*/
-        } catch (DAOSQLException exc){
+        } catch (DAOException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
         }
@@ -65,7 +63,7 @@ public class BaseRegistrationService implements RegistrationService {
 
     @Override
     public void fillTenantRegistrationPage(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
-        try {
+        /*try {
             request.getRequestDispatcher(Constants.REGISTRATION_PAGE_PATH).forward(request,response);
         } catch (IOException exc){
             LOGGER.error(exc);
@@ -73,6 +71,6 @@ public class BaseRegistrationService implements RegistrationService {
         } catch (ServletException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
-        }
+        }*/
     }
 }

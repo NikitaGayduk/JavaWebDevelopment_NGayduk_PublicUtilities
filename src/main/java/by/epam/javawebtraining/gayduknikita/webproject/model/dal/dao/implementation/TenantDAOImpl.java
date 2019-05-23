@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
@@ -8,7 +8,6 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcont
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
-import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,51 +26,53 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
     }
 
     @Override
-    public List<Tenant> getAll() throws DAOSQLException {
+    public List<Tenant> getAll() throws DAOException {
         return null;
     }
 
     @Override
-    public Tenant get(int id) throws DAOSQLException {
+    public Tenant get(int id) throws DAOException {
         return null;
     }
 
     @Override
-    public boolean delete(int id) throws DAOSQLException {
+    public boolean delete(int id) throws DAOException {
         return false;
     }
 
     @Override
-    public int add(Tenant entity) throws DAOSQLException {
+    public int add(Tenant entity) throws DAOException {
         LOGGER.warn("Unsupported operation");
         return -1;
     }
 
     @Override
-    public boolean update(Tenant entity) throws DAOSQLException {
+    public boolean update(Tenant entity) throws DAOException {
         return false;
     }
 
     @Override
-    public Tenant getTenantByAccount(Account account) throws DAOSQLException {
+    public Tenant getTenantByAccount(Account account) throws DAOException {
         Connection connection = connectionPool.getConnection();
         try {
-            return get(SQLRequestContainer.TENANT_GET_BY_ACCOUNT_ID_QUERY, connection, daoHandler, account.getId());
+
+            return getByID(SQLRequestContainer.TENANT_GET_BY_ACCOUNT_ID_QUERY, connection, daoHandler, account.getId()).get(0);
+
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
-            throw new DAOSQLException(exc);
+            throw new DAOException(exc);
         } finally {
             connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
-    public Tenant getOrderTenant(Order order) throws DAOSQLException {
+    public Tenant getOrderTenant(Order order) throws DAOException {
         return null;
     }
 
     @Override
-    public int addTenant(Account account, Tenant tenant) throws DAOSQLException {
+    public int addTenant(Account account, Tenant tenant) throws DAOException {
         Connection connection = connectionPool.getConnection();
         try {
             connection.setAutoCommit(false);
@@ -90,7 +91,7 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
             } catch (SQLException exc) {
                 LOGGER.error("Adding tenant rollback failed", e);
             }
-            throw new DAOSQLException(e);
+            throw new DAOException(e);
         } finally {
             connectionPool.releaseConnection(connection);
         }

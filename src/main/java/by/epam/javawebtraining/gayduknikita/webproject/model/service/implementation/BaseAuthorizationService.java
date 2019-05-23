@@ -1,22 +1,19 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EmployeeDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.*;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.AuthorizationService;
-import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.ValidatorsFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author NikitaGayduk
@@ -26,6 +23,7 @@ public class BaseAuthorizationService implements AuthorizationService {
     private static final Logger LOGGER = Logger.getRootLogger();
     private static final AccountDAO accountDAO = DAOFactory.getAccountDao();
     private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
+    private static final EmployeeDAO employeeDAO = DAOFactory.getEmployeeDAO();
 
     @Override
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
@@ -53,9 +51,12 @@ public class BaseAuthorizationService implements AuthorizationService {
                 } else if (account.getRole() == Role.TENANT){
                     Tenant tenant = tenantDAO.getTenantByAccount(account);
                     request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
+                    new BaseOrderService().setTenantOrdersAttribute(request);
                     result = "/jsp/tenantmain.jsp";
 
                 } else if (account.getRole() == Role.WORKER){
+                    Employee worker = employeeDAO.getEmployeeByAccount(account);
+                    request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, worker);
                     result = "/jsp/workermain.jsp";
                 }
             }
@@ -65,7 +66,7 @@ public class BaseAuthorizationService implements AuthorizationService {
 /*        } catch (ValidationException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);*/
-        } catch (DAOSQLException exc) {
+        } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
         }

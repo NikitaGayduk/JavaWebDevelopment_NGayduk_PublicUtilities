@@ -32,6 +32,8 @@ public class Constants {
     public static final String ACCOUNT_ATTRIBUTE = "account";
     public static final String ROLE_ATTRIBUTE = "role";
     public static final String TENANT_ATTRIBUTE = "tenant";
+    public static final String EMPLOYEE_ATTRIBUTE = "employee";
+    public static final String ORDER_LIST_ATTRIBUTE = "orderList";
 
     //servlet path
     public static final String LOGIN_PATH = "/login";
@@ -75,14 +77,16 @@ public class Constants {
     public static final String ORDER_STATE_NAME = "order_state_name";
     public static final String ORDER_DESCRIPTION = "order_description";
 
-    public static final String EMPLOYEE_SURNAME = "order_surname";
-    public static final String EMPLOYEE_NAME = "order_name";
-    public static final String EMPLOYEE_PATRONYMIC = "order_patronymic";
+    public static final String EMPLOYEE_SURNAME = "employee_surname";
+    public static final String EMPLOYEE_NAME = "employee_name";
+    public static final String EMPLOYEE_PATRONYMIC = "employee_patronymic";
 
     //parameters
     public static final String LOCALE = "locale";
+    public static final String PARAMETER_ORDER_ID = "order_id";
     public static final String PARAMETER_ORDER_DESIRED_DATE = "order_desired_date";
     public static final String PARAMETER_ORDER_DESIRED_TIME = "order_desired_time";
     public static final String PARAMETER_ORDER_DICRIPTION = "order_discription";
+    public static final String PARAMETER_ORDER_STATE = "order_state";
 
 }

@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 
 /**
@@ -9,6 +9,6 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
  */
 public interface AccountDAO extends DAO<Account> {
 
-    Account getAccount(String login, String password) throws DAOSQLException;
+    Account getAccount(String login, String password) throws DAOException;
 
 }

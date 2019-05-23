@@ -14,11 +14,6 @@
         <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
 
-    <servlet>
-        <servlet-name>Registration</servlet-name>
-        <jsp-file>/jsp/registration.jsp</jsp-file>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/main</url-pattern>
@@ -27,11 +22,6 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Registration</servlet-name>
-        <url-pattern>/regis</url-pattern>
     </servlet-mapping>
 
     <filter>

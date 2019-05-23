@@ -26,7 +26,7 @@
         <input type="submit" value="Вход">
     </form>
 
-    <form action="${urlPrefix}/publicutilities/main" method="get" name="goregistration">
+    <form action="${urlPrefix}/publicutilities/main" method="get" name="getregistrationpage">
         <input type="hidden" name="command" value="getregistrationpage"/>
         <input type="submit" value="Регистрация">
     </form>

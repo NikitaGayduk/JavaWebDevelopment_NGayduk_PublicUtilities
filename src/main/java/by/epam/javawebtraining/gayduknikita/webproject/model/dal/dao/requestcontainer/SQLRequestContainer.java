@@ -101,16 +101,16 @@ public class SQLRequestContainer {
                     "WHERE tenant_id = ?";
 
 
-
-
     //order
     public static final String ORDER_GET_ALL_QUERY =
             "SELECT order_id, desired_time, tenant_id, order_state_id, works_begin, works_end, order_description " +
                     "FROM publicutilities.orders";
 
     public static final String ORDER_GET_BY_ID_QUERY =
-            "SELECT order_id, desired_time, tenant_id, order_state_id, works_begin, works_end, order_description " +
+            "SELECT order_id, desired_time, tenant_id, order_state_name, works_begin, works_end, order_description " +
                     "FROM publicutilities.orders " +
+                    "INNER JOIN publicutilities.order_states " +
+                    "USING (order_state_id) " +
                     "WHERE order_id = ?";
 
     public static final String ORDER_DELETE_BY_ID_QUERY =
@@ -130,13 +130,25 @@ public class SQLRequestContainer {
                     ", works_begin = ?, works_end = ?, order_description = ? " +
                     "WHERE order_id = ?";
 
-    public static final String ORDER_GET_BY_WORKER_ID =
-            "SELECT order_id, desired_time, tenant_id, order_state_id, works_begin, works_end, order_description " +
+    public static final String ORDER_GET_BY_TENANT_ID_QUERY =
+            "SELECT order_id, desired_time, tenant_id, order_state_name, works_begin, works_end, order_description " +
                     "FROM publicutilities.orders " +
-                    "INNER JOIN (SELECT order_id FROM publicutilities.order_workers WHERE employee_id = ?) as worker_orders " +
-                    "USING (order_id) " +
-                    "WHERE (order_state_id = 4) " +
-                    "ORDER BY works_begin " +
-                    "LIMIT ?, ?";
+                    "INNER JOIN publicutilities.order_states " +
+                    "USING (order_state_id) " +
+                    "WHERE tenant_id = ?  AND order_state_name IN ('WAITING_CONFIRM','WAITING_EXECUTION')";
+
+    public static final String ORDER_GET_BY_WORKER_ID_QUERY =
+            "SELECT order_id, desired_time, tenant_id, order_state_name, works_begin, works_end, order_description " +
+                    "FROM publicutilities.orders " +
+                    "INNER JOIN publicutilities.order_states " +
+                    "USING (order_state_id) " +
+                    "WHERE order_id IN (SELECT order_id FROM publicutilities.order_workers WHERE employee_id = ?) " +
+                    "AND order_state_name = 'WAITING_EXECUTION'";
+
+    //employee
+    public static final String EMPLOYEE_GET_BY_ACCOUNT_ID_QUERY =
+            "SELECT employee_id, employee_surname, employee_name, employee_patronymic, account_id " +
+                    "FROM publicutilities.employees " +
+                    "WHERE account_id = ?";
 
 }

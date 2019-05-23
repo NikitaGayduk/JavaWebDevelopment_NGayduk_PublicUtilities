@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
@@ -32,32 +32,32 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
     }
 
     @Override
-    public List<Account> getAll() throws DAOSQLException {
+    public List<Account> getAll() throws DAOException {
         return null;
     }
 
     @Override
-    public Account get(int id) throws DAOSQLException {
+    public Account get(int id) throws DAOException {
         return null;
     }
 
     @Override
-    public boolean delete(int id) throws DAOSQLException {
+    public boolean delete(int id) throws DAOException {
         return false;
     }
 
     @Override
-    public int add(Account entity) throws DAOSQLException {
+    public int add(Account entity) throws DAOException {
         return 0;
     }
 
     @Override
-    public boolean update(Account entity) throws DAOSQLException {
+    public boolean update(Account entity) throws DAOException {
         return false;
     }
 
     @Override
-    public Account getAccount(String login, String password) throws DAOSQLException {
+    public Account getAccount(String login, String password) throws DAOException {
         Account result = null;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -73,7 +73,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             }
             return result;
         } catch (SQLException exc) {
-            throw new DAOSQLException(exc.getMessage());
+            throw new DAOException(exc.getMessage());
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);

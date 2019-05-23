@@ -1,4 +1,4 @@
-package by.epam.javawebtraining.gayduknikita.webproject.controller.command.implementation;
+package by.epam.javawebtraining.gayduknikita.webproject.controller.command.implementation.ordercommand;
 
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Command;
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
@@ -14,21 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author NikitaGayduk
- * @date 20.05.2019
+ * @date 21.05.2019
  */
-public class OrderCreateCommand implements Command {
+public class OrderChangeStateCommand implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
             OrderService orderService = new BaseOrderService();
-            orderService.createOrder(request, response);
-            return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.REDIRECT);
+            orderService.changeOrderState(request);
+            orderService.setTenantOrdersAttribute(request);
+            return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);
         }
     }
+
 }

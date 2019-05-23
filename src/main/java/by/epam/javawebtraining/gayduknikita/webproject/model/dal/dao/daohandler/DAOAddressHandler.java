@@ -16,10 +16,10 @@ class DAOAddressHandler extends AbstractDAOHandler<Address> {
     @Override
     public Address build(ResultSet resultSet) throws SQLException {
         Address address = new Address();
-        address.setId(resultSet.getInt(Constants.ColumnName.ADDRESS_ID));
-        address.setHouse(resultSet.getInt(Constants.ColumnName.ADDRESS_HOUSE));
-        address.setApartments(resultSet.getInt(Constants.ColumnName.ADDRESS_APARTMENTS));
-        address.setStreet(resultSet.getString(Constants.ColumnName.STREET_NAME));
+        address.setId(resultSet.getInt(Constants.ADDRESS_ID));
+        address.setHouse(resultSet.getInt(Constants.ADDRESS_HOUSE));
+        address.setApartments(resultSet.getInt(Constants.ADDRESS_APARTMENTS));
+        address.setStreet(resultSet.getString(Constants.STREET_NAME));
 
         return address;
     }

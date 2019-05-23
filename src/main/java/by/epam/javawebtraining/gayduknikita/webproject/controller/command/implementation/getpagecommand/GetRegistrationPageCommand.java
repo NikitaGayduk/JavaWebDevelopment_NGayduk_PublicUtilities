@@ -6,6 +6,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutin
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation.BaseRegistrationService;
+import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,9 @@ public class GetRegistrationPageCommand implements Command {
             RegistrationService registration = new BaseRegistrationService();
             registration.fillTenantRegistrationPage(request, response);
 
-            return null;
+            System.out.println(request.getCharacterEncoding());
+
+            return new CommandResult(Constants.REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);

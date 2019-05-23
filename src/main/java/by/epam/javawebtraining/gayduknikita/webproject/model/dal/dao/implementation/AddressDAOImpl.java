@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation;
 
-import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOSQLException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AddressDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.AbstractDAOHandler;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.DAOHandlerFactory;
@@ -31,27 +31,27 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     }
 
     @Override
-    public List<Address> getAll() throws DAOSQLException {
+    public List<Address> getAll() throws DAOException {
         return null;
     }
 
     @Override
-    public Address get(int id) throws DAOSQLException {
+    public Address get(int id) throws DAOException {
         return null;
     }
 
     @Override
-    public boolean delete(int id) throws DAOSQLException {
+    public boolean delete(int id) throws DAOException {
         return false;
     }
 
     @Override
-    public int add(Address entity) throws DAOSQLException {
+    public int add(Address entity) throws DAOException {
         return 0;
     }
 
     @Override
-    public boolean update(Address entity) throws DAOSQLException {
+    public boolean update(Address entity) throws DAOException {
         return false;
     }
 }

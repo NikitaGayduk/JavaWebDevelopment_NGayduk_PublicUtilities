@@ -38,19 +38,19 @@ public class BaseDAO {
         }
     }
 
-    protected <T extends Entity> T get(String getSQLQuery, Connection connection
+    protected <T extends Entity> List<T> getByID(String getSQLQuery, Connection connection
             , AbstractDAOHandler<T> daoHandler, int id) throws SQLException {
 
         PreparedStatement statement = null;
 
         try {
-            T result = null;
+            List<T> result = new ArrayList<>();
             statement = connection.prepareStatement(getSQLQuery);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
-            if (rs.next()) {
-                result = daoHandler.build(rs);
+            while (rs.next()) {
+                result.add(daoHandler.build(rs));
             }
 
             return result;
@@ -111,8 +111,6 @@ public class BaseDAO {
         closeStatement(statement);
 
         return result;
-
-
     }
 
     protected void closeStatement(Statement statement) {
