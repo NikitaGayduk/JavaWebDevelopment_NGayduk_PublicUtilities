@@ -17,7 +17,7 @@
         <input type="hidden" name="command" value="createorder"/>
 
         Desired date:<br>
-        <input type="date" name="order_desired_date"><br>
+        <input type="date" name="order_desired_date" min="2019-05-23" max="9999-12-31"><br>
 
         Desired time:<br>
         <input type="time" name="order_desired_time"><br>

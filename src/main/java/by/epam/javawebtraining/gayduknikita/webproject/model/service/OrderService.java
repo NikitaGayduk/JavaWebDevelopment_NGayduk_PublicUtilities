@@ -18,6 +18,8 @@ public interface OrderService {
 
     public void setTenantOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException;
 
+    public void setWorkerOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException;
+
     public void changeOrderState(HttpServletRequest request) throws ServiceExecuttingException;
 
 }

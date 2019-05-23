@@ -2,11 +2,11 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AddressDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.OrderDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.OrderState;
-import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.*;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.OrderService;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author NikitaGayduk
@@ -23,6 +23,8 @@ import java.util.List;
 public class BaseOrderService implements OrderService {
     private static final Logger LOGGER = Logger.getRootLogger();
     private static final OrderDAO orderDAO = DAOFactory.getOrderDAO();
+    private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
+    private static final AddressDAO addressDAO = DAOFactory.getAddressDAO();
 
     @Override
     public void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
@@ -51,6 +53,39 @@ public class BaseOrderService implements OrderService {
             Tenant tenant = (Tenant) request.getSession().getAttribute(Constants.TENANT_ATTRIBUTE);
             List<Order> ordersList = orderDAO.getOrdersByTenant(tenant);
             request.setAttribute(Constants.ORDER_LIST_ATTRIBUTE, ordersList);
+
+        } catch (DAOException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new ServiceExecuttingException(exc);
+        }
+    }
+
+    @Override
+    public void setWorkerOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException {
+        try {
+            Employee employee = (Employee) request.getSession().getAttribute(Constants.EMPLOYEE_ATTRIBUTE);
+            List<Order> ordersList = orderDAO.getOrdersByWorker(employee);
+
+            Set<Integer> idSet = new HashSet<>();
+            for (Order order : ordersList) {
+                idSet.add(order.getTenantID());
+            }
+
+            Map<Integer, Tenant> tenantsMap = new HashMap<>();
+            for (Integer id : idSet) {
+                Tenant tenant = tenantDAO.get(id);
+                tenantsMap.put(tenant.getId(),tenant);
+            }
+
+            Map<Integer, Address> addressMap = new HashMap<>();
+            for(Tenant tenant : tenantsMap.values()){
+                Address address = addressDAO.get(tenant.getAddressID());
+                addressMap.put(address.getId(),address);
+            }
+
+            request.setAttribute(Constants.ORDER_LIST_ATTRIBUTE, ordersList);
+            request.setAttribute(Constants.TENANT_MAP_ATTRIBUTE, tenantsMap);
+            request.setAttribute(Constants.ADDRESS_MAP_ATTRIBUTE, addressMap);
 
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);

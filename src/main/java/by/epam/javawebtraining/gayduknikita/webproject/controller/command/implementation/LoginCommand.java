@@ -21,7 +21,6 @@ public class LoginCommand implements Command {
 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            System.out.println(request.getParameter(Constants.ACCOUNT_LOGIN));
             AuthorizationService authorization = new BaseAuthorizationService();
             String page = authorization.login(request, response);
             return new CommandResult(page, CommandResult.Action.FORWARD);

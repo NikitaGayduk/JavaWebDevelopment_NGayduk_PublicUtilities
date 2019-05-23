@@ -34,12 +34,16 @@ public class Constants {
     public static final String TENANT_ATTRIBUTE = "tenant";
     public static final String EMPLOYEE_ATTRIBUTE = "employee";
     public static final String ORDER_LIST_ATTRIBUTE = "orderList";
+    public static final String TENANT_MAP_ATTRIBUTE = "tenantMap";
+    public static final String ADDRESS_MAP_ATTRIBUTE = "addressMap";
 
     //servlet path
     public static final String LOGIN_PATH = "/login";
     public static final String REGISTRATION_PAGE_PATH = "/jsp/registration.jsp";
     public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
+    public static final String WORKER_MAIN_PAGE_PATH = "/jsp/workermain.jsp";
     public static final String CREATE_ORDER_PAGE_PATH = "/jsp/create_order.jsp";
+
 
     //database keys
     public static final String ROLE_TENANT_NAME = "TENANT";

@@ -2,12 +2,14 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+import by.epam.javawebtraining.gayduknikita.webproject.exception.logicexception.ValidationException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.ValidatorsFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -29,7 +31,7 @@ public class BaseRegistrationService implements RegistrationService {
     @Override
     public void registerTenant(HttpServletRequest request) throws ServiceExecuttingException {
         try {
-            //ValidatorsFactory.getRegistrationValidator().validate(request);
+            ValidatorsFactory.getRegistrationValidator().validate(request);
             Account account = new Account();
             account.setLogin(request.getParameter(Constants.ACCOUNT_LOGIN));
             account.setPassword(request.getParameter(Constants.ACCOUNT_PASSWORD));
@@ -47,9 +49,9 @@ public class BaseRegistrationService implements RegistrationService {
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
             request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
 
-/*        } catch (ValidationException exc){
+        } catch (ValidationException exc){
             LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);*/
+            throw new ServiceExecuttingException(exc);
         } catch (DAOException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);

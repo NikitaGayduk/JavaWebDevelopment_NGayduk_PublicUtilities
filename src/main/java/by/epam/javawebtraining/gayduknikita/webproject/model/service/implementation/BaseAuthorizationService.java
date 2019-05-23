@@ -57,6 +57,7 @@ public class BaseAuthorizationService implements AuthorizationService {
                 } else if (account.getRole() == Role.WORKER){
                     Employee worker = employeeDAO.getEmployeeByAccount(account);
                     request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, worker);
+                    new BaseOrderService().setWorkerOrdersAttribute(request);
                     result = "/jsp/workermain.jsp";
                 }
             }

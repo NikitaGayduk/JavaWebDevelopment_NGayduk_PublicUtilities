@@ -4,6 +4,8 @@ import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Comman
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutingException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.OrderService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation.BaseOrderService;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
@@ -24,8 +26,14 @@ public class OrderChangeStateCommand implements Command {
         try {
             OrderService orderService = new BaseOrderService();
             orderService.changeOrderState(request);
-            orderService.setTenantOrdersAttribute(request);
-            return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
+            if(request.getAttribute(Constants.ROLE_ATTRIBUTE) == Role.TENANT) {
+                orderService.setTenantOrdersAttribute(request);
+                return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
+            } else {
+                orderService.setWorkerOrdersAttribute(request);
+                return new CommandResult(Constants.WORKER_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
+            }
+
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);

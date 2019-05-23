@@ -7,6 +7,8 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.daohandler.
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.requestcontainer.SQLRequestContainer;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Address;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -37,7 +39,17 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
 
     @Override
     public Address get(int id) throws DAOException {
-        return null;
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+
+        } catch (SQLException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new DAOException(exc);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override

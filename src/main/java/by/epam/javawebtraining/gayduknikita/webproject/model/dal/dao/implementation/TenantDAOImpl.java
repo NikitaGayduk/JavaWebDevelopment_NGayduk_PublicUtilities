@@ -19,9 +19,10 @@ import java.util.List;
  */
 public class TenantDAOImpl extends BaseDAO implements TenantDAO {
     private AbstractDAOHandler<Tenant> daoHandler;
+    private String getSQLQuery;
 
     {
-
+        getSQLQuery = SQLRequestContainer.TENANT_GET_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOTenantHandler();
     }
 
@@ -32,7 +33,17 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
 
     @Override
     public Tenant get(int id) throws DAOException {
-        return null;
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+
+        } catch (SQLException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new DAOException(exc);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override
