@@ -12,6 +12,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.AccountValidator;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.RegistrationValidator;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
@@ -42,9 +43,13 @@ public class BaseRegistrationService implements RegistrationService {
     }
 
     @Override
-    public void registerTenant(HttpServletRequest request) throws ServiceExecuttingException {
+    public String registerTenant(HttpServletRequest request) throws ServiceExecuttingException {
         try {
-            //RegistrationValidator.getInstance().isValid(request);
+            if(!AccountValidator.getInstance().isValid(request)
+                    || !RegistrationValidator.getInstance().isValid(request)){
+                return Constants.REGISTRATION_PAGE_PATH;
+            }
+
             Account account = new Account();
             account.setLogin(request.getParameter(Constants.ACCOUNT_LOGIN));
             account.setPassword(request.getParameter(Constants.ACCOUNT_PASSWORD));
@@ -62,6 +67,7 @@ public class BaseRegistrationService implements RegistrationService {
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
             request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
 
+            return Constants.TENANT_MAIN_PAGE_PATH;
         } catch (DAOException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
@@ -69,9 +75,13 @@ public class BaseRegistrationService implements RegistrationService {
     }
 
     @Override
-    public void registerEmployee(HttpServletRequest request) throws ServiceExecuttingException {
+    public String registerEmployee(HttpServletRequest request) throws ServiceExecuttingException {
         try {
-            //ValidatorsFactory.getRegistrationValidator().validate(request);
+            if(!AccountValidator.getInstance().isValid(request)
+                    || !RegistrationValidator.getInstance().isValid(request)){
+                return Constants.EMPLOYEE_REGISTRATION_PAGE_PATH;
+            }
+
             Account account = new Account();
             account.setLogin(request.getParameter(Constants.ACCOUNT_LOGIN));
             account.setPassword(request.getParameter(Constants.ACCOUNT_PASSWORD));
@@ -89,9 +99,7 @@ public class BaseRegistrationService implements RegistrationService {
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
             request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, employee);
 
-        /*} catch (ValidationException exc){
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);*/
+            return Constants.EMPLOYEE_REGISTRATION_PAGE_PATH;
         } catch (DAOException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);

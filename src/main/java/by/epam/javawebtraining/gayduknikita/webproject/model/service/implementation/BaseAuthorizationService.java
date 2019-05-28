@@ -48,9 +48,7 @@ public class BaseAuthorizationService implements AuthorizationService {
 
             String result = null;
 
-            if (account == null) {
-                result = Constants.LOGIN_PATH;
-            } else {
+            if (account != null) {
                 request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
 
                 if (account.getRole() == Role.ADMINISTRATOR) {
@@ -83,6 +81,8 @@ public class BaseAuthorizationService implements AuthorizationService {
                     }
 
                 }
+            } else {
+                result = Constants.LOGIN_PATH;
             }
 
             return result;

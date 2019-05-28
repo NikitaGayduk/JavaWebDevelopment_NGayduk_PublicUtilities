@@ -21,9 +21,9 @@ public class EmployeeRegistrationCommand implements Command {
 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            RegistrationService registration = BaseRegistrationService.getInstance();
-            registration.registerEmployee(request);
-            return new CommandResult(Constants.ADMIN_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
+            String page = BaseRegistrationService.getInstance().registerEmployee(request);
+            return new CommandResult(page, CommandResult.Action.FORWARD);
+
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);
