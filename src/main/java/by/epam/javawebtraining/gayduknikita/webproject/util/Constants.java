@@ -33,23 +33,36 @@ public class Constants {
     public static final String ROLE_ATTRIBUTE = "role";
     public static final String TENANT_ATTRIBUTE = "tenant";
     public static final String EMPLOYEE_ATTRIBUTE = "employee";
+    public static final String ORDER_ATTRIBUTE = "order";
     public static final String ORDER_LIST_ATTRIBUTE = "orderList";
+    public static final String EMPLOYEE_LIST_ATTRIBUTE = "employeeList";
+    public static final String FREE_EMPLOYEE_LIST_ATTRIBUTE = "freeEmployeeList";
+    public static final String EMPLOYEE_STATE_LIST_ATTRIBUTE = "employeeStatesList";
+    public static final String ACCOUNT_MAP_ATTRIBUTE = "accountMap";
     public static final String TENANT_MAP_ATTRIBUTE = "tenantMap";
     public static final String ADDRESS_MAP_ATTRIBUTE = "addressMap";
+    public static final String ORDER_BEGIN_TIMESTAMP_ATTRIBUTE = "timestampBegin";
+    public static final String ORDER_END_TIMESTAMP_ATTRIBUTE = "timestampEnd";
 
     //servlet path
     public static final String LOGIN_PATH = "/login";
     public static final String REGISTRATION_PAGE_PATH = "/jsp/registration.jsp";
+    public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/jsp/employee_registration.jsp";
+    public static final String ADMIN_MAIN_PAGE_PATH = "/jsp/adminmain.jsp";
     public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
     public static final String WORKER_MAIN_PAGE_PATH = "/jsp/workermain.jsp";
+    public static final String OPERATOR_MAIN_PAGE_PATH = "/jsp/operatormain.jsp";
     public static final String CREATE_ORDER_PAGE_PATH = "/jsp/create_order.jsp";
+    public static final String TRANSLATE_MAIN_PAGE_PATH = "/jsp/testtranslate.jsp";
+    public static final String ORDER_TIME_PROCESSING_PAGE_PATH = "/jsp/process_order_time.jsp";
+    public static final String ORDER_WORKERS_PROCESSING_PAGE_PATH = "/jsp/process_order_workers.jsp";
 
 
     //database keys
     public static final String ROLE_TENANT_NAME = "TENANT";
 
     //filter constants
-    public static final String REQUEST_ENCODING ="UTF-8";
+    public static final String REQUEST_ENCODING = "UTF-8";
 
     //columns
     public static final String STREET_ID = "street_id";
@@ -59,6 +72,7 @@ public class Constants {
     public static final String ROLE_ID = "role_id";
     public static final String ORDER_ID = "order_id";
     public static final String ORDER_STATE_ID = "order_state_id";
+    public static final String EMPLOYEE_STATE_ID = "employee_state_id";
     public static final String EMPLOYEE_ID = "employee_id";
 
     public static final String STREET_NAME = "street_name";
@@ -84,13 +98,20 @@ public class Constants {
     public static final String EMPLOYEE_SURNAME = "employee_surname";
     public static final String EMPLOYEE_NAME = "employee_name";
     public static final String EMPLOYEE_PATRONYMIC = "employee_patronymic";
+    public static final String EMPLOYEE_STATE_NAME = "employee_state_name";
 
     //parameters
     public static final String LOCALE = "locale";
     public static final String PARAMETER_ORDER_ID = "order_id";
     public static final String PARAMETER_ORDER_DESIRED_DATE = "order_desired_date";
     public static final String PARAMETER_ORDER_DESIRED_TIME = "order_desired_time";
+    public static final String PARAMETER_ORDER_WORKS_BEGIN_DATE = "order_works_begin_date";
+    public static final String PARAMETER_ORDER_WORKS_BEGIN_TIME = "order_works_begin_time";
+    public static final String PARAMETER_ORDER_WORKS_END_DATE = "order_works_end_date";
+    public static final String PARAMETER_ORDER_WORKS_END_TIME = "order_works_end_time";
     public static final String PARAMETER_ORDER_DICRIPTION = "order_discription";
     public static final String PARAMETER_ORDER_STATE = "order_state";
 
+    public static final String PARAMETER_EMPLOYEE_ID = "employee_id";
+    public static final String PARAMETER_EMPLOYEE_STATE = "employee_state";
 }

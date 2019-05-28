@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author NikitaGayduk
@@ -21,7 +20,7 @@ import java.util.List;
  */
 public class BaseAuthorizationService implements AuthorizationService {
     private static final Logger LOGGER = Logger.getRootLogger();
-    private static final AccountDAO accountDAO = DAOFactory.getAccountDao();
+    private static final AccountDAO accountDAO = DAOFactory.getAccountDAO();
     private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
     private static final EmployeeDAO employeeDAO = DAOFactory.getEmployeeDAO();
 
@@ -43,22 +42,31 @@ public class BaseAuthorizationService implements AuthorizationService {
                 request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
 
                 if (account.getRole() == Role.ADMINISTRATOR) {
+
+                    new BaseEmployeeService().setEmployeeAttribute(request);
                     result = "/jsp/adminmain.jsp";
 
-                } else if (account.getRole() == Role.OPERATOR){
+                } else if (account.getRole() == Role.OPERATOR) {
+                    new BaseOrderService().setOperatorOrdersAttribute(request);
                     result = "/jsp/operatormain.jsp";
 
-                } else if (account.getRole() == Role.TENANT){
+                } else if (account.getRole() == Role.TENANT) {
                     Tenant tenant = tenantDAO.getTenantByAccount(account);
                     request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
                     new BaseOrderService().setTenantOrdersAttribute(request);
                     result = "/jsp/tenantmain.jsp";
 
-                } else if (account.getRole() == Role.WORKER){
+                } else if (account.getRole() == Role.WORKER) {
                     Employee worker = employeeDAO.getEmployeeByAccount(account);
-                    request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, worker);
-                    new BaseOrderService().setWorkerOrdersAttribute(request);
-                    result = "/jsp/workermain.jsp";
+                    if (worker.getEmployeeState() == Employee.EmployeeState.WORKS) {
+                        request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, worker);
+                        new BaseOrderService().setWorkerOrdersAttribute(request);
+                        result = "/jsp/workermain.jsp";
+                    } else {
+                        request.getSession().invalidate();
+                        result = Constants.LOGIN_PATH;
+                    }
+
                 }
             }
 
@@ -75,6 +83,6 @@ public class BaseAuthorizationService implements AuthorizationService {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
-            request.getSession().invalidate();
+        request.getSession().invalidate();
     }
 }

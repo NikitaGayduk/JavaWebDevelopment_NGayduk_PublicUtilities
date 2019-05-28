@@ -4,8 +4,10 @@ import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.logicexception.ValidationException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EmployeeDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
@@ -17,6 +19,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author NikitaGayduk
@@ -26,6 +30,7 @@ public class BaseRegistrationService implements RegistrationService {
     private static final Logger LOGGER = Logger.getRootLogger();
 
     private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
+    private static final EmployeeDAO employeeDAO = DAOFactory.getEmployeeDAO();
 
 
     @Override
@@ -60,7 +65,32 @@ public class BaseRegistrationService implements RegistrationService {
 
     @Override
     public void registerEmployee(HttpServletRequest request) throws ServiceExecuttingException {
+        try {
+            //ValidatorsFactory.getRegistrationValidator().validate(request);
+            Account account = new Account();
+            account.setLogin(request.getParameter(Constants.ACCOUNT_LOGIN));
+            account.setPassword(request.getParameter(Constants.ACCOUNT_PASSWORD));
+            account.setRole(Role.valueOf(request.getParameter(Constants.ROLE_NAME)));
 
+            Employee employee = new Employee();
+            employee.setEmployeeSurname(request.getParameter(Constants.EMPLOYEE_SURNAME));
+            employee.setEmployeeName(request.getParameter(Constants.EMPLOYEE_NAME));
+            employee.setEmployeePatronymic(request.getParameter(Constants.EMPLOYEE_PATRONYMIC));
+            employee.setAccountID(-1);
+            employee.setEmployeeState(Employee.EmployeeState.WORKS);
+
+            account.setId(employeeDAO.addEmployee(account,employee));
+
+            request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
+            request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, employee);
+
+        /*} catch (ValidationException exc){
+            LOGGER.error(exc);
+            throw new ServiceExecuttingException(exc);*/
+        } catch (DAOException exc){
+            LOGGER.error(exc);
+            throw new ServiceExecuttingException(exc);
+        }
     }
 
     @Override
@@ -74,5 +104,11 @@ public class BaseRegistrationService implements RegistrationService {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
         }*/
+    }
+
+    @Override
+    public void fillEmployeeRegistrationPage(HttpServletRequest request) throws ServiceExecuttingException {
+        List<Employee.EmployeeState> employeeStates = Arrays.asList(Employee.EmployeeState.values());
+        request.setAttribute(Constants.EMPLOYEE_STATE_LIST_ATTRIBUTE, employeeStates);
     }
 }

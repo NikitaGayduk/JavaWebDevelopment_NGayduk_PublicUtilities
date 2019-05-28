@@ -5,6 +5,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -17,4 +18,5 @@ public interface OrderDAO extends DAO<Order> {
 
     List<Order> getOrdersByWorker(Employee entity) throws DAOException;
 
+    List<Order> getAwaiting() throws DAOException;
 }

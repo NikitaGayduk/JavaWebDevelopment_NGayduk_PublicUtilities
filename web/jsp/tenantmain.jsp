@@ -50,5 +50,10 @@
         <input type="submit" value="Create order">
     </form>
 
+    <form action="${urlPrefix}/publicutilities/main" method="post" name="gettranslatepage">
+        <input type="hidden" name="command" value="gettranslatepage"/>
+        <input type="submit" value="Translate page">
+    </form>
+
 </body>
 </html>

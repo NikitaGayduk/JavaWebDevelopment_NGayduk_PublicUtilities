@@ -23,11 +23,11 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
     private String updateSQLQuery;
 
     {
-        String getAllSQLQuery = SQLRequestContainer.ACCOUNT_GET_ALL_QUERY;
-        String getSQLQuery = SQLRequestContainer.ACCOUNT_GET_BY_ID_QUERY;
-        String deleteSQLQuery = SQLRequestContainer.ACCOUNT_DELETE_BY_ID_QUERY;
-        String addSQLQuery = SQLRequestContainer.ACCOUNT_ADD_QUERY;
-        String updateSQLQuery = SQLRequestContainer.ACCOUNT_UPDATE_BY_ID_QUERY;
+        getAllSQLQuery = SQLRequestContainer.ACCOUNT_GET_ALL_QUERY;
+        getSQLQuery = SQLRequestContainer.ACCOUNT_GET_BY_ID_QUERY;
+        deleteSQLQuery = SQLRequestContainer.ACCOUNT_DELETE_BY_ID_QUERY;
+        addSQLQuery = SQLRequestContainer.ACCOUNT_ADD_QUERY;
+        updateSQLQuery = SQLRequestContainer.ACCOUNT_UPDATE_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOAccountHandler();
     }
 
@@ -38,7 +38,17 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
 
     @Override
     public Account get(int id) throws DAOException {
-        return null;
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+
+        } catch (SQLException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new DAOException(exc);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override

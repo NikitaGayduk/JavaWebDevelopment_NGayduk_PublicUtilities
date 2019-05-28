@@ -16,7 +16,7 @@ public class DAOFactory {
     private DAOFactory() {
     }
 
-    public static AccountDAO getAccountDao(){
+    public static AccountDAO getAccountDAO(){
         return accountDAO;
     }
 

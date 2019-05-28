@@ -21,6 +21,7 @@ class DAOEmployeeHandler extends AbstractDAOHandler<Employee> {
         employee.setEmployeeName(resultSet.getString(Constants.EMPLOYEE_NAME));
         employee.setEmployeePatronymic(resultSet.getString(Constants.EMPLOYEE_PATRONYMIC));
         employee.setAccountID(resultSet.getInt(Constants.ACCOUNT_ID));
+        employee.setEmployeeState(Employee.EmployeeState.valueOf(resultSet.getString(Constants.EMPLOYEE_STATE_NAME)));
 
         return employee;
     }
@@ -32,9 +33,10 @@ class DAOEmployeeHandler extends AbstractDAOHandler<Employee> {
             statement.setString(2, entity.getEmployeeName());
             statement.setString(3, entity.getEmployeePatronymic());
             statement.setInt(4,entity.getAccountID());
+            statement.setString(5,entity.getEmployeeState().name());
 
             if (useID) {
-                statement.setInt(5, entity.getId());
+                statement.setInt(6, entity.getId());
             }
         }
     }

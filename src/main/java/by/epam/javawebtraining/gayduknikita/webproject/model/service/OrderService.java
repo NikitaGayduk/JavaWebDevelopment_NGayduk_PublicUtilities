@@ -20,6 +20,12 @@ public interface OrderService {
 
     public void setWorkerOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException;
 
+    public void setOperatorOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException;
+
+    public void setOrderAttribute(HttpServletRequest request) throws ServiceExecuttingException;
+
     public void changeOrderState(HttpServletRequest request) throws ServiceExecuttingException;
+
+    public Order changeOrderBeginEndTime(HttpServletRequest request) throws ServiceExecuttingException;
 
 }

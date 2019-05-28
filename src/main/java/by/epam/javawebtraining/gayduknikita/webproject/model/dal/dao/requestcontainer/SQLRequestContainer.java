@@ -145,10 +145,86 @@ public class SQLRequestContainer {
                     "WHERE order_id IN (SELECT order_id FROM publicutilities.order_workers WHERE employee_id = ?) " +
                     "AND order_state_name = 'WAITING_EXECUTION'";
 
+    public static final String ORDER_GET_ALL_AWAITING_QUERY =
+            "SELECT order_id, desired_time, tenant_id, order_state_name, works_begin, works_end, order_description " +
+                    "FROM publicutilities.orders " +
+                    "INNER JOIN publicutilities.order_states " +
+                    "USING (order_state_id) " +
+                    "WHERE order_state_name = 'WAITING_CONFIRM'";
+
+    public static final String ORDER_GET_BY_TIME_PERIOD_QUERY =
+            "SELECT * FROM publicutilities.orders " +
+                    "WHERE (works_begin between ? and ? " +
+                    "OR works_end between ? and ?)";
+
+
     //employee
-    public static final String EMPLOYEE_GET_BY_ACCOUNT_ID_QUERY =
-            "SELECT employee_id, employee_surname, employee_name, employee_patronymic, account_id " +
+    public static final String EMPLOYEE_GET_ALL_QUERY =
+            "SELECT employee_id, employee_surname, employee_name" +
+                    ", employee_patronymic, account_id, employee_state_name " +
                     "FROM publicutilities.employees " +
+                    "INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id)";
+
+    public static final String EMPLOYEE_GET_BY_ID_QUERY =
+            "SELECT employee_id, employee_surname, employee_name" +
+                    ", employee_patronymic, account_id, employee_state_name " +
+                    "FROM publicutilities.employees " +
+                    "INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id) " +
+                    "WHERE employee_id = ?";
+
+    public static final String EMPLOYEE_ADD_QUERY =
+            "INSERT INTO publicutilities.employees " +
+                    "(employee_surname, employee_name, employee_patronymic, account_id, employee_state_id) " +
+                    "VALUES (?, ?, ?, ?, " +
+                    "(SELECT employee_state_id FROM publicutilities.employee_states WHERE employee_state_name = ?))";
+
+    public static final String EMPLOYEE_GET_BY_ACCOUNT_ID_QUERY =
+            "SELECT employee_id, employee_surname, employee_name" +
+                    ", employee_patronymic, account_id, employee_state_name " +
+                    "FROM publicutilities.employees " +
+                    "INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id) " +
                     "WHERE account_id = ?";
 
+    public static final String EMPLOYEE_UPDATE_BY_ID_QUERY =
+            "UPDATE publicutilities.employees " +
+                    "SET employee_surname = ?, employee_name = ?, employee_patronymic = ?, " +
+                    "account_id = ?, employee_state_id = " +
+                    "(SELECT employee_state_id FROM publicutilities.employee_states WHERE employee_state_name = ?) " +
+                    "WHERE employee_id = ?";
+
+    public static final String EMPLOYEE_GET_ALL_WORKS_QUERY =
+            "SELECT employee_id, employee_surname, employee_name" +
+                    ", employee_patronymic, account_id, employee_state_name " +
+                    "FROM publicutilities.employees " +
+                    "INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id) " +
+                    "WHERE employee_state_name = 'WORKS'";
+
+    public static final String EMPLOYEE_GET_BY_ORDER_ID_QUERY =
+            "SELECT employee_id, employee_surname, employee_name" +
+                    ", employee_patronymic, account_id, employee_state_name " +
+                    "FROM publicutilities.employees " +
+                    "INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id) " +
+                    "WHERE employee_id IN (SELECT employee_id FROM publicutilities.order_workers WHERE order_id = ?)";
+
+    public static final String EMPLOYEE_GET_FREE_DURING_TIME_QUERY =
+            "SELECT employee_id, employee_surname, employee_name, employee_patronymic, account_id" +
+                    ", employee_state_name " +
+                    "FROM publicutilities.employees INNER JOIN publicutilities.employee_states " +
+                    "USING (employee_state_id) " +
+                    "INNER JOIN publicutilities.accounts USING (account_id) WHERE role_id = 4 " +
+                    "AND employee_id NOT IN( " +
+                    "SELECT employee_id FROM publicutilities.order_workers WHERE order_id " +
+                    "IN (SELECT order_id FROM publicutilities.orders " +
+                    "WHERE (works_begin between ? and ? " +
+                    "OR works_end between ? and ?)))";
+
+    public static final String EMPLOYEE_ORDER_ADD_QUERY =
+            "INSERT INTO publicutilities.order_workers " +
+                    "(order_id, employee_id) " +
+                    "VALUES (?, ?)";
 }

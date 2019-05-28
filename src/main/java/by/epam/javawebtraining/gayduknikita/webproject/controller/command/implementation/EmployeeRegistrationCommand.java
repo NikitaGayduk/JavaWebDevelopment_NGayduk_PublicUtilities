@@ -1,4 +1,4 @@
-package by.epam.javawebtraining.gayduknikita.webproject.controller.command.implementation.getpagecommand;
+package by.epam.javawebtraining.gayduknikita.webproject.controller.command.implementation;
 
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Command;
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
@@ -14,19 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author NikitaGayduk
- * @date 09.05.2019
+ * @date 25.05.2019
  */
-public class GetRegistrationPageCommand implements Command {
+public class EmployeeRegistrationCommand implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 
-    @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
             RegistrationService registration = new BaseRegistrationService();
-            registration.fillTenantRegistrationPage(request, response);
-
-            return new CommandResult(Constants.REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);
-
+            registration.registerEmployee(request);
+            return new CommandResult(Constants.ADMIN_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);

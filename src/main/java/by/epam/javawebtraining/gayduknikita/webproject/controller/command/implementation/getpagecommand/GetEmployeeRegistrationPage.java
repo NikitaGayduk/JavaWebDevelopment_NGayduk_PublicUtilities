@@ -14,18 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author NikitaGayduk
- * @date 09.05.2019
+ * @date 25.05.2019
  */
-public class GetRegistrationPageCommand implements Command {
+public class GetEmployeeRegistrationPage implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
             RegistrationService registration = new BaseRegistrationService();
-            registration.fillTenantRegistrationPage(request, response);
+            registration.fillEmployeeRegistrationPage(request);
 
-            return new CommandResult(Constants.REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);
+            return new CommandResult(Constants.EMPLOYEE_REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
