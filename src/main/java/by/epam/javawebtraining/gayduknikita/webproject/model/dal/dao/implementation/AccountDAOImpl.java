@@ -15,6 +15,7 @@ import java.util.List;
  * @date 07.05.2019
  */
 public class AccountDAOImpl extends BaseDAO implements AccountDAO {
+    private static final AccountDAOImpl instance = new AccountDAOImpl();
     private AbstractDAOHandler<Account> daoHandler;
     private String getAllSQLQuery;
     private String getSQLQuery;
@@ -29,6 +30,13 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
         addSQLQuery = SQLRequestContainer.ACCOUNT_ADD_QUERY;
         updateSQLQuery = SQLRequestContainer.ACCOUNT_UPDATE_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOAccountHandler();
+    }
+
+    private AccountDAOImpl() {
+    }
+
+    public static AccountDAOImpl getInstance(){
+        return instance;
     }
 
     @Override

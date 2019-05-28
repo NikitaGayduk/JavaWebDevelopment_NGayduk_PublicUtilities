@@ -21,10 +21,10 @@ public class LogoutCommand implements Command {
 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            AuthorizationService authorization = new BaseAuthorizationService();
-            authorization.logout(request, response);
+            AuthorizationService authorization = BaseAuthorizationService.getInstance();
+            String page = authorization.logout(request, response);
 
-            return new CommandResult(Constants.LOGIN_PATH, CommandResult.Action.REDIRECT);
+            return new CommandResult(page, CommandResult.Action.REDIRECT);
         } catch (ServiceExecuttingException exc) {
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);

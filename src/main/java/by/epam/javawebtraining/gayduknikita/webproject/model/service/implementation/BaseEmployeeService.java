@@ -3,9 +3,11 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EmployeeDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.OrderDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.AccountDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.EmployeeDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.OrderDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Employee;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
@@ -25,10 +27,17 @@ import java.util.Map;
  * @date 25.05.2019
  */
 public class BaseEmployeeService implements EmployeeService {
+    private static final BaseEmployeeService instance = new BaseEmployeeService();
     private static final Logger LOGGER = Logger.getRootLogger();
-    private static final EmployeeDAO employeeDAO = DAOFactory.getEmployeeDAO();
-    private static final OrderDAO orderDAO = DAOFactory.getOrderDAO();
-    private static final AccountDAO accountDAO = DAOFactory.getAccountDAO();
+    private static final AccountDAO accountDAO = AccountDAOImpl.getInstance();
+    private static final EmployeeDAO employeeDAO = EmployeeDAOImpl.getInstance();
+
+    private BaseEmployeeService() {
+    }
+
+    public static BaseEmployeeService getInstance(){
+        return instance;
+    }
 
     @Override
     public void setEmployeeAttribute(HttpServletRequest request) throws ServiceExecuttingException {

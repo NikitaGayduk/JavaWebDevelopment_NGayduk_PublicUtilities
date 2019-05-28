@@ -18,12 +18,20 @@ import java.util.List;
  * @date 04.05.2019
  */
 public class TenantDAOImpl extends BaseDAO implements TenantDAO {
+    private static final TenantDAOImpl instance = new TenantDAOImpl();
     private AbstractDAOHandler<Tenant> daoHandler;
     private String getSQLQuery;
 
     {
         getSQLQuery = SQLRequestContainer.TENANT_GET_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOTenantHandler();
+    }
+
+    private TenantDAOImpl() {
+    }
+
+    public static TenantDAOImpl getInstance(){
+        return instance;
     }
 
     @Override

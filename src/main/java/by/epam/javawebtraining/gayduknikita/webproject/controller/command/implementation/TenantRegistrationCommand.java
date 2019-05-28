@@ -21,7 +21,7 @@ public class TenantRegistrationCommand implements Command {
 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            RegistrationService registration = new BaseRegistrationService();
+            RegistrationService registration = BaseRegistrationService.getInstance();
             registration.registerTenant(request);
             return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
         } catch (ServiceExecuttingException exc){

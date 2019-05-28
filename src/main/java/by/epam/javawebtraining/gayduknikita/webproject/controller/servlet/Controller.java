@@ -34,30 +34,30 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp);
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp);
+        processRequest(req, resp);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
             String command = request.getParameter(Constants.REQUEST_COMMAND_PARAMETER);
             CommandResult nextPage = CMDManager.getInstance().getCommand(command).execute(request, response);
 
-            if(nextPage != null && nextPage.getAction() != null && nextPage.getPage() != null) {
-                if (nextPage.getAction() == CommandResult.Action.FORWARD) {
-                    request.getRequestDispatcher(nextPage.getPage()).forward(request, response);
-                } else {
-                    response.sendRedirect(request.getContextPath() + nextPage.getPage());
-                }
+            if (nextPage.getAction() == CommandResult.Action.FORWARD) {
+                request.getRequestDispatcher(nextPage.getPage()).forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + nextPage.getPage());
             }
+
         } catch (UnsupportedCommandException exc) {
             throw new ServletException(exc);
-        }catch (CommandExecutingException exc) {
+        } catch (CommandExecutingException exc) {
             LOGGER.error(exc);
             throw new ServletException(exc);
         }

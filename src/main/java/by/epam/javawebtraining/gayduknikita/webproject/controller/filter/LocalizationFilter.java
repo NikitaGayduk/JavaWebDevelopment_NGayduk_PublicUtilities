@@ -1,5 +1,7 @@
 package by.epam.javawebtraining.gayduknikita.webproject.controller.filter;
 
+import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,8 +25,8 @@ public class LocalizationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession();
 
-        if (session.getAttribute("language") == null) {
-            session.setAttribute("language", "en");
+        if (session.getAttribute(Constants.LANGUAGE_ATTRIBUTE) == null) {
+            session.setAttribute(Constants.LANGUAGE_ATTRIBUTE, "en");
         }
 
         chain.doFilter(request, response);

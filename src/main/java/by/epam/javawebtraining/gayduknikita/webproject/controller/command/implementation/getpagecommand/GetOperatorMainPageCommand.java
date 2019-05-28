@@ -21,7 +21,7 @@ public class GetOperatorMainPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            new BaseOrderService().setOperatorOrdersAttribute(request);
+            BaseOrderService.getInstance().setOperatorOrdersAttribute(request);
             return new CommandResult(Constants.OPERATOR_MAIN_PAGE_PATH, CommandResult.Action.REDIRECT);
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);

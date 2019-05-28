@@ -22,7 +22,7 @@ public class GetEmployeeRegistrationPage implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            RegistrationService registration = new BaseRegistrationService();
+            RegistrationService registration = BaseRegistrationService.getInstance();
             registration.fillEmployeeRegistrationPage(request);
 
             return new CommandResult(Constants.EMPLOYEE_REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);

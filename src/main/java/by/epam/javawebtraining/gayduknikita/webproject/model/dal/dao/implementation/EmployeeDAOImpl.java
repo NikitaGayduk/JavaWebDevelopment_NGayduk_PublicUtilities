@@ -17,6 +17,7 @@ import java.util.List;
  * @date 09.05.2019
  */
 public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
+    private static final EmployeeDAOImpl instance = new EmployeeDAOImpl();
     private AbstractDAOHandler<Employee> daoHandler;
     private String getAllSQLQuery;
     private String getSQLQuery;
@@ -35,6 +36,13 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
         getFreeDuringTimeSQLQuery = SQLRequestContainer.EMPLOYEE_GET_FREE_DURING_TIME_QUERY;
         addOrderWorkerSQLQuery = SQLRequestContainer.EMPLOYEE_ORDER_ADD_QUERY;
         daoHandler = DAOHandlerFactory.getDAOEmployeeHandler();
+    }
+
+    private EmployeeDAOImpl() {
+    }
+
+    public static EmployeeDAOImpl getInstance(){
+        return instance;
     }
 
     @Override

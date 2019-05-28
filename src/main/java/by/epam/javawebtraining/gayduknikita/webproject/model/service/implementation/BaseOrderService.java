@@ -3,9 +3,11 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AddressDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.OrderDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.AddressDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.OrderDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.*;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.OrderService;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
@@ -22,10 +24,18 @@ import java.util.*;
  * @date 20.05.2019
  */
 public class BaseOrderService implements OrderService {
+    private static final BaseOrderService instance = new BaseOrderService();
     private static final Logger LOGGER = Logger.getRootLogger();
-    private static final OrderDAO orderDAO = DAOFactory.getOrderDAO();
-    private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
-    private static final AddressDAO addressDAO = DAOFactory.getAddressDAO();
+    private static final OrderDAO orderDAO = OrderDAOImpl.getInstance();
+    private static final TenantDAO tenantDAO = TenantDAOImpl.getInstance();
+    private static final AddressDAO addressDAO = AddressDAOImpl.getInstance();
+
+    private BaseOrderService() {
+    }
+
+    public static BaseOrderService getInstance(){
+        return instance;
+    }
 
     @Override
     public void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {

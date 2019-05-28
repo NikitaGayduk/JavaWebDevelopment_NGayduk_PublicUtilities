@@ -3,11 +3,15 @@ package by.epam.javawebtraining.gayduknikita.webproject.model.service.implementa
 import by.epam.javawebtraining.gayduknikita.webproject.exception.DAOException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.AccountDAO;
-import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.DAOFactory;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.EmployeeDAO;
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.TenantDAO;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.AccountDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.EmployeeDAOImpl;
+import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.*;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.AuthorizationService;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.AccountValidator;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.Validator;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
 
@@ -19,20 +23,28 @@ import javax.servlet.http.HttpServletResponse;
  * @date 08.05.2019
  */
 public class BaseAuthorizationService implements AuthorizationService {
+    private static final BaseAuthorizationService instance = new BaseAuthorizationService();
     private static final Logger LOGGER = Logger.getRootLogger();
-    private static final AccountDAO accountDAO = DAOFactory.getAccountDAO();
-    private static final TenantDAO tenantDAO = DAOFactory.getTenantDAO();
-    private static final EmployeeDAO employeeDAO = DAOFactory.getEmployeeDAO();
+    private static final AccountDAO accountDAO = AccountDAOImpl.getInstance();
+    private static final TenantDAO tenantDAO = TenantDAOImpl.getInstance();
+    private static final EmployeeDAO employeeDAO = EmployeeDAOImpl.getInstance();
+
+    private BaseAuthorizationService() {
+    }
+
+    public static BaseAuthorizationService getInstance(){
+        return instance;
+    }
 
     @Override
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
         try {
-            //ValidatorsFactory.getAuthorizationValidator().validate(request);
+            if(!AccountValidator.getInstance().isValid(request)){
+                return Constants.LOGIN_PATH;
+            }
 
-            String login = request.getParameter(Constants.ACCOUNT_LOGIN);
-            String password = request.getParameter(Constants.ACCOUNT_PASSWORD);
-
-            Account account = accountDAO.getAccount(login, password);
+            Account account = accountDAO.getAccount(request.getParameter(Constants.ACCOUNT_LOGIN)
+                    , request.getParameter(Constants.ACCOUNT_PASSWORD));
 
             String result = null;
 
@@ -43,25 +55,28 @@ public class BaseAuthorizationService implements AuthorizationService {
 
                 if (account.getRole() == Role.ADMINISTRATOR) {
 
-                    new BaseEmployeeService().setEmployeeAttribute(request);
-                    result = "/jsp/adminmain.jsp";
-
-                } else if (account.getRole() == Role.OPERATOR) {
-                    new BaseOrderService().setOperatorOrdersAttribute(request);
-                    result = "/jsp/operatormain.jsp";
+                    BaseEmployeeService.getInstance().setEmployeeAttribute(request);
+                    result = Constants.ADMIN_MAIN_PAGE_PATH;
 
                 } else if (account.getRole() == Role.TENANT) {
                     Tenant tenant = tenantDAO.getTenantByAccount(account);
                     request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
-                    new BaseOrderService().setTenantOrdersAttribute(request);
-                    result = "/jsp/tenantmain.jsp";
+                    BaseOrderService.getInstance().setTenantOrdersAttribute(request);
+                    result = Constants.TENANT_MAIN_PAGE_PATH;
 
-                } else if (account.getRole() == Role.WORKER) {
-                    Employee worker = employeeDAO.getEmployeeByAccount(account);
-                    if (worker.getEmployeeState() == Employee.EmployeeState.WORKS) {
-                        request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, worker);
-                        new BaseOrderService().setWorkerOrdersAttribute(request);
-                        result = "/jsp/workermain.jsp";
+                } else if (account.getRole() == Role.WORKER || account.getRole() == Role.OPERATOR){
+                    Employee employee = employeeDAO.getEmployeeByAccount(account);
+
+                    if (employee.getEmployeeState() == Employee.EmployeeState.WORKS) {
+                        request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, employee);
+
+                        if (account.getRole() == Role.WORKER) {
+                            BaseOrderService.getInstance().setWorkerOrdersAttribute(request);
+                            result = Constants.WORKER_MAIN_PAGE_PATH;
+                        } else {
+                            BaseOrderService.getInstance().setOperatorOrdersAttribute(request);
+                            result = Constants.OPERATOR_MAIN_PAGE_PATH;
+                        }
                     } else {
                         request.getSession().invalidate();
                         result = Constants.LOGIN_PATH;
@@ -72,9 +87,6 @@ public class BaseAuthorizationService implements AuthorizationService {
 
             return result;
 
-/*        } catch (ValidationException exc){
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);*/
         } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
@@ -82,7 +94,8 @@ public class BaseAuthorizationService implements AuthorizationService {
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
         request.getSession().invalidate();
+        return Constants.LOGIN_PATH;
     }
 }

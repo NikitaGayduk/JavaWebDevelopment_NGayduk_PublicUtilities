@@ -24,9 +24,8 @@ public class GetOrderProcessPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            OrderService orderService = new BaseOrderService();
-            EmployeeService employeeService = new BaseEmployeeService();
-
+            OrderService orderService = BaseOrderService.getInstance();
+            EmployeeService employeeService = BaseEmployeeService.getInstance();
             orderService.setOrderAttribute(request);
 
             return new CommandResult(Constants.ORDER_TIME_PROCESSING_PAGE_PATH, CommandResult.Action.FORWARD);

@@ -18,6 +18,7 @@ import java.util.List;
  * @date 09.05.2019
  */
 public class OrderDAOImpl extends BaseDAO implements OrderDAO {
+    private static final OrderDAOImpl instance = new OrderDAOImpl();
     private AbstractDAOHandler<Order> daoHandler;
     private String getAllSQLQuery;
     private String getSQLQuery;
@@ -38,6 +39,13 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         getByTenantIDSQLQuery = SQLRequestContainer.ORDER_GET_BY_TENANT_ID_QUERY;
         getByWorkerIDSQLQuery = SQLRequestContainer.ORDER_GET_BY_WORKER_ID_QUERY;
         getAllAwaitingSQLQuery = SQLRequestContainer.ORDER_GET_ALL_AWAITING_QUERY;
+    }
+
+    private OrderDAOImpl() {
+    }
+
+    public static OrderDAOImpl getInstance(){
+        return instance;
     }
 
     @Override

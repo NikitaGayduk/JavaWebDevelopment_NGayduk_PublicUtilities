@@ -13,6 +13,6 @@ public interface AuthorizationService {
 
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
 
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
 
 }

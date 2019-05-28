@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 
@@ -19,12 +20,20 @@ public class ChangeLocaleCommand implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
-        String newLocale = request.getParameter(Constants.LOCALE);
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response)
+            throws CommandExecutingException {
 
-        request.getSession().setAttribute(Constants.LOCALE, newLocale);
-        Config.set(request.getSession(), Config.FMT_LOCALE, newLocale);
+            String language = request.getParameter(Constants.PARAMETER_LANGUAGE);
+            request.getSession().setAttribute(Constants.LANGUAGE_ATTRIBUTE, language);
 
-        return new CommandResult(request.getRequestURI(), CommandResult.Action.REDIRECT);
+        System.out.println(request.getContextPath());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getPathInfo());
+        System.out.println(request.getPathTranslated());
+        System.out.println(request.getRequestURL());
+        System.out.println(request.getServletPath());
+        System.out.println(request.getLocalName());
+
+            return new CommandResult(request.getRequestURI(), CommandResult.Action.FORWARD);
     }
 }

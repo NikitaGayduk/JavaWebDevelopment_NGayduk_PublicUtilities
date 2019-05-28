@@ -22,9 +22,10 @@ public class LoginCommand implements Command {
 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            AuthorizationService authorization = new BaseAuthorizationService();
-            String page = authorization.login(request, response);
+
+            String page = BaseAuthorizationService.getInstance().login(request, response);
             return new CommandResult(page, CommandResult.Action.FORWARD);
+
         } catch (ServiceExecuttingException exc) {
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);

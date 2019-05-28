@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface Validator {
 
-    // TODO: 08.05.2019 solve problem with validation regex
-    public void validate(HttpServletRequest request) throws ValidationException;
+    public boolean isValid(HttpServletRequest request) ;
 
 }

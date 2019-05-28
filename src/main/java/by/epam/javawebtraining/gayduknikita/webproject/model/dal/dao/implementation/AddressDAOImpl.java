@@ -16,6 +16,7 @@ import java.util.List;
  * @date 09.05.2019
  */
 public class AddressDAOImpl extends BaseDAO implements AddressDAO {
+    private static final AddressDAOImpl instance = new AddressDAOImpl();
     private AbstractDAOHandler<Address> daoHandler;
     private String getAllSQLQuery;
     private String getSQLQuery;
@@ -30,6 +31,13 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
         addSQLQuery = SQLRequestContainer.ADDRESS_ADD_QUERY;
         updateSQLQuery = SQLRequestContainer.ADDRESS_UPDATE_BY_ID_QUERY;
         daoHandler = DAOHandlerFactory.getDAOAddressHandler();
+    }
+
+    private AddressDAOImpl() {
+    }
+
+    public static AddressDAOImpl getInstance(){
+        return instance;
     }
 
     @Override

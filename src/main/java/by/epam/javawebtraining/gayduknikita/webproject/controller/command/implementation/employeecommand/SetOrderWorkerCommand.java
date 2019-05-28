@@ -24,7 +24,7 @@ public class SetOrderWorkerCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            EmployeeService employeeService = new BaseEmployeeService();
+            EmployeeService employeeService = BaseEmployeeService.getInstance();
             employeeService.setOrderWorker(request);
 
             employeeService.setOrderEmployeeAttribute(request);

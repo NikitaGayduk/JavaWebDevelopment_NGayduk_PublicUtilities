@@ -24,11 +24,15 @@ public class Constants {
     //validation constants
     public static final String LOGIN_REGEX = "\\A[A-Za-z0-9]{2,20}\\Z";
     public static final String PASSWORD_REGEX = "\\A[A-Za-z0-9]{5,20}\\Z";
-    public static final String SURNAME_REGEX = "\\A[A-ZА-Я][a-zа-я]{2,34}\\Z";
-    public static final String NAME_REGEX = "\\A[A-ZА-Я][a-zа-я]{2,24}\\Z";
-    public static final String PATRONYMIC_REGEX = "\\A[A-ZА-Я][a-zа-я]{2,24}\\Z";
+
+    public static final String SURNAME_REGEX = "\\A[А-Я][а-я]{2,34}\\Z";
+    public static final String NAME_REGEX = "\\A[А-Я][а-я]{2,24}\\Z";
+    public static final String PATRONYMIC_REGEX = "\\A[А-Я][а-я]{2,24}\\Z";
+
+    public static final String ORDER_DESCRIPTION_REGEX = "\\A[А-Я][а-я]{5,44}\\Z";
 
     //JSP attributes
+    public static final String LANGUAGE_ATTRIBUTE = "language";
     public static final String ACCOUNT_ATTRIBUTE = "account";
     public static final String ROLE_ATTRIBUTE = "role";
     public static final String TENANT_ATTRIBUTE = "tenant";
@@ -45,15 +49,16 @@ public class Constants {
     public static final String ORDER_END_TIMESTAMP_ATTRIBUTE = "timestampEnd";
 
     //servlet path
-    public static final String LOGIN_PATH = "/login";
+    public static final String ERROR_PAGE_PATH = "/WEB-INF/jsp/error_page.jsp";
+    public static final String LOGIN_PATH = "/jsp/login.jsp";
     public static final String REGISTRATION_PAGE_PATH = "/jsp/registration.jsp";
     public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/jsp/employee_registration.jsp";
-    public static final String ADMIN_MAIN_PAGE_PATH = "/jsp/adminmain.jsp";
+    public static final String ADMIN_MAIN_PAGE_PATH = "/WEB-INF/jsp/adminmain.jsp";
     public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
     public static final String WORKER_MAIN_PAGE_PATH = "/jsp/workermain.jsp";
     public static final String OPERATOR_MAIN_PAGE_PATH = "/jsp/operatormain.jsp";
     public static final String CREATE_ORDER_PAGE_PATH = "/jsp/create_order.jsp";
-    public static final String TRANSLATE_MAIN_PAGE_PATH = "/jsp/testtranslate.jsp";
+    public static final String TRANSLATE_MAIN_PAGE_PATH = "/WEB-INF/jsp/testtranslate.jsp";
     public static final String ORDER_TIME_PROCESSING_PAGE_PATH = "/jsp/process_order_time.jsp";
     public static final String ORDER_WORKERS_PROCESSING_PAGE_PATH = "/jsp/process_order_workers.jsp";
 
@@ -101,7 +106,7 @@ public class Constants {
     public static final String EMPLOYEE_STATE_NAME = "employee_state_name";
 
     //parameters
-    public static final String LOCALE = "locale";
+    public static final String PARAMETER_LANGUAGE = "language";
     public static final String PARAMETER_ORDER_ID = "order_id";
     public static final String PARAMETER_ORDER_DESIRED_DATE = "order_desired_date";
     public static final String PARAMETER_ORDER_DESIRED_TIME = "order_desired_time";

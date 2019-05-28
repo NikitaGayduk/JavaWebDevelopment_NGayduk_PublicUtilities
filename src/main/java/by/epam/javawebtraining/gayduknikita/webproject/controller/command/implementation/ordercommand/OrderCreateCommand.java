@@ -22,10 +22,10 @@ public class OrderCreateCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            OrderService orderService = new BaseOrderService();
+            OrderService orderService = BaseOrderService.getInstance();
             orderService.createOrder(request, response);
             orderService.setTenantOrdersAttribute(request);
-            return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
+            return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.REDIRECT);
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);

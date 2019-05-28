@@ -22,8 +22,10 @@ public class GetRegistrationPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
-            RegistrationService registration = new BaseRegistrationService();
+            RegistrationService registration = BaseRegistrationService.getInstance();
             registration.fillTenantRegistrationPage(request, response);
+
+
 
             return new CommandResult(Constants.REGISTRATION_PAGE_PATH, CommandResult.Action.FORWARD);
 
