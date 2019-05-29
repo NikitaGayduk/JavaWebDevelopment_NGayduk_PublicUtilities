@@ -106,9 +106,9 @@ public class BaseDBConnectionPool implements DBConnectionPool {
             }
             usedConnections.add(connection);
         } catch (InterruptedException exc) {
-            LOGGER.error("Interrupted while trying getByID connection\n" + exc.getMessage());
+            LOGGER.error("Interrupted while trying getByIDTransact connection\n" + exc.getMessage());
         } catch (SQLException exc) {
-            LOGGER.error("SQLException while trying to getByID connection\n" + exc.getMessage());
+            LOGGER.error("SQLException while trying to getByIDTransact connection\n" + exc.getMessage());
         }
         return connection;
     }

@@ -41,106 +41,84 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
     private EmployeeDAOImpl() {
     }
 
-    public static EmployeeDAOImpl getInstance(){
+    public static EmployeeDAOImpl getInstance() {
         return instance;
     }
 
     @Override
     public List<Employee> getAll() throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
-
-            return getAll(getAllSQLQuery, connection, daoHandler);
+            return getAll(getAllSQLQuery, daoHandler);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public Employee get(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+            return getByID(getSQLQuery, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean delete(int id) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int add(Employee entity) throws DAOException {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean update(Employee entity) throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
-            return update(updateSQLQuery, connection, daoHandler, entity);
+            return update(updateSQLQuery, daoHandler, entity);
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public Employee getEmployeeByAccount(Account account) throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
-
-            return getByID(SQLRequestContainer.EMPLOYEE_GET_BY_ACCOUNT_ID_QUERY, connection, daoHandler, account.getId()).get(0);
+            return getByID(SQLRequestContainer.EMPLOYEE_GET_BY_ACCOUNT_ID_QUERY, daoHandler
+                    , account.getId());
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public List<Employee> getEmployeeByOrderId(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-
-            return getByID(SQLRequestContainer.EMPLOYEE_GET_BY_ORDER_ID_QUERY, connection, daoHandler, id);
+            return getListByID(SQLRequestContainer.EMPLOYEE_GET_BY_ORDER_ID_QUERY, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public List<Employee> getAllWorkingEmployee() throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
 
-            return getAll(getAllWorkingSQLQuery, connection, daoHandler);
+            return getAll(getAllWorkingSQLQuery, daoHandler);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -150,10 +128,10 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
         try {
             connection.setAutoCommit(false);
 
-            int accountID = add(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
+            int accountID = addTransact(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
                     , DAOHandlerFactory.getDAOAccountHandler(), account);
             employee.setAccountID(accountID);
-            add(SQLRequestContainer.EMPLOYEE_ADD_QUERY, connection, DAOHandlerFactory.getDAOEmployeeHandler(), employee);
+            addTransact(SQLRequestContainer.EMPLOYEE_ADD_QUERY, connection, DAOHandlerFactory.getDAOEmployeeHandler(), employee);
 
             connection.commit();
             return accountID;

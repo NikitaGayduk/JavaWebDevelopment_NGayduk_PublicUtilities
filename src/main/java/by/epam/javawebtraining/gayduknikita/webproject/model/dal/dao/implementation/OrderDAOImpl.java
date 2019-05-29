@@ -10,7 +10,6 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Order;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,103 +43,81 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     private OrderDAOImpl() {
     }
 
-    public static OrderDAOImpl getInstance(){
+    public static OrderDAOImpl getInstance() {
         return instance;
     }
 
     @Override
     public List<Order> getAll() throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Order get(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+            return getByID(getSQLQuery, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean delete(int id) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int add(Order entity) throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
-            return add(addSQLQuery, connection, daoHandler, entity);
+            return add(addSQLQuery, daoHandler, entity);
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean update(Order entity) throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
-            return update(updateSQLQuery, connection, daoHandler, entity);
+            return update(updateSQLQuery, daoHandler, entity);
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public List<Order> getOrdersByTenant(Tenant entity) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getByTenantIDSQLQuery, connection, daoHandler, entity.getId());
+            return getListByID(getByTenantIDSQLQuery, daoHandler, entity.getId());
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public List<Order> getOrdersByWorker(Employee entity) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getByWorkerIDSQLQuery, connection, daoHandler, entity.getId());
+            return getListByID(getByWorkerIDSQLQuery, daoHandler, entity.getId());
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public List<Order> getAwaiting() throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getAll(getAllAwaitingSQLQuery, connection, daoHandler);
+            return getAll(getAllAwaitingSQLQuery, daoHandler);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 }

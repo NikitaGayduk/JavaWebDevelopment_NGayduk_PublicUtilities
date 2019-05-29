@@ -41,37 +41,33 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
 
     @Override
     public List<Account> getAll() throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Account get(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+            return getByID(getSQLQuery, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean delete(int id) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int add(Account entity) throws DAOException {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean update(Account entity) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -77,7 +77,7 @@ public class BaseEmployeeService implements EmployeeService {
         try {
             Order order = ((Order) request.getSession().getAttribute(Constants.ORDER_ATTRIBUTE));
 
-            // TODO: 26.05.2019 add timestamp validator (begin < end)
+            // TODO: 26.05.2019 addTransact timestamp validator (begin < end)
             List<Employee> employeesList = employeeDAO.getAllFreeEmployee(order.getWorksBegin(), order.getWorksEnd());
             request.setAttribute(Constants.FREE_EMPLOYEE_LIST_ATTRIBUTE, employeesList);
 

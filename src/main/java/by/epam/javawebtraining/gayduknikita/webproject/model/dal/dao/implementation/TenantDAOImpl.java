@@ -30,64 +30,56 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
     private TenantDAOImpl() {
     }
 
-    public static TenantDAOImpl getInstance(){
+    public static TenantDAOImpl getInstance() {
         return instance;
     }
 
     @Override
     public List<Tenant> getAll() throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Tenant get(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+            return getByID(getSQLQuery, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean delete(int id) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int add(Tenant entity) throws DAOException {
-        LOGGER.warn("Unsupported operation");
-        return -1;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean update(Tenant entity) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Tenant getTenantByAccount(Account account) throws DAOException {
-        Connection connection = connectionPool.getConnection();
         try {
 
-            return getByID(SQLRequestContainer.TENANT_GET_BY_ACCOUNT_ID_QUERY, connection, daoHandler, account.getId()).get(0);
+            return getByID(SQLRequestContainer.TENANT_GET_BY_ACCOUNT_ID_QUERY, daoHandler, account.getId());
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public Tenant getOrderTenant(Order order) throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -96,10 +88,10 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
         try {
             connection.setAutoCommit(false);
 
-            int accountID = add(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
+            int accountID = addTransact(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
                     , DAOHandlerFactory.getDAOAccountHandler(), account);
             tenant.setAccountID(accountID);
-            add(SQLRequestContainer.TENANT_ADD_QUERY, connection, DAOHandlerFactory.getDAOTenantHandler(), tenant);
+            addTransact(SQLRequestContainer.TENANT_ADD_QUERY, connection, DAOHandlerFactory.getDAOTenantHandler(), tenant);
 
             connection.commit();
             return accountID;

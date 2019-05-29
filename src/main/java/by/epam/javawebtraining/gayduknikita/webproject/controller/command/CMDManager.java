@@ -64,7 +64,7 @@ public class CMDManager {
         }
     }
 
-    // TODO: 27.04.2019 add exception type
+    // TODO: 27.04.2019 addTransact exception type
     public Command getCommand(String commandName) throws UnsupportedCommandException {
         Command result = null;
         if ((result = commands.get(commandName)) == null) {

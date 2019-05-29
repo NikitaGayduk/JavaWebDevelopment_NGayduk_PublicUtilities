@@ -36,52 +36,44 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
     private AddressDAOImpl() {
     }
 
-    public static AddressDAOImpl getInstance(){
+    public static AddressDAOImpl getInstance() {
         return instance;
     }
 
     @Override
     public List<Address> getAll() throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getAll(getAllSQLQuery, connection, daoHandler);
+            return getAll(getAllSQLQuery, daoHandler);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public Address get(int id) throws DAOException {
-        Connection connection = connectionPool.getConnection();
-
         try {
-            return getByID(getSQLQuery, connection, daoHandler, id).get(0);
+            return getByID(getSQLQuery, daoHandler, id);
 
         } catch (SQLException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new DAOException(exc);
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean delete(int id) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int add(Address entity) throws DAOException {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean update(Address entity) throws DAOException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 }

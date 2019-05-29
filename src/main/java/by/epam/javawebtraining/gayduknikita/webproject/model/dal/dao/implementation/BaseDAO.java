@@ -18,7 +18,7 @@ public class BaseDAO {
     protected static final Logger LOGGER = Logger.getRootLogger();
     protected static final DBConnectionPool connectionPool = BaseDBConnectionPool.getInstance();
 
-    protected <T extends Entity> List<T> getAll(String getAllSQLQuery, Connection connection
+    protected <T extends Entity> List<T> getAllTransact(String getAllSQLQuery, Connection connection
             , AbstractDAOHandler<T> daoHandler) throws SQLException {
 
         PreparedStatement statement = null;
@@ -38,7 +38,53 @@ public class BaseDAO {
         }
     }
 
-    protected <T extends Entity> List<T> getByID(String getSQLQuery, Connection connection
+    protected <T extends Entity> List<T> getAll(String getAllSQLQuery
+            , AbstractDAOHandler<T> daoHandler) throws SQLException {
+
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getAllTransact(getAllSQLQuery, connection, daoHandler);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    protected <T extends Entity> T getByIDTransact(String getSQLQuery, Connection connection
+            , AbstractDAOHandler<T> daoHandler, int id) throws SQLException {
+
+        PreparedStatement statement = null;
+
+        try {
+            T result = null;
+            statement = connection.prepareStatement(getSQLQuery);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                result = daoHandler.build(rs);
+            }
+
+            return result;
+
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    protected <T extends Entity> T getByID(String getSQLQuery
+            , AbstractDAOHandler<T> daoHandler, int id) throws SQLException {
+
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getByIDTransact(getSQLQuery, connection, daoHandler, id);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    protected <T extends Entity> List<T> getListByIDTransact(String getSQLQuery, Connection connection
             , AbstractDAOHandler<T> daoHandler, int id) throws SQLException {
 
         PreparedStatement statement = null;
@@ -60,24 +106,48 @@ public class BaseDAO {
         }
     }
 
-    protected <T extends Entity> boolean delete(String deleteSQLQuery, Connection connection
+    protected <T extends Entity> List<T> getListByID(String getSQLQuery
             , AbstractDAOHandler<T> daoHandler, int id) throws SQLException {
+
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getListByIDTransact(getSQLQuery, connection, daoHandler, id);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+
+    protected boolean deleteTransact(String deleteSQLQuery, Connection connection
+            , int id) throws SQLException {
 
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(deleteSQLQuery);
             statement.setInt(1, id);
-            boolean result = statement.execute();
-
-            return result;
+            return  statement.execute();
 
         } finally {
             closeStatement(statement);
         }
     }
 
-    protected <T extends Entity> int add(String addSQLQuery, Connection connection
+    protected boolean delete(String deleteSQLQuery
+            , int id) throws SQLException {
+
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return deleteTransact(deleteSQLQuery, connection, id);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+
+    protected <T extends Entity> int addTransact(String addSQLQuery, Connection connection
             , AbstractDAOHandler<T> daoHandler, T entity) throws SQLException {
 
         int entityID = -1;
@@ -100,17 +170,44 @@ public class BaseDAO {
 
     }
 
-    protected <T extends Entity> boolean update(String updateSQLQuery, Connection connection
+    protected <T extends Entity> int add(String addSQLQuery
             , AbstractDAOHandler<T> daoHandler, T entity) throws SQLException {
 
-        PreparedStatement statement = connection.prepareStatement(updateSQLQuery);
-        daoHandler.parse(entity, statement, true);
+        Connection connection = connectionPool.getConnection();
 
-        boolean result = statement.execute();
+        try {
+            return addTransact(addSQLQuery, connection, daoHandler, entity);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+    }
 
-        closeStatement(statement);
+    protected <T extends Entity> boolean updateTransact(String updateSQLQuery, Connection connection
+            , AbstractDAOHandler<T> daoHandler, T entity) throws SQLException {
 
-        return result;
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(updateSQLQuery);
+            daoHandler.parse(entity, statement, true);
+
+            return statement.execute();
+
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    protected <T extends Entity> boolean update(String updateSQLQuery
+            , AbstractDAOHandler<T> daoHandler, T entity) throws SQLException {
+
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return updateTransact(updateSQLQuery, connection, daoHandler, entity);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     protected void closeStatement(Statement statement) {
