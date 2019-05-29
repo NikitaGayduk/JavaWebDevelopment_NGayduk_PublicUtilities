@@ -22,7 +22,7 @@ public class GetOperatorMainPageCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
             BaseOrderService.getInstance().setOperatorOrdersAttribute(request);
-            return new CommandResult(Constants.OPERATOR_MAIN_PAGE_PATH, CommandResult.Action.REDIRECT);
+            return new CommandResult(Constants.OPERATOR_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);

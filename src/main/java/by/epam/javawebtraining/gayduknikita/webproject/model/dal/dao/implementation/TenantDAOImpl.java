@@ -91,7 +91,11 @@ public class TenantDAOImpl extends BaseDAO implements TenantDAO {
             int accountID = addTransact(SQLRequestContainer.ACCOUNT_ADD_QUERY, connection
                     , DAOHandlerFactory.getDAOAccountHandler(), account);
             tenant.setAccountID(accountID);
-            addTransact(SQLRequestContainer.TENANT_ADD_QUERY, connection, DAOHandlerFactory.getDAOTenantHandler(), tenant);
+
+            int tenantID = addTransact(SQLRequestContainer.TENANT_ADD_QUERY, connection
+                    , DAOHandlerFactory.getDAOTenantHandler(), tenant);
+
+            tenant.setId(tenantID);
 
             connection.commit();
             return accountID;

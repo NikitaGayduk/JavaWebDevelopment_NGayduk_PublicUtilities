@@ -55,7 +55,6 @@ public class Controller extends HttpServlet {
                 response.sendRedirect(nextPage.getPage());
             }
 
-            throw new NullPointerException("Null ptr exception");
         } catch (UnsupportedCommandException exc) {
             throw new ServletException(exc);
         } catch (CommandExecutingException exc) {

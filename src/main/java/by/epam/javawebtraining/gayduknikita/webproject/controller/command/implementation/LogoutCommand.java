@@ -24,7 +24,7 @@ public class LogoutCommand implements Command {
             AuthorizationService authorization = BaseAuthorizationService.getInstance();
             String page = authorization.logout(request, response);
 
-            return new CommandResult(page, CommandResult.Action.REDIRECT);
+            return new CommandResult(page, CommandResult.Action.FORWARD);
         } catch (ServiceExecuttingException exc) {
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);
