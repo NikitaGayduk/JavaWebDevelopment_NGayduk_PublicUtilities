@@ -34,9 +34,9 @@ public class RegistrationValidator implements Validator {
     @Override
     public boolean isValid(HttpServletRequest request) {
 
-        return surnamePattern.matcher(request.getParameter(Constants.TENANT_SURNAME)).matches()
-                && namePattern.matcher(request.getParameter(Constants.TENANT_NAME)).matches()
-                && patronymicPattern.matcher(request.getParameter(Constants.TENANT_PATRONYMIC)).matches();
+        return surnamePattern.matcher(request.getParameter(Constants.EMPLOYEE_SURNAME)).matches()
+                && namePattern.matcher(request.getParameter(Constants.EMPLOYEE_NAME)).matches()
+                && patronymicPattern.matcher(request.getParameter(Constants.EMPLOYEE_PATRONYMIC)).matches();
 
     }
 }

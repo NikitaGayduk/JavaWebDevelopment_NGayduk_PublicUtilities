@@ -4,7 +4,9 @@ import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Comman
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutingException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.EmployeeService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation.BaseEmployeeService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.implementation.BaseRegistrationService;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
@@ -22,6 +24,8 @@ public class EmployeeRegistrationCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandExecutingException {
         try {
             String page = BaseRegistrationService.getInstance().registerEmployee(request);
+            BaseEmployeeService.getInstance().setEmployeeAttribute(request);
+
             return new CommandResult(page, CommandResult.Action.FORWARD);
 
         } catch (ServiceExecuttingException exc){

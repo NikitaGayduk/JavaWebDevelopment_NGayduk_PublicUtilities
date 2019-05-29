@@ -19,9 +19,6 @@
     <title>Title</title>
 </head>
 <body>
-
-<p>${sessionScope.account.getId()}</p>
-
 <div style="float: right; padding: 10px;">
     <form action="${urlPrefix}/publicutilities/main" method="get" name="logout">
         <input type="hidden" name="command" value="logout"/>

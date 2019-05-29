@@ -36,7 +36,7 @@
     </c:forEach>
 </table>
 
-<d1>Available team</d1>
+<d1>Available workers</d1>
 <table>
     <tr>
         <td>Surname</td>
@@ -59,13 +59,12 @@
             </td>
         </tr>
     </c:forEach>
-
-    <form action="${urlPrefix}/publicutilities/main" method="post" name="getoperatormainpage">
-        <input type="hidden" name="command" value="getoperatormainpage"/>
-
-        <input type="submit" value="На главную">
-    </form>
-
 </table>
+
+<form action="${urlPrefix}/publicutilities/main" method="post" name="getoperatormainpage">
+    <input type="hidden" name="command" value="getoperatormainpage"/>
+
+    <input type="submit" value="На главную">
+</form>
 </body>
 </html>

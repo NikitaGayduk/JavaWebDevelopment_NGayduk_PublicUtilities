@@ -9,7 +9,12 @@ import java.sql.Timestamp;
 public class TimestampBuilder {
 
     public static Timestamp createTimestamp(String date, String time) {
+        if (date.equals("") || time.equals("")){
+            return null;
+        }
+
         String timestamp = date + " " + time + ":00";
+
 
         return Timestamp.valueOf(timestamp);
     }

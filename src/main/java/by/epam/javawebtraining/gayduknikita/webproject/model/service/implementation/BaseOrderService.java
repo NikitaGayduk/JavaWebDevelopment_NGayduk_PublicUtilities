@@ -10,6 +10,9 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementat
 import by.epam.javawebtraining.gayduknikita.webproject.model.dal.dao.implementation.TenantDAOImpl;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.*;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.OrderService;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.DesiredTimeValidator;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.OrderDescriptionValidator;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.OrderExecutionTimeValidator;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import by.epam.javawebtraining.gayduknikita.webproject.util.TimestampBuilder;
 import org.apache.log4j.Logger;
@@ -38,7 +41,13 @@ public class BaseOrderService implements OrderService {
     }
 
     @Override
-    public void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
+    public String createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
+
+        if (!OrderDescriptionValidator.getInstance().isValid(request)
+                || !DesiredTimeValidator.getInstance().isValid(request)){
+            return Constants.CREATE_ORDER_PAGE_PATH;
+        }
+
         try {
             Order order = new Order();
             Tenant tenant = (Tenant) request.getSession().getAttribute(Constants.TENANT_ATTRIBUTE);
@@ -49,9 +58,11 @@ public class BaseOrderService implements OrderService {
             order.setDesiredTime(timestamp);
             order.setTenantID(tenant.getId());
             order.setState(OrderState.WAITING_CONFIRM);
-            order.setOrderDiscription(request.getParameter(Constants.PARAMETER_ORDER_DICRIPTION));
+            order.setOrderDiscription(request.getParameter(Constants.ORDER_DESCRIPTION));
 
             orderDAO.add(order);
+
+            return Constants.TENANT_MAIN_PAGE_PATH;
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new ServiceExecuttingException(exc);
@@ -63,7 +74,7 @@ public class BaseOrderService implements OrderService {
         try {
             Tenant tenant = (Tenant) request.getSession().getAttribute(Constants.TENANT_ATTRIBUTE);
             List<Order> ordersList = orderDAO.getOrdersByTenant(tenant);
-            request.setAttribute(Constants.ORDER_LIST_ATTRIBUTE, ordersList);
+            request.getSession().setAttribute(Constants.ORDER_LIST_ATTRIBUTE, ordersList);
 
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);
@@ -136,7 +147,7 @@ public class BaseOrderService implements OrderService {
         try {
             int orderId = Integer.parseInt(request.getParameter(Constants.PARAMETER_ORDER_ID));
             Order order = orderDAO.get(orderId);
-            request.setAttribute(Constants.ORDER_ATTRIBUTE, order);
+            request.getSession().setAttribute(Constants.ORDER_ATTRIBUTE, order);
 
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);
@@ -145,8 +156,12 @@ public class BaseOrderService implements OrderService {
     }
 
     @Override
-    public Order changeOrderBeginEndTime(HttpServletRequest request) throws ServiceExecuttingException {
+    public String changeOrderExecutionTime(HttpServletRequest request) throws ServiceExecuttingException {
         changeOrderState(request);
+
+        if(!OrderExecutionTimeValidator.getInstance().isValid(request)){
+            return Constants.ORDER_TIME_PROCESSING_PAGE_PATH;
+        }
 
         Timestamp begin = TimestampBuilder.createTimestamp(
                 request.getParameter(Constants.PARAMETER_ORDER_WORKS_BEGIN_DATE)
@@ -162,7 +177,9 @@ public class BaseOrderService implements OrderService {
             order.setWorksBegin(begin);
             order.setWorksEnd(end);
             orderDAO.update(order);
-            return order;
+            request.getSession().setAttribute(Constants.ORDER_ATTRIBUTE, order);
+
+            return Constants.ORDER_WORKERS_PROCESSING_PAGE_PATH;
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new ServiceExecuttingException(exc);

@@ -4,6 +4,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.controller.command.Comman
 import by.epam.javawebtraining.gayduknikita.webproject.controller.command.CommandResult;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.CommandExecutingException;
 import by.epam.javawebtraining.gayduknikita.webproject.exception.ServiceExecuttingException;
+import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Account;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.EmployeeService;
@@ -31,10 +32,12 @@ public class OrderChangeStateCommand implements Command {
 
             orderService.changeOrderState(request);
 
-            if(request.getAttribute(Constants.ROLE_ATTRIBUTE) == Role.TENANT) {
+            Role role = ((Account) request.getSession().getAttribute(Constants.ACCOUNT_ATTRIBUTE)).getRole();
+
+            if (role == Role.TENANT) {
                 orderService.setTenantOrdersAttribute(request);
                 return new CommandResult(Constants.TENANT_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
-            } else if(request.getAttribute(Constants.ROLE_ATTRIBUTE) == Role.WORKER) {
+            } else if (role == Role.WORKER) {
                 orderService.setWorkerOrdersAttribute(request);
                 return new CommandResult(Constants.WORKER_MAIN_PAGE_PATH, CommandResult.Action.FORWARD);
             } else {
@@ -44,7 +47,7 @@ public class OrderChangeStateCommand implements Command {
             }
 
 
-        } catch (ServiceExecuttingException exc){
+        } catch (ServiceExecuttingException exc) {
             LOGGER.error("Can't execute command", exc);
             throw new CommandExecutingException(exc);
         }

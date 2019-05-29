@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    public void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
+    public String createOrder(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException;
 
     public void setTenantOrdersAttribute(HttpServletRequest request) throws ServiceExecuttingException;
 
@@ -26,6 +26,5 @@ public interface OrderService {
 
     public void changeOrderState(HttpServletRequest request) throws ServiceExecuttingException;
 
-    public Order changeOrderBeginEndTime(HttpServletRequest request) throws ServiceExecuttingException;
-
+    public String changeOrderExecutionTime(HttpServletRequest request) throws ServiceExecuttingException;
 }

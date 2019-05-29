@@ -29,7 +29,6 @@ public class OrderDescriptionValidator implements Validator {
 
     @Override
     public boolean isValid(HttpServletRequest request) {
-
         return descriptionPattern.matcher(request.getParameter(Constants.ORDER_DESCRIPTION)).matches();
 
     }

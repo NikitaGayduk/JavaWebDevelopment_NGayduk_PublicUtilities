@@ -29,7 +29,7 @@ public class Constants {
     public static final String NAME_REGEX = "\\A[А-Я][а-я]{2,24}\\Z";
     public static final String PATRONYMIC_REGEX = "\\A[А-Я][а-я]{2,24}\\Z";
 
-    public static final String ORDER_DESCRIPTION_REGEX = "\\A[А-Я][а-я]{5,44}\\Z";
+    public static final String ORDER_DESCRIPTION_REGEX = "\\A[А-Яа-я0-9 ]{5,45}\\Z";
 
     //JSP attributes
     public static final String LANGUAGE_ATTRIBUTE = "language";

@@ -50,7 +50,7 @@ public class BaseEmployeeService implements EmployeeService {
                 Account account = accountDAO.get(employee.getAccountID());
                 accountMap.put(account.getId(), account);
             }
-            request.setAttribute(Constants.ACCOUNT_MAP_ATTRIBUTE, accountMap);
+            request.getSession().setAttribute(Constants.ACCOUNT_MAP_ATTRIBUTE, accountMap);
 
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);

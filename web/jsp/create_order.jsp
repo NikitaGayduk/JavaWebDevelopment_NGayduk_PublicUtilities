@@ -23,7 +23,7 @@
         <input type="time" name="order_desired_time"><br>
 
         Order discription:<br>
-        <input type="text" name="order_discription"><br>
+        <input type="text" name="order_description"><br>
 
         <input type="submit" value="Create">
     </form>

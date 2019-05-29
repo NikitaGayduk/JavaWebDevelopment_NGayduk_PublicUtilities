@@ -97,9 +97,8 @@ public class BaseRegistrationService implements RegistrationService {
             account.setId(employeeDAO.addEmployee(account,employee));
 
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
-            request.getSession().setAttribute(Constants.EMPLOYEE_ATTRIBUTE, employee);
 
-            return Constants.EMPLOYEE_REGISTRATION_PAGE_PATH;
+            return Constants.ADMIN_MAIN_PAGE_PATH;
         } catch (DAOException exc){
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);

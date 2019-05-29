@@ -27,12 +27,11 @@ public class OrderTimeProcessingCommand implements Command {
             OrderService orderService = BaseOrderService.getInstance();
             EmployeeService employeeService = BaseEmployeeService.getInstance();
 
-            request.getSession().setAttribute(Constants.ORDER_ATTRIBUTE, orderService.changeOrderBeginEndTime(request));
+            String page = orderService.changeOrderExecutionTime(request);
             employeeService.setOrderEmployeeAttribute(request);
             employeeService.setFreeEmployeeAttribute(request);
 
-
-            return new CommandResult(Constants.ORDER_WORKERS_PROCESSING_PAGE_PATH, CommandResult.Action.FORWARD);
+            return new CommandResult(page, CommandResult.Action.FORWARD);
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);
