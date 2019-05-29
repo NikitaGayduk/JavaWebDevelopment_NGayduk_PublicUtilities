@@ -10,8 +10,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="../WEB-INF/jsp/fragment/translate.jsp" %>
-<%@ include file="../WEB-INF/jsp/fragment/logout.jsp" %>
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
 
 <html>
 <head>
@@ -49,7 +49,7 @@
         </c:forEach>
     </table>
 
-    <form action="${urlPrefix}/publicutilities/main" method="post" name="getordercreatepage">
+    <form action="${urlPrefix}/publicutilities/main" method="get" name="getordercreatepage">
         <input type="hidden" name="command" value="getordercreatepage"/>
         <input type="submit" value="<fmt:message key="button.create_order"/>">
     </form>

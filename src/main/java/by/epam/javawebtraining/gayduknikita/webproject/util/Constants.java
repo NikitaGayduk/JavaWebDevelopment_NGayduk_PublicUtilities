@@ -56,7 +56,7 @@ public class Constants {
     public static final String REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/registration.jsp";
     public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/employee_registration.jsp";
     public static final String ADMIN_MAIN_PAGE_PATH = "/WEB-INF/jsp/adminmain.jsp";
-    public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
+    public static final String TENANT_MAIN_PAGE_PATH = "/WEB-INF/jsp/tenantmain.jsp";
     public static final String WORKER_MAIN_PAGE_PATH = "/WEB-INF/jsp/workermain.jsp";
     public static final String OPERATOR_MAIN_PAGE_PATH = "/WEB-INF/jsp/operatormain.jsp";
     public static final String CREATE_ORDER_PAGE_PATH = "/WEB-INF/jsp/create_order.jsp";
