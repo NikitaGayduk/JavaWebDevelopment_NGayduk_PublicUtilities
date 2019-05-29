@@ -10,8 +10,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="fragment/translate.jsp" %>
-<%@ include file="fragment/logout.jsp" %>
+<%@ include file="../WEB-INF/jsp/fragment/translate.jsp" %>
+<%@ include file="../WEB-INF/jsp/fragment/logout.jsp" %>
 
 <html>
 <head>

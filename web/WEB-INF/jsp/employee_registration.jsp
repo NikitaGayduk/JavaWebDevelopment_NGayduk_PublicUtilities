@@ -30,13 +30,13 @@
     <input type="password" name="account_password"><br>
 
     <fmt:message key="table.surname"/>:<br>
-    <input type="text" name="employee_surname"><br>
+    <input type="text" name="surname"><br>
 
     <fmt:message key="table.name"/>:<br>
-    <input type="text" name="employee_name"><br>
+    <input type="text" name="name"><br>
 
     <fmt:message key="table.patronymic"/>:<br>
-    <input type="text" name="employee_patronymic"><br>
+    <input type="text" name="patronymic"><br>
 
     <fmt:message key="table.role"/>:<br>
     <select name="role_name">

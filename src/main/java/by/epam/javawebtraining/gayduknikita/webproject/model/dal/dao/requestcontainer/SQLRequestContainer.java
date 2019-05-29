@@ -34,6 +34,11 @@ public class SQLRequestContainer {
                     "INNER JOIN publicutilities.roles USING (role_id) " +
                     "WHERE account_login = ? AND account_password = ?";
 
+    public static final String ACCOUNT_GET_BY_LOGIN =
+            "SELECT account_id, account_login, account_password, role_name FROM publicutilities.accounts " +
+                    "INNER JOIN publicutilities.roles USING (role_id) " +
+                    "WHERE account_login = ?";
+
     public static final String ACCOUNT_DELETE_BY_ID_QUERY =
             "DELETE FROME publicutilities.accounts " +
                     "WHERE account_id = ?";

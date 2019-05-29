@@ -13,6 +13,7 @@ import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Role;
 import by.epam.javawebtraining.gayduknikita.webproject.model.entity.Tenant;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.RegistrationService;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.AccountValidator;
+import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.NewLoginValidator;
 import by.epam.javawebtraining.gayduknikita.webproject.model.service.validator.RegistrationValidator;
 import by.epam.javawebtraining.gayduknikita.webproject.util.Constants;
 import org.apache.log4j.Logger;
@@ -38,15 +39,17 @@ public class BaseRegistrationService implements RegistrationService {
     private BaseRegistrationService() {
     }
 
-    public static BaseRegistrationService getInstance(){
+    public static BaseRegistrationService getInstance() {
         return instance;
     }
 
     @Override
     public String registerTenant(HttpServletRequest request) throws ServiceExecuttingException {
         try {
-            if(!AccountValidator.getInstance().isValid(request)
-                    || !RegistrationValidator.getInstance().isValid(request)){
+            if (!AccountValidator.getInstance().isValid(request)
+                    || !RegistrationValidator.getInstance().isValid(request)
+                    || !NewLoginValidator.getInstance().isValid(request)) {
+                BaseAddressService.getInstance().setAddressAttribute(request);
                 return Constants.REGISTRATION_PAGE_PATH;
             }
 
@@ -56,19 +59,19 @@ public class BaseRegistrationService implements RegistrationService {
             account.setRole(Role.valueOf(Constants.ROLE_TENANT_NAME));
 
             Tenant tenant = new Tenant();
-            tenant.setSurname(request.getParameter(Constants.TENANT_SURNAME));
-            tenant.setName(request.getParameter(Constants.TENANT_NAME));
-            tenant.setPatronymic(request.getParameter(Constants.TENANT_PATRONYMIC));
+            tenant.setSurname(request.getParameter(Constants.PARAMETER_SURNAME));
+            tenant.setName(request.getParameter(Constants.PARAMETER_NAME));
+            tenant.setPatronymic(request.getParameter(Constants.PARAMETER_PATRONYMIC));
             tenant.setAccountID(-1);
             tenant.setAddressID(Integer.parseInt(request.getParameter(Constants.ADDRESS_ID)));
 
-            account.setId(tenantDAO.addTenant(account,tenant));
+            account.setId(tenantDAO.addTenant(account, tenant));
 
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
             request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
 
             return Constants.TENANT_MAIN_PAGE_PATH;
-        } catch (DAOException exc){
+        } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
         }
@@ -77,8 +80,9 @@ public class BaseRegistrationService implements RegistrationService {
     @Override
     public String registerEmployee(HttpServletRequest request) throws ServiceExecuttingException {
         try {
-            if(!AccountValidator.getInstance().isValid(request)
-                    || !RegistrationValidator.getInstance().isValid(request)){
+            if (!AccountValidator.getInstance().isValid(request)
+                    || !RegistrationValidator.getInstance().isValid(request)
+                    || !NewLoginValidator.getInstance().isValid(request)) {
                 return Constants.EMPLOYEE_REGISTRATION_PAGE_PATH;
             }
 
@@ -88,34 +92,21 @@ public class BaseRegistrationService implements RegistrationService {
             account.setRole(Role.valueOf(request.getParameter(Constants.ROLE_NAME)));
 
             Employee employee = new Employee();
-            employee.setEmployeeSurname(request.getParameter(Constants.EMPLOYEE_SURNAME));
-            employee.setEmployeeName(request.getParameter(Constants.EMPLOYEE_NAME));
-            employee.setEmployeePatronymic(request.getParameter(Constants.EMPLOYEE_PATRONYMIC));
+            employee.setEmployeeSurname(request.getParameter(Constants.PARAMETER_SURNAME));
+            employee.setEmployeeName(request.getParameter(Constants.PARAMETER_NAME));
+            employee.setEmployeePatronymic(request.getParameter(Constants.PARAMETER_PATRONYMIC));
             employee.setAccountID(-1);
             employee.setEmployeeState(Employee.EmployeeState.WORKS);
 
-            account.setId(employeeDAO.addEmployee(account,employee));
+            account.setId(employeeDAO.addEmployee(account, employee));
 
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
 
             return Constants.ADMIN_MAIN_PAGE_PATH;
-        } catch (DAOException exc){
+        } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
         }
-    }
-
-    @Override
-    public void fillTenantRegistrationPage(HttpServletRequest request, HttpServletResponse response) throws ServiceExecuttingException {
-        /*try {
-            request.getRequestDispatcher(Constants.REGISTRATION_PAGE_PATH).forward(request,response);
-        } catch (IOException exc){
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);
-        } catch (ServletException exc) {
-            LOGGER.error(exc);
-            throw new ServiceExecuttingException(exc);
-        }*/
     }
 
     @Override

@@ -42,7 +42,17 @@ public class AddressDAOImpl extends BaseDAO implements AddressDAO {
 
     @Override
     public List<Address> getAll() throws DAOException {
-        return null;
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            return getAll(getAllSQLQuery, connection, daoHandler);
+
+        } catch (SQLException exc) {
+            LOGGER.error(exc.getMessage(), exc);
+            throw new DAOException(exc);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override

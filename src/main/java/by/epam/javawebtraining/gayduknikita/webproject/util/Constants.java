@@ -46,6 +46,7 @@ public class Constants {
     public static final String ACCOUNT_MAP_ATTRIBUTE = "accountMap";
     public static final String TENANT_MAP_ATTRIBUTE = "tenantMap";
     public static final String ADDRESS_MAP_ATTRIBUTE = "addressMap";
+    public static final String ADDRESS_LIST_ATTRIBUTE = "addressList";
     public static final String ORDER_BEGIN_TIMESTAMP_ATTRIBUTE = "timestampBegin";
     public static final String ORDER_END_TIMESTAMP_ATTRIBUTE = "timestampEnd";
 
@@ -55,7 +56,7 @@ public class Constants {
     public static final String REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/registration.jsp";
     public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/employee_registration.jsp";
     public static final String ADMIN_MAIN_PAGE_PATH = "/WEB-INF/jsp/adminmain.jsp";
-    public static final String TENANT_MAIN_PAGE_PATH = "/WEB-INF/jsp/tenantmain.jsp";
+    public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
     public static final String WORKER_MAIN_PAGE_PATH = "/WEB-INF/jsp/workermain.jsp";
     public static final String OPERATOR_MAIN_PAGE_PATH = "/WEB-INF/jsp/operatormain.jsp";
     public static final String CREATE_ORDER_PAGE_PATH = "/WEB-INF/jsp/create_order.jsp";
@@ -119,4 +120,8 @@ public class Constants {
 
     public static final String PARAMETER_EMPLOYEE_ID = "employee_id";
     public static final String PARAMETER_EMPLOYEE_STATE = "employee_state";
+
+    public static final String PARAMETER_SURNAME = "surname";
+    public static final String PARAMETER_NAME = "name";
+    public static final String PARAMETER_PATRONYMIC = "patronymic";
 }

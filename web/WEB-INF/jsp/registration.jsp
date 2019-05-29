@@ -17,30 +17,42 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Registration in system</h1>
+<h1><fmt:message key="page.tenant_registration"/></h1>
 
     <form action="${urlPrefix}/publicutilities/main" method="post" name="registration">
         <input type="hidden" name="command" value="registration"/>
 
-        Login:<br>
+        <fmt:message key="authorization.login"/>:<br>
         <input type="text" name="account_login"><br>
 
-        Password:<br>
+        <fmt:message key="authorization.password"/>:<br>
         <input type="password" name="account_password"><br>
 
-        Surname:<br>
-        <input type="text" name="tenant_surname"><br>
+        <fmt:message key="table.surname"/>:<br>
+        <input type="text" name="surname"><br>
 
-        Name:<br>
-        <input type="text" name="tenant_name"><br>
+        <fmt:message key="table.name"/>:<br>
+        <input type="text" name="name"><br>
 
-        Patronymic:<br>
-        <input type="text" name="tenant_patronymic"><br>
+        <fmt:message key="table.patronymic"/>:<br>
+        <input type="text" name="patronymic"><br>
 
-        Address:<br>
-        <input type="text" name="address_id"><br>
+        <fmt:message key="table.address"/>:<br>
+        <select name="address_id">
 
-        <input type="submit" value="Send">
+            <c:forEach items="${addressList}" var="address">
+                <option value="${address.getId()}">
+                    <fmt:message key="table.street"/>
+                    <c:out value="| ${address.getStreet()} |" />
+                    <fmt:message key="table.house_number"/>
+                    <c:out value="| ${address.getHouse()} |" />
+                    <fmt:message key="table.apartments_number"/>
+                    <c:out value="| ${address.getApartments()}" />
+                </option>
+            </c:forEach>
+        </select> <br>
+
+        <input type="submit" value="<fmt:message key="button.registrate"/>">
     </form>
 </body>
 </html>

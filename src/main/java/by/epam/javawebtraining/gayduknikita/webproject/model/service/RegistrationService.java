@@ -16,9 +16,6 @@ public interface RegistrationService {
 
     public String registerEmployee(HttpServletRequest request) throws ServiceExecuttingException;
 
-    public void fillTenantRegistrationPage(HttpServletRequest request, HttpServletResponse response)
-            throws ServiceExecuttingException;
-
     public void fillEmployeeRegistrationPage(HttpServletRequest request) throws ServiceExecuttingException;
 
 }

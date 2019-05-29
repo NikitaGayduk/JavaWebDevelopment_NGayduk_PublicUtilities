@@ -11,4 +11,6 @@ public interface AccountDAO extends DAO<Account> {
 
     Account getAccount(String login, String password) throws DAOException;
 
+    Account getAccountByLogin(String login) throws DAOException;
+
 }

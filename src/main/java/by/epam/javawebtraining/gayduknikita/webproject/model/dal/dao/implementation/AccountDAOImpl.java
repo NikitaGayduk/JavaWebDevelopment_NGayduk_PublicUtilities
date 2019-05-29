@@ -97,4 +97,27 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             connectionPool.releaseConnection(connection);
         }
     }
+
+    @Override
+    public Account getAccountByLogin(String login) throws DAOException {
+        Account result = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQLRequestContainer.ACCOUNT_GET_BY_LOGIN);
+            statement.setString(1, login);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                result = daoHandler.build(rs);
+            }
+            return result;
+        } catch (SQLException exc) {
+            throw new DAOException(exc.getMessage());
+        } finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
 }
