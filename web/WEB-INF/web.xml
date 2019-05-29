@@ -22,7 +22,8 @@
 
     <servlet>
         <servlet-name>ExceptionHandler</servlet-name>
-        <servlet-class>by.epam.javawebtraining.gayduknikita.webproject.controller.servlet.ExceptionHandler</servlet-class>
+        <servlet-class>by.epam.javawebtraining.gayduknikita.webproject.controller.servlet.ExceptionHandler
+        </servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -51,7 +52,8 @@
 
     <filter>
         <filter-name>Localization</filter-name>
-        <filter-class>by.epam.javawebtraining.gayduknikita.webproject.controller.filter.LocalizationFilter</filter-class>
+        <filter-class>by.epam.javawebtraining.gayduknikita.webproject.controller.filter.LocalizationFilter
+        </filter-class>
     </filter>
 
     <filter-mapping>
@@ -74,22 +76,22 @@
         <url-pattern>/ExceptionHandler</url-pattern>
     </servlet-mapping>
 
-<!--    <error-page>
+    <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/ExceptionHandler</location>
-    </error-page>-->
+    </error-page>
 
     <session-config>
         <session-timeout>
             10
         </session-timeout>
     </session-config>
-<!--
-    <error-page>
-        <exception-type>java.lang.Throwable</exception-type>
-        <location>/jsp/errorpage/error_page.jsp</location>
-    </error-page>
-    -->
+    <!--
+        <error-page>
+            <exception-type>java.lang.Throwable</exception-type>
+            <location>/jsp/errorpage/error_page.jsp</location>
+        </error-page>
+        -->
 
 
 </web-app>

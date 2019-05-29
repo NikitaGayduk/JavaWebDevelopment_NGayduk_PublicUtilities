@@ -15,6 +15,9 @@
     <title>Title</title>
 </head>
 <body>
+
+<h1>ERROR</h1>
+
 <c:choose>
     <c:when test="${from_handler}">
         <ul>

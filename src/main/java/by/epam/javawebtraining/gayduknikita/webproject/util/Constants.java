@@ -51,7 +51,7 @@ public class Constants {
     public static final String ORDER_END_TIMESTAMP_ATTRIBUTE = "timestampEnd";
 
     //servlet path
-    public static final String ERROR_PAGE_PATH = "/WEB-INF/jsp/error_page.jsp";
+    public static final String ERROR_PAGE_PATH = "/WEB-INF/jsp/errorpage/error_page.jsp";
     public static final String LOGIN_PATH = "/login";
     public static final String REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/registration.jsp";
     public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/employee_registration.jsp";
