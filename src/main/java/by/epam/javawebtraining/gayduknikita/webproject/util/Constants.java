@@ -20,6 +20,7 @@ public class Constants {
     public static final String COMMAND_LOGIN = "login";
     public static final String COMMAND_GET_REGISTRATION_PAGE = "getregistrationpage";
     public static final String COMMAND_REGISTRATION = "registration";
+    public static final String COMMAND_CHANGE_LOCALE = "changeLocale";
 
     //validation constants
     public static final String LOGIN_REGEX = "\\A[A-Za-z0-9]{2,20}\\Z";
@@ -50,17 +51,16 @@ public class Constants {
 
     //servlet path
     public static final String ERROR_PAGE_PATH = "/WEB-INF/jsp/error_page.jsp";
-    public static final String LOGIN_PATH = "/jsp/login.jsp";
-    public static final String REGISTRATION_PAGE_PATH = "/jsp/registration.jsp";
-    public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/jsp/employee_registration.jsp";
+    public static final String LOGIN_PATH = "/login";
+    public static final String REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/registration.jsp";
+    public static final String EMPLOYEE_REGISTRATION_PAGE_PATH = "/WEB-INF/jsp/employee_registration.jsp";
     public static final String ADMIN_MAIN_PAGE_PATH = "/WEB-INF/jsp/adminmain.jsp";
-    public static final String TENANT_MAIN_PAGE_PATH = "/jsp/tenantmain.jsp";
-    public static final String WORKER_MAIN_PAGE_PATH = "/jsp/workermain.jsp";
-    public static final String OPERATOR_MAIN_PAGE_PATH = "/jsp/operatormain.jsp";
-    public static final String CREATE_ORDER_PAGE_PATH = "/jsp/create_order.jsp";
-    public static final String TRANSLATE_MAIN_PAGE_PATH = "/WEB-INF/jsp/testtranslate.jsp";
-    public static final String ORDER_TIME_PROCESSING_PAGE_PATH = "/jsp/process_order_time.jsp";
-    public static final String ORDER_WORKERS_PROCESSING_PAGE_PATH = "/jsp/process_order_workers.jsp";
+    public static final String TENANT_MAIN_PAGE_PATH = "/WEB-INF/jsp/tenantmain.jsp";
+    public static final String WORKER_MAIN_PAGE_PATH = "/WEB-INF/jsp/workermain.jsp";
+    public static final String OPERATOR_MAIN_PAGE_PATH = "/WEB-INF/jsp/operatormain.jsp";
+    public static final String CREATE_ORDER_PAGE_PATH = "/WEB-INF/jsp/create_order.jsp";
+    public static final String ORDER_TIME_PROCESSING_PAGE_PATH = "/WEB-INF/jsp/process_order_time.jsp";
+    public static final String ORDER_WORKERS_PROCESSING_PAGE_PATH = "/WEB-INF/jsp/process_order_workers.jsp";
 
 
     //database keys

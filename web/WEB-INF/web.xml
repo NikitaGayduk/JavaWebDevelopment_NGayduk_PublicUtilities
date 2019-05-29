@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>Login</servlet-name>
-        <jsp-file>/jsp/login.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
     </servlet>
 
     <servlet>

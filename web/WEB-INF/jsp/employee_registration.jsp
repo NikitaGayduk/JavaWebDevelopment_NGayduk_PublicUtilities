@@ -10,38 +10,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<p1>Employee registration</p1>
+<p1><fmt:message key="page.employee_registration"/></p1>
 
 <form action="${urlPrefix}/publicutilities/main" method="post" name="registration">
     <input type="hidden" name="command" value="registrateemployee"/>
 
-    Login:<br>
+    <fmt:message key="authorization.login"/>:<br>
     <input type="text" name="account_login"><br>
 
-    Password:<br>
+    <fmt:message key="authorization.password"/>:<br>
     <input type="password" name="account_password"><br>
 
-    Surname:<br>
+    <fmt:message key="table.surname"/>:<br>
     <input type="text" name="employee_surname"><br>
 
-    Name:<br>
+    <fmt:message key="table.name"/>:<br>
     <input type="text" name="employee_name"><br>
 
-    Patronymic:<br>
+    <fmt:message key="table.patronymic"/>:<br>
     <input type="text" name="employee_patronymic"><br>
 
-    Employee state:<br>
+    <fmt:message key="table.role"/>:<br>
     <select name="role_name">
         <option value="OPERATOR">Operator</option>
         <option value="WORKER">Worker</option>
     </select> <br>
 
-    <input type="submit" value="Send">
+    <input type="submit" value="<fmt:message key="button.registrate"/>">
 </form>
 </body>
 </html>

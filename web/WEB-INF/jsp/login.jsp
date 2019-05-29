@@ -7,7 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ include file="fragment/translate.jsp" %>
 
 <html>
 <head>
@@ -15,20 +18,20 @@
 </head>
 <body>
 
-    <h1>Logging to system</h1>
+    <h1><fmt:message key="page.login_in_system"/></h1>
 
     <form action="${urlPrefix}/publicutilities/main" method="post" name="login">
         <input type="hidden" name="command" value="login"/>
-        Login:<br>
+        <fmt:message key="authorization.login"/>:<br>
         <input type="text" name="account_login"><br>
-        Password:<br>
+        <fmt:message key="authorization.password"/><br>
         <input type="password" name="account_password"> <br>
-        <input type="submit" value="Вход">
+        <input type="submit" value="<fmt:message key="authorization.signin"/>">
     </form>
 
     <form action="${urlPrefix}/publicutilities/main" method="get" name="getregistrationpage">
         <input type="hidden" name="command" value="getregistrationpage"/>
-        <input type="submit" value="Регистрация">
+        <input type="submit" value="<fmt:message key="authorization.signup"/>">
     </form>
 
 </body>

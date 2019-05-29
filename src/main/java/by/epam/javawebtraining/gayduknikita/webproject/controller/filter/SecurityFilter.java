@@ -33,7 +33,8 @@ public class SecurityFilter implements Filter {
 
         boolean loginCommand = Constants.COMMAND_LOGIN.equals(command)
                 || Constants.COMMAND_GET_REGISTRATION_PAGE.equals(command)
-                || Constants.COMMAND_REGISTRATION.equals(command);
+                || Constants.COMMAND_REGISTRATION.equals(command)
+                ||Constants.COMMAND_CHANGE_LOCALE.equals(command);
 
         if (loggedIn || loginRequest || loginCommand) {
             chain.doFilter(request, response);

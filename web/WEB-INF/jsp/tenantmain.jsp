@@ -7,7 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ include file="fragment/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
 
 <html>
 <head>
@@ -20,13 +24,13 @@
 </head>
 <body>
 
-    <h1>Tenant main page</h1>
+    <h1><fmt:message key="page.tenant_main_page"/></h1>
 
     <table>
         <tr>
-            <td>Order desired time</td>
-            <td>Works Begin</td>
-            <td>Order discription</td>
+            <td><fmt:message key="table.order_desired_time"/></td>
+            <td><fmt:message key="table.works_begin"/></td>
+            <td><fmt:message key="table.order_description"/></td>
         </tr>
         <c:forEach items="${orderList}" var="order">
             <tr>
@@ -38,7 +42,7 @@
                         <input type="hidden" name="command" value="changeorderstate"/>
                         <input type="hidden" name="order_state" value="CANCELED"/>
                         <input type="hidden" name="order_id" value="${order.getId()}"/>
-                        <input type="submit" value="Cancele order">
+                        <input type="submit" value="<fmt:message key="button.cancel_order"/>">
                     </form>
                 </td>
             </tr>
@@ -47,7 +51,7 @@
 
     <form action="${urlPrefix}/publicutilities/main" method="post" name="getordercreatepage">
         <input type="hidden" name="command" value="getordercreatepage"/>
-        <input type="submit" value="Create order">
+        <input type="submit" value="<fmt:message key="button.create_order"/>">
     </form>
 
 </body>

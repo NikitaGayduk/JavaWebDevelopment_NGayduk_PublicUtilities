@@ -10,6 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -22,8 +25,8 @@
 <body>
     <table>
         <tr>
-            <td>Order desired time</td>
-            <td>Order discription</td>
+            <td><fmt:message key="table.order_desired_time"/></td>
+            <td><fmt:message key="table.order_description"/></td>
         </tr>
             <tr>
                 <td><c:out value="${order.getDesiredTime().toString()}" /></td>
@@ -36,19 +39,19 @@
         <input type="hidden" name="order_id" value="${order.getId()}"/>
         <input type="hidden" name="order_state" value="WAITING_EXECUTION"/>
 
-        Begin date:<br>
+        <fmt:message key="order.works_begin_date"/>:<br>
         <input type="date" name="order_works_begin_date" min="2019-05-23" max="9999-12-31"><br>
 
-        Begin time:<br>
+        <fmt:message key="order.works_begin_time"/>:<br>
         <input type="time" name="order_works_begin_time"><br>
 
-        End date:<br>
+        <fmt:message key="order.works_end_date"/>:<br>
         <input type="date" name="order_works_end_date" min="${order_works_begin_date}" max="9999-12-31"><br>
 
-        End time:<br>
+        <fmt:message key="order.works_end_time"/>:<br>
         <input type="time" name="order_works_end_time" min="${order_works_begin_time}"><br>
 
-        <input type="submit" value="Execute">
+        <input type="submit" value="<fmt:message key="button.process"/>">
     </form>
 </body>
 </html>

@@ -10,6 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -20,18 +23,18 @@
     </style>
 </head>
 <body>
-    <h1>Worker main page</h1>
+    <h1><fmt:message key="page.worker_main_page"/></h1>
 
     <table>
         <tr>
-            <td>Works Begin</td>
-            <td>Order discription</td>
-            <td>Tenant surname</td>
-            <td>Tenant name</td>
-            <td>Tenant patronymic</td>
-            <td>Tenant street</td>
-            <td>Tenant house number</td>
-            <td>Tenant apartments number</td>
+            <td><fmt:message key="table.works_begin"/></td>
+            <td><fmt:message key="table.order_description"/></td>
+            <td><fmt:message key="table.surname"/></td>
+            <td><fmt:message key="table.name"/></td>
+            <td><fmt:message key="table.patronymic"/></td>
+            <td><fmt:message key="table.street"/></td>
+            <td><fmt:message key="table.house_number"/></td>
+            <td><fmt:message key="table.apartments_number"/></td>
         </tr>
         <c:forEach items="${orderList}" var="order">
             <c:set var = "tenant" value = "${tenantMap.get(order.getTenantID())}"/>
@@ -50,7 +53,7 @@
                         <input type="hidden" name="command" value="changeorderstate"/>
                         <input type="hidden" name="order_state" value="EXECUTED"/>
                         <input type="hidden" name="order_id" value="${order.getId()}"/>
-                        <input type="submit" value="Executed">
+                        <input type="submit" value="<fmt:message key="button.executed"/>">
                     </form>
                 </td>
             </tr>

@@ -10,6 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -20,11 +23,11 @@
     </style>
 </head>
 <body>
-    <h1>Operator main page</h1>
+    <h1><fmt:message key="page.operator_main_page"/></h1>
     <table>
         <tr>
-            <td>Desired time</td>
-            <td>Order discription</td>
+            <td><fmt:message key="table.order_desired_time"/></td>
+            <td><fmt:message key="table.order_description"/></td>
         </tr>
         <c:forEach items="${orderList}" var="order">
             <tr>
@@ -35,7 +38,7 @@
                     <form action="${urlPrefix}/publicutilities/main" method="post" name="processorder">
                         <input type="hidden" name="command" value="processorder"/>
                         <input type="hidden" name="order_id" value="${order.getId()}"/>
-                        <input type="submit" value="Process">
+                        <input type="submit" value="<fmt:message key="button.process"/>">
                     </form>
                 </td>
             </tr>

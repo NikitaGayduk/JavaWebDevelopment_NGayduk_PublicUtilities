@@ -20,18 +20,18 @@
 </head>
 <body>
 <div style="float: right; padding: 10px;">
-    <form action="${urlPrefix}/publicutilities/main" method="get" name="logout">
-        <input type="hidden" name="command" value="logout"/>
 
-        <input type="submit" value="Выход">
-
+    <form action="${urlPrefix}/publicutilities/main" method="post">
+        <input type="hidden" name="command" value="changeLocale"/>
+        <input name="command" value="changeLocale" type="hidden">
+        <input name="language" value="ru" type="hidden">
+        <input type="submit" class="AccountButton" value="RU"/>
     </form>
 
-    <form>
-        <select id="language" name="language" onchange="submit()">
-            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-            <option value="ru" ${language == 'nl' ? 'selected' : ''}>RU</option>
-        </select>
+    <form action="${urlPrefix}/publicutilities/main" method="post">
+        <input name="command" value="changeLocale" type="hidden">
+        <input name="language" value="en" type="hidden">
+        <input type="submit" class="AccountButton" value="EN"/>
     </form>
 
 </div>

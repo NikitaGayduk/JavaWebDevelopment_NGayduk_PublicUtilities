@@ -10,6 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -20,14 +23,14 @@
     </style>
 </head>
 <body>
-    <h1>Admin main page</h1>
+    <h1><fmt:message key="page.admin_main_page"/></h1>
 
     <table>
         <tr>
-            <td>Surname</td>
-            <td>Name</td>
-            <td>Patronymic</td>
-            <td>Role</td>
+            <td><fmt:message key="table.surname"/></td>
+            <td><fmt:message key="table.name"/></td>
+            <td><fmt:message key="table.patronymic"/></td>
+            <td><fmt:message key="table.role"/></td>
         </tr>
         <c:forEach items="${employeeList}" var="employee">
             <c:set var = "account" value = "${accountMap.get(employee.getAccountID())}"/>
@@ -41,7 +44,7 @@
                         <input type="hidden" name="command" value="changeemployeestate"/>
                         <input type="hidden" name="employee_state" value="FIRED"/>
                         <input type="hidden" name="employee_id" value="${employee.getId()}"/>
-                        <input type="submit" value="Dismiss">
+                        <input type="submit" value="<fmt:message key="button.dismiss"/>">
                     </form>
                 </td>
             </tr>
@@ -50,7 +53,7 @@
 
     <form action="${urlPrefix}/publicutilities/main" method="post" name="getemployeeregistrationpage">
         <input type="hidden" name="command" value="getemployeeregistrationpage"/>
-        <input type="submit" value="Registrate employee">
+        <input type="submit" value="<fmt:message key="button.add_employee"/>">
     </form>
 
 </body>

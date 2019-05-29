@@ -10,6 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ include file="fragment/translate.jsp" %>
+<%@ include file="fragment/logout.jsp" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -20,12 +23,14 @@
     </style>
 </head>
 <body>
-<d1>Team consist</d1>
+
+<d1><fmt:message key="order.team_consist"/></d1>
+
 <table>
     <tr>
-        <td>Surname</td>
-        <td>Name</td>
-        <td>Patronymic</td>
+        <td><fmt:message key="table.surname"/></td>
+        <td><fmt:message key="table.name"/></td>
+        <td><fmt:message key="table.patronymic"/></td>
     </tr>
     <c:forEach items="${employeeList}" var="employee">
         <tr>
@@ -36,12 +41,12 @@
     </c:forEach>
 </table>
 
-<d1>Available workers</d1>
+<d1><fmt:message key="order.available_workers"/></d1>
 <table>
     <tr>
-        <td>Surname</td>
-        <td>Name</td>
-        <td>Patronymic</td>
+        <td><fmt:message key="table.surname"/></td>
+        <td><fmt:message key="table.name"/></td>
+        <td><fmt:message key="table.patronymic"/></td>
     </tr>
     <c:forEach items="${freeEmployeeList}" var="employee">
         <tr>
@@ -54,7 +59,7 @@
                     <input type="hidden" name="employee_id" value="${employee.getId()}"/>
                     <input type="hidden" name="order_id" value="${order.getId()}"/>
 
-                    <input type="submit" value="Add">
+                    <input type="submit" value="<fmt:message key="button.add"/>">
                 </form>
             </td>
         </tr>
@@ -64,7 +69,7 @@
 <form action="${urlPrefix}/publicutilities/main" method="post" name="getoperatormainpage">
     <input type="hidden" name="command" value="getoperatormainpage"/>
 
-    <input type="submit" value="На главную">
+    <input type="submit" value="<fmt:message key="button.go_main"/>">
 </form>
 </body>
 </html>
