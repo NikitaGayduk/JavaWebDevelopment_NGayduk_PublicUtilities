@@ -26,7 +26,11 @@ public class EmployeeRegistrationCommand implements Command {
             String page = BaseRegistrationService.getInstance().registerEmployee(request);
             BaseEmployeeService.getInstance().setEmployeeAttribute(request);
 
-            return new CommandResult(page, CommandResult.Action.FORWARD);
+            if(page.equals(Constants.EMPLOYEE_REGISTRATION_PAGE_PATH)){
+                return new CommandResult(page, CommandResult.Action.FORWARD);
+            } else {
+                return new CommandResult(page, CommandResult.Action.REDIRECT);
+            }
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);

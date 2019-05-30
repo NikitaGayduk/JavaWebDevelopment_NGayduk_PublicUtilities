@@ -26,7 +26,7 @@ public class OrderCreateCommand implements Command {
 
             String page = orderService.createOrder(request, response);
             orderService.setTenantOrdersAttribute(request);
-            return new CommandResult(page, CommandResult.Action.FORWARD);
+            return new CommandResult(Constants.GET_TENANT_MAIN, CommandResult.Action.REDIRECT);
 
         } catch (ServiceExecuttingException exc){
             LOGGER.error("Can't execute command", exc);

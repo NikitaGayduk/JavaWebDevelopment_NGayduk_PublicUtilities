@@ -52,7 +52,7 @@ public class Controller extends HttpServlet {
             if (nextPage.getAction() == CommandResult.Action.FORWARD) {
                 request.getRequestDispatcher(nextPage.getPage()).forward(request, response);
             } else {
-                response.sendRedirect(nextPage.getPage());
+                response.sendRedirect(request.getContextPath() + request.getServletPath() + nextPage.getPage());
             }
 
         } catch (UnsupportedCommandException exc) {

@@ -179,7 +179,7 @@ public class BaseOrderService implements OrderService {
             orderDAO.update(order);
             request.getSession().setAttribute(Constants.ORDER_ATTRIBUTE, order);
 
-            return Constants.ORDER_WORKERS_PROCESSING_PAGE_PATH;
+            return Constants.GET_ORDER_EMPLOYEE_PAGE;
         } catch (DAOException exc) {
             LOGGER.error(exc.getMessage(), exc);
             throw new ServiceExecuttingException(exc);

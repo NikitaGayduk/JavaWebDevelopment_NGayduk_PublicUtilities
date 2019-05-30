@@ -70,7 +70,7 @@ public class BaseRegistrationService implements RegistrationService {
             request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
             request.getSession().setAttribute(Constants.TENANT_ATTRIBUTE, tenant);
 
-            return Constants.TENANT_MAIN_PAGE_PATH;
+            return Constants.GET_TENANT_MAIN;
         } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);
@@ -98,11 +98,10 @@ public class BaseRegistrationService implements RegistrationService {
             employee.setAccountID(-1);
             employee.setEmployeeState(Employee.EmployeeState.WORKS);
 
-            account.setId(employeeDAO.addEmployee(account, employee));
+            employeeDAO.addEmployee(account, employee);
 
-            request.getSession().setAttribute(Constants.ACCOUNT_ATTRIBUTE, account);
+            return Constants.GET_ADMIN_MAIN;
 
-            return Constants.ADMIN_MAIN_PAGE_PATH;
         } catch (DAOException exc) {
             LOGGER.error(exc);
             throw new ServiceExecuttingException(exc);

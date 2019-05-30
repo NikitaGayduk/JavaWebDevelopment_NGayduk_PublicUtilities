@@ -22,6 +22,10 @@ public class Constants {
     public static final String COMMAND_REGISTRATION = "registration";
     public static final String COMMAND_CHANGE_LOCALE = "changeLocale";
 
+    public static final String GET_TENANT_MAIN = "?command=gettenantmain";
+    public static final String GET_ADMIN_MAIN = "?command=getadminmain";
+    public static final String GET_ORDER_EMPLOYEE_PAGE = "?command=getorderemployeepage";
+
     //validation constants
     public static final String LOGIN_REGEX = "\\A[A-Za-z0-9]{2,20}\\Z";
     public static final String PASSWORD_REGEX = "\\A[A-Za-z0-9]{5,20}\\Z";

@@ -27,10 +27,7 @@ public class SetOrderWorkerCommand implements Command {
             EmployeeService employeeService = BaseEmployeeService.getInstance();
             employeeService.setOrderWorker(request);
 
-            employeeService.setOrderEmployeeAttribute(request);
-            employeeService.setFreeEmployeeAttribute(request);
-
-            return new CommandResult(Constants.ORDER_WORKERS_PROCESSING_PAGE_PATH, CommandResult.Action.FORWARD);
+            return new CommandResult(Constants.GET_ORDER_EMPLOYEE_PAGE, CommandResult.Action.REDIRECT);
 
         } catch (ServiceExecuttingException exc) {
             LOGGER.error("Can't execute command", exc);
